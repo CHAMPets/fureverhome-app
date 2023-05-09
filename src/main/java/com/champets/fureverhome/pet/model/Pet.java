@@ -1,6 +1,6 @@
 package com.champets.fureverhome.pet.model;
 
-import com.champets.fureverhome.application.Application;
+import com.champets.fureverhome.application.model.Application;
 import com.champets.fureverhome.pet.enums.Gender;
 import com.champets.fureverhome.pet.enums.BodySize;
 import com.champets.fureverhome.pet.enums.Type;
