@@ -1,4 +1,4 @@
-package com.champets.fureverhome.pet;
+package com.champets.fureverhome.pet.model;
 
 import com.champets.fureverhome.application.Application;
 import com.champets.fureverhome.pet.enums.Gender;
@@ -14,11 +14,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-@EqualsAndHashCode
-@ToString(includeFieldNames = true)
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "pets") // set the table name explicitly
 public class Pet {
