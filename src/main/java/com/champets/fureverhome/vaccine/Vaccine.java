@@ -4,11 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-@ToString(includeFieldNames = true)
 @Entity
 @Table(name = "vaccines") // set the table name explicitly
 public class Vaccine {
