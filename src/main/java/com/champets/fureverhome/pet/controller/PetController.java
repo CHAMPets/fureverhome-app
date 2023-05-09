@@ -23,7 +23,7 @@ public class PetController {
     public String listPets(Model model){
         List<PetDto> pets = petService.findAllPets();
         model.addAttribute("pets", pets);
-        return "pet-list";
+        return "layout";
     }
 
     @GetMapping("pets/new")

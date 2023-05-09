@@ -2,6 +2,7 @@ package com.champets.fureverhome.pet.model.dto;
 
 import com.champets.fureverhome.pet.enums.BodySize;
 import com.champets.fureverhome.pet.enums.Gender;
+import com.sun.istack.NotNull;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 @Builder
 public class PetDto {
 
+    @NotNull
     private Long id;
     private String name;
     private Integer age;
