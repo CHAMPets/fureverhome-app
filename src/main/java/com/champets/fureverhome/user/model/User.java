@@ -1,4 +1,4 @@
-package com.champets.fureverhome.user;
+package com.champets.fureverhome.user.model;
 
 import com.champets.fureverhome.application.Application;
 import lombok.AllArgsConstructor;
