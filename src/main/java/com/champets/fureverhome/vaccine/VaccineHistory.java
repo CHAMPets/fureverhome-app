@@ -4,11 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-@ToString(includeFieldNames = true)
 @Entity
 @Table(name = "vaccine_histories")
 @IdClass(VaccineHistoryId.class) // specify the composite key class
