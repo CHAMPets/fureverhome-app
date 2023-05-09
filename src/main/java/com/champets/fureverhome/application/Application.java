@@ -1,7 +1,7 @@
 package com.champets.fureverhome.application;
 
 import com.champets.fureverhome.pet.model.Pet;
-import com.champets.fureverhome.user.User;
+import com.champets.fureverhome.user.model.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
