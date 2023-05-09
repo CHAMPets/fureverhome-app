@@ -1,4 +1,4 @@
-package com.champets.fureverhome.vaccine;
+package com.champets.fureverhome.vaccine.model;
 import lombok.*;
 
 import java.io.Serializable;
