@@ -1,6 +1,6 @@
 package com.champets.fureverhome.user;
 
-import com.champets.fureverhome.application.Application;
+import com.champets.fureverhome.application.model.Application;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
