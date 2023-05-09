@@ -1,10 +1,15 @@
 package com.champets.fureverhome.pet.service;
 
 import com.champets.fureverhome.pet.model.Pet;
+import com.champets.fureverhome.pet.model.dto.PetDto;
 
 import java.util.List;
 
 public interface PetService {
-    List<Pet> findAllPets();
+    List<PetDto> findAllPets();
     Pet savePet(Pet pet);
+
+    Pet findPetById(long petId);
+
+    void updatePet(Pet pet);
 }
