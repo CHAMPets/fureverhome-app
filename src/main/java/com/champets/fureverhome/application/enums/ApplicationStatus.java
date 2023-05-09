@@ -1,4 +1,4 @@
-package com.champets.fureverhome.application;
+package com.champets.fureverhome.application.enums;
 
 public enum ApplicationStatus {
     PENDING,
