@@ -36,7 +36,6 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-
     private UserDto mapToUserDto(User user){
         UserDto userDto = UserDto.builder()
                 .id(user.getId())

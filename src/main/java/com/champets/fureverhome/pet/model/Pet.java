@@ -62,12 +62,12 @@ public class Pet {
     private String description;
 
     @Column(nullable = true)
-    private boolean isSterilized;
+    private Boolean isSterilized;
 
     @Column(nullable = true)
-    private int applicationLimit;
+    private Integer applicationLimit;
 
-    private int applicationCounter;
+    private Integer applicationCounter;
 
     @UpdateTimestamp
     private LocalDate lastDateModified;
@@ -81,7 +81,7 @@ public class Pet {
     @CreationTimestamp
     private LocalDate createdDate;
 
-    public boolean getIsSterilized() {
+    public Boolean getIsSterilized() {
         return isSterilized;
     }
 
