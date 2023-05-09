@@ -1,4 +1,4 @@
-package com.champstart.fureverhome;
+package com.champets.fureverhome;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

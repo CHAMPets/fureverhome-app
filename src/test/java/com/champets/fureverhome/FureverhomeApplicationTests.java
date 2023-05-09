@@ -1,4 +1,4 @@
-package com.champstart.fureverhome;
+package com.champets.fureverhome;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
