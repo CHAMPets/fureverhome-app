@@ -1,5 +1,6 @@
 package com.champets.fureverhome.vaccine.model;
 
+import com.champets.fureverhome.pet.model.Pet;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,15 +10,17 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "vaccine_histories")
-@IdClass(VaccineHistoryId.class) // specify the composite key class
 public class VaccineHistory {
-    @Id
-    @Column(columnDefinition = "VARCHAR(50)")
-    private Long petId;
+    @EmbeddedId
+    private VaccineHistoryId id;
 
-    @Id // specify vaccineId as another part of the primary key
-    @Column(columnDefinition = "VARCHAR(50)")
-    private Long vaccineId;
+    @ManyToOne
+    @MapsId("petId")
+    @JoinColumn(name = "id")
+    private Pet pet;
 
-    // add constructors and other fields if needed
+    @ManyToOne
+    @MapsId("vaccineId")
+    @JoinColumn(name = "id")
+    private Vaccine vaccine;
 }
