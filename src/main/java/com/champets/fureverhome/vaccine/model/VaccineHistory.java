@@ -16,11 +16,11 @@ public class VaccineHistory {
 
     @ManyToOne
     @MapsId("petId")
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "pet_id")
     private Pet pet;
 
     @ManyToOne
     @MapsId("vaccineId")
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "vaccine_id")
     private Vaccine vaccine;
 }
