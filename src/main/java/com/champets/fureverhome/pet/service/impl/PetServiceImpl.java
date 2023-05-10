@@ -30,20 +30,46 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public Pet findPetById(long petId) {
+    public PetDto findPetById(long petId) {
         Pet pet = petRepository.findById(petId).get();
-        return pet;
+        return mapToPetDto(pet);
     }
 
     @Override
-    public void updatePet(Pet pet) {
+    public void updatePet(PetDto petDto) {
+        Pet pet = mapToPet(petDto);
         petRepository.save(pet);
     }
+
+    private Pet mapToPet(PetDto pet) {
+        Pet petDto = Pet.builder()
+                .id(pet.getId())
+                .name(pet.getName())
+                .age(pet.getAge())
+                .type(pet.getType())
+                .gender(pet.getGender())
+                .bodySize(pet.getBodySize())
+                .description(pet.getDescription())
+                .applicationCounter(pet.getApplicationCounter())
+                .imagePath(pet.getImagePath())
+                .createdDate(pet.getCreatedDate())
+                .isSterilized(pet.getIsSterilized())
+                .isActive(pet.getIsActive())
+                .rescueDate(pet.getRescueDate())
+                .applicationLimit(pet.getApplicationLimit())
+                .createdBy(pet.getCreatedBy())
+                .lastDateModified(pet.getLastDateModified())
+                .lastModifiedBy(pet.getLastModifiedBy())
+                .build();
+                return petDto;
+    }
+
     private PetDto mapToPetDto(Pet pet){
         PetDto petDto = PetDto.builder()
                 .id(pet.getId())
                 .name(pet.getName())
                 .age(pet.getAge())
+                .type(pet.getType())
                 .gender(pet.getGender())
                 .bodySize(pet.getBodySize())
                 .description(pet.getDescription())

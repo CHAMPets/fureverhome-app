@@ -7,6 +7,8 @@ import com.champets.fureverhome.pet.service.PetService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.champets.fureverhome.pet.model.Pet;
+
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -41,13 +43,14 @@ public class PetController {
 
     @GetMapping("/pets/{petId}/edit")
     public String editPetForm(@PathVariable("petId") Long petId, Model model){
-        Pet pet = petService.findPetById(petId);
+        PetDto pet = petService.findPetById(petId);
         model.addAttribute("pet", pet);
         return "pet-edit";
     }
 
     @PostMapping("pets/{petId}/edit")
-    public String updatePet(@PathVariable("petId") Long petId, @ModelAttribute("club") Pet pet){
+    public String updatePet(@PathVariable("petId") Long petId,
+                            @Valid @ModelAttribute("club") PetDto pet){
         pet.setId(petId);
         petService.updatePet(pet);
         return "redirect:/pets";

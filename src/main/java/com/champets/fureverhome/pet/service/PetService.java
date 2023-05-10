@@ -6,10 +6,11 @@ import com.champets.fureverhome.pet.model.dto.PetDto;
 import java.util.List;
 
 public interface PetService {
+
     List<PetDto> findAllPets();
     Pet savePet(Pet pet);
 
-    Pet findPetById(long petId);
+    PetDto findPetById(long petId);
 
-    void updatePet(Pet pet);
+    void updatePet(PetDto pet);
 }
