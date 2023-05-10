@@ -1,5 +1,6 @@
 package com.champets.fureverhome.application.service.impl;
 
+import com.champets.fureverhome.application.enums.ApplicationStatus;
 import com.champets.fureverhome.application.model.Application;
 import com.champets.fureverhome.application.model.dto.ApplicationDto;
 import com.champets.fureverhome.application.repository.ApplicationRepository;
@@ -19,13 +20,14 @@ public class ApplicationServiceImpl implements ApplicationService {
     private ApplicationRepository applicationRepository;
 
     @Override
-    public List<Application> findAllApplications() {
+    public List<ApplicationDto> findAllApplications() {
         List<Application> applications = applicationRepository.findAll();
-        return applications.stream().collect(Collectors.toList());
+        return applications.stream().map(application -> mapToApplicationDto(application)).collect(Collectors.toList());
     }
 
     @Override
     public Application saveApplication(ApplicationDto applicationDto) {
+        applicationDto.setApplicationStatus(ApplicationStatus.PENDING);
         Application application = mapToApplication(applicationDto);
         return applicationRepository.save(application);
     }
@@ -40,11 +42,6 @@ public class ApplicationServiceImpl implements ApplicationService {
     public void updateApplication(ApplicationDto applicationDto) {
         Application application = mapToApplication(applicationDto);
         applicationRepository.save(application);
-    }
-
-    @Override
-    public void deleteApplication(Long applicationId) {
-        applicationRepository.deleteById(applicationId);
     }
 
     @Override

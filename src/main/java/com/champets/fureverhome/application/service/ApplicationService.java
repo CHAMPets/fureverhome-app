@@ -6,15 +6,13 @@ import com.champets.fureverhome.application.model.dto.ApplicationDto;
 import java.util.List;
 
 public interface ApplicationService {
-    List<Application> findAllApplications();
+    List<ApplicationDto> findAllApplications();
 
     Application saveApplication(ApplicationDto applicationDto);
 
     ApplicationDto findApplicationById(Long applicationId);
 
-    void updateApplication(ApplicationDto petDto);
-
-    void deleteApplication(Long applicationId);
+    void updateApplication(ApplicationDto applicationDto);
 
     List<ApplicationDto> searchApplicationsByEmailAddress(String emailAddress);
 }
