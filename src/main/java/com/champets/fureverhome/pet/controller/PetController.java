@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import com.champets.fureverhome.pet.service.PetService;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.champets.fureverhome.pet.model.Pet;
 
@@ -50,7 +51,12 @@ public class PetController {
 
     @PostMapping("pets/{petId}/edit")
     public String updatePet(@PathVariable("petId") Long petId,
-                            @Valid @ModelAttribute("club") PetDto pet){
+                            @Valid @ModelAttribute("club") PetDto pet,
+                            BindingResult result, Model model){
+        if(result.hasErrors()) {
+            model.addAttribute("pet", pet);
+            return "clubs-edit";
+        }
         pet.setId(petId);
         petService.updatePet(pet);
         return "redirect:/pets";

@@ -6,6 +6,9 @@ import com.champets.fureverhome.pet.enums.Type;
 import com.sun.istack.NotNull;
 import lombok.Builder;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
@@ -21,12 +24,11 @@ public class PetDto {
 
     private Integer age;
 
-    @NotEmpty(message = "Gender should not be empty")
     private Gender gender;
 
     private BodySize bodySize;
 
-    @NotEmpty(message = "Rescue date should not be empty")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate rescueDate;
 
     @NotEmpty(message = "Image path should not be empty")
@@ -34,14 +36,23 @@ public class PetDto {
 
     @NotEmpty(message = "Description should not be empty")
     private String description;
+
     private Type type;
     private Boolean isSterilized;
     private Boolean isActive;
     private Integer applicationLimit;
     private Integer applicationCounter;
+
+    @UpdateTimestamp
     private LocalDate lastDateModified;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String createdBy;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String lastModifiedBy;
+
+    @CreationTimestamp
     private LocalDate createdDate;
 
 }
