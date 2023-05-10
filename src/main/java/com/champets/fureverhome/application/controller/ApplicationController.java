@@ -38,13 +38,20 @@ public class ApplicationController {
         return "application-list";
     }
 
+    @GetMapping("/applications/pet/{petId}")
+    public String listApplications(@PathVariable("petId") Long petId, Model model) {
+        List<ApplicationDto> applications = applicationService.findApplicationsByPetId(petId);
+        model.addAttribute("applications", applications);
+        return "application-list";
+    }
+
     @GetMapping("/applications/{applicationId}")
     public String applicationDetail(@PathVariable("applicationId") Long applicationId, Model model) {
         ApplicationDto application = applicationService.findApplicationById(applicationId);
-        model.addAttribute("application", application);
+        model.addAttribute("applicationDto", application);
         model.addAttribute("pet", application.getPet());
         model.addAttribute("user", application.getUser());
-        return "application-detail";
+        return "application-details";
     }
 
     @PostMapping("/applications/{petId}/{userId}")

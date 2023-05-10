@@ -51,7 +51,7 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @PostMapping("users/{userId}/edit")
+    @GetMapping("users/{userId}/edit")
     public String editUser(@PathVariable("userId") Long userId, Model model){
         UserDto user = userService.findById(userId);
         model.addAttribute("user",user);

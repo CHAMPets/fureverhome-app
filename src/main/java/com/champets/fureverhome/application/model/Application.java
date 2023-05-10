@@ -4,6 +4,7 @@ import com.champets.fureverhome.application.enums.ApplicationStatus;
 import com.champets.fureverhome.pet.model.Pet;
 import com.champets.fureverhome.user.model.User;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -36,12 +37,13 @@ public class Application {
     private Pet pet;
 
     @ManyToOne
-    @JoinColumn(name="user_id", nullable=false)
+    @JoinColumn(name="user_id")//, nullable=false)
     private User user;
 
     @Enumerated(EnumType.STRING)
     @Column(name="status", nullable=false)
     private ApplicationStatus applicationStatus;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate releaseDate;
 }

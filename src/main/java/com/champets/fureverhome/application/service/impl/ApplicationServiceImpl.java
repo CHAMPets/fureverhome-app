@@ -8,6 +8,7 @@ import com.champets.fureverhome.application.service.ApplicationService;
 import com.champets.fureverhome.pet.model.Pet;
 import com.champets.fureverhome.pet.repository.PetRepository;
 import com.champets.fureverhome.user.model.User;
+import com.champets.fureverhome.user.model.UserRole;
 import com.champets.fureverhome.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,14 +33,19 @@ public class ApplicationServiceImpl implements ApplicationService {
         List<Application> applications = applicationRepository.findAll();
         return applications.stream().map(application -> mapToApplicationDto(application)).collect(Collectors.toList());
     }
+    @Override
+    public List<ApplicationDto> findApplicationsByPetId(Long petId) {
+        List<Application> applications = applicationRepository.findApplicationsByPetId(petId);
+        return applications.stream().map(application -> mapToApplicationDto(application)).collect(Collectors.toList());
+    }
 
     @Override
     public Application saveApplication(ApplicationDto applicationDto, Long petId, Long userId) {
         Pet pet = petRepository.findById(petId).get();
-        User user = userRepository.findById(userId).get();
+        //User user = userRepository.findById(userId).get(); null pointer exception
         Application application = mapToApplication(applicationDto);
         application.setPet(pet);
-        application.setUser(user);
+        //application.setUser(user);
         application.setApplicationStatus(ApplicationStatus.PENDING);
         return applicationRepository.save(application);
     }

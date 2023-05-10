@@ -1,7 +1,7 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head th:replace="fragments/header :: header('View All Pets')"></head>
+<head th:replace="fragments/header :: header('View All Applications')"></head>
 <body class="d-flex flex-column h-100 bg-light">
 <main class="flex-shrink-0">
 
@@ -10,24 +10,22 @@
     <section class="py-5">
         <div class="container px-5 my-5">
             <div class="text-center mb-5">
-                <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Pet Catalog</span></h1>
+                <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Applications</span></h1>
             </div>
             <div class="row gx-5 justify-content-center">
                 <div class="col-lg-11 col-xl-9 col-xxl-8">
-                    <div th:each="pet, petIndex : ${pets}" class="card overflow-hidden shadow rounded-4 border-0 mb-5">
+                    <div th:each="applicationDto, applicationIndex : ${applications}" class="card overflow-hidden shadow rounded-4 border-0 mb-5">
                         <div class="card-body p-0">
                             <div class="d-flex align-items-center">
                                 <div class="p-5">
-                                    <h2 th:text="${pet.name}" class="fw-bolder"></h2>
+                                    <h2 th:text="'Application #' + ${applicationDto.id}" class="fw-bolder"></h2>
 <!--                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius at enim eum illum aperiam placeat esse? Mollitia omnis minima saepe recusandae libero, iste ad asperiores! Explicabo commodi quo itaque! Ipsam!</p>-->
-                                    <p th:text="${pet.description}"></p>
-                                    <a class="btn btn-primary" th:href="@{/pets/{petId}/edit(petId=${pet.id})}" style="margin-top:15px">Edit details</a>
-                                    <a class="btn btn-primary" th:href="@{/applications/pet/{petId}(petId=${pet.id})}" style="margin-top:15px">View applications</a>
-                                    <form method="post" th:action="@{/applications/{petId}/{userId}(petId=${pet.id}, userId=1)}" th:object="${application}">
-                                    <input type="submit" class="btn btn-secondary" value="Adopt" style="margin-top:15px" />
-                                    </form>
+                                    <p th:text="'Pet: ' + ${applicationDto.pet.name}"></p>
+                                    <p th:text="'Status: ' + ${applicationDto.applicationStatus}"></p>
+                                    <a class="btn btn-primary" th:href="@{/applications/{applicationId}(applicationId=${applicationDto.id})}" style="margin-top:15px">View application</a>
+
                                 </div>
-                                <img class="img-fluid" th:src="${pet.imagePath}" alt="..." style="width: 300px; height: 400px;"/>
+                                <img class="img-fluid" th:src="${applicationDto.pet.imagePath}" alt="..." style="width: 300px; height: 400px;"/>
                             </div>
                         </div>
                     </div>
