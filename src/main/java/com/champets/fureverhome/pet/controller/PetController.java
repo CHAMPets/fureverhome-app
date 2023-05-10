@@ -61,4 +61,11 @@ public class PetController {
         petService.updatePet(pet);
         return "redirect:/pets";
     }
+
+    @GetMapping("pets/{petId}")
+    public String displayPet(@PathVariable("petId") Long petId, Model model){
+        PetDto pet = petService.findPetById(petId);
+        model.addAttribute("pet", pet);
+        return "pet-details";
+    }
 }
