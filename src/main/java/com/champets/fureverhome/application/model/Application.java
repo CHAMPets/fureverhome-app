@@ -40,7 +40,7 @@ public class Application {
     private User user;
 
     @Enumerated(EnumType.STRING)
-    @Column(name="status")
+    @Column(name="status", nullable=false)
     private ApplicationStatus applicationStatus;
 
     private LocalDate releaseDate;

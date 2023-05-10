@@ -5,6 +5,10 @@ import com.champets.fureverhome.application.model.Application;
 import com.champets.fureverhome.application.model.dto.ApplicationDto;
 import com.champets.fureverhome.application.repository.ApplicationRepository;
 import com.champets.fureverhome.application.service.ApplicationService;
+import com.champets.fureverhome.pet.model.Pet;
+import com.champets.fureverhome.pet.repository.PetRepository;
+import com.champets.fureverhome.user.model.User;
+import com.champets.fureverhome.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +22,10 @@ import static com.champets.fureverhome.application.model.mapper.ApplicationMappe
 public class ApplicationServiceImpl implements ApplicationService {
     @Autowired
     private ApplicationRepository applicationRepository;
+    @Autowired
+    private PetRepository petRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public List<ApplicationDto> findAllApplications() {
@@ -26,9 +34,13 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public Application saveApplication(ApplicationDto applicationDto) {
-        applicationDto.setApplicationStatus(ApplicationStatus.PENDING);
+    public Application saveApplication(ApplicationDto applicationDto, Long petId, Long userId) {
+        Pet pet = petRepository.findById(petId).get();
+        User user = userRepository.findById(userId).get();
         Application application = mapToApplication(applicationDto);
+        application.setPet(pet);
+        application.setUser(user);
+        application.setApplicationStatus(ApplicationStatus.PENDING);
         return applicationRepository.save(application);
     }
 

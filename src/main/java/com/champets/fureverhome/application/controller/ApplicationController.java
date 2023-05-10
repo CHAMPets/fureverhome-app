@@ -1,8 +1,14 @@
 package com.champets.fureverhome.application.controller;
 
+import com.champets.fureverhome.application.enums.ApplicationStatus;
 import com.champets.fureverhome.application.model.Application;
 import com.champets.fureverhome.application.model.dto.ApplicationDto;
+import com.champets.fureverhome.application.model.mapper.ApplicationMapper;
 import com.champets.fureverhome.application.service.ApplicationService;
+import com.champets.fureverhome.pet.model.Pet;
+import com.champets.fureverhome.pet.service.PetService;
+import com.champets.fureverhome.user.model.User;
+import com.champets.fureverhome.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,12 +18,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
 public class ApplicationController {
     @Autowired
     private ApplicationService applicationService;
+    @Autowired
+    private PetService petService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/applications")
     public String listApplications(Model model) {
@@ -30,19 +42,14 @@ public class ApplicationController {
     public String applicationDetail(@PathVariable("applicationId") Long applicationId, Model model) {
         ApplicationDto application = applicationService.findApplicationById(applicationId);
         model.addAttribute("application", application);
+        model.addAttribute("pet", application.getPet());
+        model.addAttribute("user", application.getUser());
         return "application-detail";
     }
 
-    @GetMapping("/applications/new")
-    public String createApplicationForm(Model model) {
-        Application application = new Application();
-        model.addAttribute("application", application);
-        return "application-create";
-    }
-
-    @PostMapping("/applications/new")
-    public String saveApplication(@ModelAttribute("application") ApplicationDto applicationDto, Model model) {
-        applicationService.saveApplication(applicationDto);
+    @PostMapping("/applications/{petId}/{userId}")
+    public String saveApplication(@ModelAttribute("application") ApplicationDto applicationDto, @PathVariable("petId") Long petId, @PathVariable("userId") Long userId, Model model) {
+        applicationService.saveApplication(applicationDto, petId, userId);
         return "redirect:/applications";
     }
 
@@ -55,9 +62,16 @@ public class ApplicationController {
 
     @PostMapping("/applications/{applicationId}/edit")
     public String updateApplication(@PathVariable("applicationId") Long applicationId,
-                                    @ModelAttribute("application") ApplicationDto application,
+                                    @Valid @ModelAttribute("application") ApplicationDto application,
                                     BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("application", application);
+            return "application-edit";
+        }
+        ApplicationDto applicationDto = applicationService.findApplicationById(applicationId);
         application.setId(applicationId);
+        application.setPet(applicationDto.getPet());
+        application.setUser(applicationDto.getUser());
         applicationService.updateApplication(application);
         return "redirect:/applications";
     }

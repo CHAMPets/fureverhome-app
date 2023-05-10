@@ -8,7 +8,7 @@ import java.util.List;
 public interface ApplicationService {
     List<ApplicationDto> findAllApplications();
 
-    Application saveApplication(ApplicationDto applicationDto);
+    Application saveApplication(ApplicationDto applicationDto, Long petId, Long userId);
 
     ApplicationDto findApplicationById(Long applicationId);
 
