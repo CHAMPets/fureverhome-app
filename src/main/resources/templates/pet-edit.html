@@ -1,0 +1,144 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <div th:replace="fragments/header :: header"></div>
+</head>
+<body class="d-flex flex-column h-100 bg-light">
+<main class="flex-shrink-0">
+
+  <nav th:replace="fragments/navigation :: navigation"></nav>
+
+  <section class="py-5">
+    <div class="container px-5 my-5">
+      <div class="text-center mb-5">
+        <h1 class="fw-bolder">Add a Pet</h1>
+      </div>
+      <div class="row gx-5">
+        <form role="form" th:action="@{/pets/{petId}/edit(petId=${pet.id})}" th:object="${pet}" method="post">
+          <input type="hidden" th:field="*{id}">
+          <div class = "form-group">
+            <label for="name">Name:</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    name="name"
+                    th:field="*{name}"
+                    placeholder="Name"
+                    required><br>
+          </div>
+          <div class = "form-group">
+            <label for="gender">Gender:</label>
+            <select
+                    id="gender"
+                    name="gender"
+                    th:field="*{gender}"
+                    required>
+              <option value="">-- Please select --</option>
+              <option value="MALE">Male</option>
+              <option value="FEMALE">Female</option>
+            </select><br>
+          </div>
+
+          <div class = "form-group">
+            <label for="type">Type:</label>
+            <select
+                    id="type"
+                    name="type"
+                    th:field="*{type}"
+                    required>
+              <option value="">-- Please select --</option>
+              <option value="CAT">Cat</option>
+              <option value="DOG">Dog</option>
+            </select><br>
+          </div>
+
+          <div class="form-group">
+            <label for="age">Age:</label>
+            <input
+                    type="number"
+                    id="age"
+                    name="age"
+                    class="form-control"
+                    th:field="*{age}"
+                    placeholder="Age"
+                    required><br>
+          </div>
+
+
+          <div class = "form-group">
+            <label for="bodySize">Body Size:</label>
+            <select
+                    id="bodySize"
+                    name="bodySize"
+                    th:field="*{bodySize}" required>
+              <option value="">-- Please select --</option>
+              <option value="SMALL">Small</option>
+              <option value="MEDIUM">Medium</option>
+              <option value="LARGE">Large</option>
+            </select><br>
+          </div>
+
+
+          <div class = "form-group">
+            <label for="rescueDate">Rescue Date:</label>
+            <input
+                    type="date"
+                    class="form-control"
+                    id="rescueDate"
+                    name="rescueDate"
+                    th:field="*{rescueDate}"
+                    placeholder="Rescue Date"
+                    required><br>
+          </div>
+
+          <div class = "form-group">
+            <label for="imagePath">Image Path:</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="imagePath"
+                    name="imagePath"
+                    th:field="*{imagePath}"
+                    placeholder="Image Path"
+                    required><br>
+          </div>
+
+          <div class = "form-group">
+            <label for="description">Description:</label>
+            <textarea
+                    id="description"
+                    name="description"
+                    class="form-control"
+                    th:field="*{description}"
+                    placeholder="Description"
+                    required>
+                  </textarea><br>
+          </div>
+          <div class = "form-group">
+            <label for="isSterilized">Is Sterilized:</label>
+            <input
+                    type="checkbox"
+                    id="isSterilized"
+                    name="isSterilized"
+                    th:field="*{isSterilized}">
+            <br>
+          </div>
+
+          <button type="submit">Add Pet</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+<!-- Footer-->
+<footer th:replace="fragments/footer:: footer"></footer>
+
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>
+
