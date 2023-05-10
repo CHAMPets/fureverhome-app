@@ -1,5 +1,6 @@
 package com.champets.fureverhome.user.service.impl;
 
+import com.champets.fureverhome.application.model.Application;
 import com.champets.fureverhome.user.model.User;
 import com.champets.fureverhome.user.model.dto.UserDto;
 import com.champets.fureverhome.user.repository.UserRepository;
@@ -10,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.champets.fureverhome.user.model.mapper.UserMapper.mapToUserDto;
+import static com.champets.fureverhome.user.model.mapper.UserMapper.mapToUser;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -32,7 +36,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Long id) {
+    public UserDto findById(Long id) {
+        User user = userRepository.findById(id).get();
+        return mapToUserDto(user);
+    }
+
+    @Override
+    public void updateUser(UserDto userDto) {
+        User user = mapToUser(userDto);
+        userRepository.save(user);
+    }
+
+    @Override
+    public List<UserDto> findByEmailAddress(String emailAddress) {
         return null;
     }
 
