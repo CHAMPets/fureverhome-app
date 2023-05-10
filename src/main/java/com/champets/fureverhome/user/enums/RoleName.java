@@ -4,4 +4,5 @@ public enum RoleName {
     USER,
     ADMIN,
     ROOTSSSSSSSSSSSSSSSSSS
+
 }
