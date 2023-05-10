@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Builder
 public class PetDto {
 
-    @NotNull
+
     private Long id;
     private String name;
     private Integer age;

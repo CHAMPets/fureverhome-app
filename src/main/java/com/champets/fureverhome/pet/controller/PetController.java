@@ -23,7 +23,7 @@ public class PetController {
     public String listPets(Model model){
         List<PetDto> pets = petService.findAllPets();
         model.addAttribute("pets", pets);
-        return "layout";
+        return "pet-list";
     }
 
     @GetMapping("pets/new")
@@ -43,7 +43,7 @@ public class PetController {
     public String editPetForm(@PathVariable("petId") Long petId, Model model){
         Pet pet = petService.findPetById(petId);
         model.addAttribute("pet", pet);
-        return "pets-edit";
+        return "pet-edit";
     }
 
     @PostMapping("pets/{petId}/edit")
