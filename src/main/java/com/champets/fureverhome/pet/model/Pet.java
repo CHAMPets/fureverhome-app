@@ -8,7 +8,6 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -65,6 +64,9 @@ public class Pet {
     private Boolean isSterilized;
 
     @Column(nullable = true)
+    public Boolean isActive;
+
+    @Column(nullable = true)
     private Integer applicationLimit;
 
     private Integer applicationCounter;
@@ -86,7 +88,16 @@ public class Pet {
     }
 
     public void setIsSterilized(boolean isSterilized) {
+
         this.isSterilized = isSterilized;
+    }
+
+    public Boolean getIsActive(){
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive){
+        this.isActive = isActive;
     }
 
     @OneToMany(mappedBy = "pet", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)

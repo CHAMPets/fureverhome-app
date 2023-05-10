@@ -22,6 +22,7 @@ public class PetDto {
     private String imagePath;
     private String description;
     private Boolean isSterilized;
+    private Boolean isActive;
     private Integer applicationLimit;
     private Integer applicationCounter;
     private LocalDate lastDateModified;

@@ -51,6 +51,7 @@ public class PetServiceImpl implements PetService {
                 .imagePath(pet.getImagePath())
                 .createdDate(pet.getCreatedDate())
                 .isSterilized(pet.getIsSterilized())
+                .isActive(pet.getIsActive())
                 .rescueDate(pet.getRescueDate())
                 .applicationLimit(pet.getApplicationLimit())
                 .createdBy(pet.getCreatedBy())
