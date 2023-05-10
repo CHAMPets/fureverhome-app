@@ -49,7 +49,8 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public List<ApplicationDto> searchApplicationsByEmailAddress(String emailAddress) {
-        List<Application> applications = applicationRepository.searchApplicationsByEmailAddress(emailAddress);
-        return applications.stream().map(application -> mapToApplicationDto(application)).collect(Collectors.toList());
+//        List<Application> applications = applicationRepository.searchApplicationsByEmailAddress(emailAddress);
+//        return applications.stream().map(application -> mapToApplicationDto(application)).collect(Collectors.toList());
+        return null;
     }
 }
