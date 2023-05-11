@@ -5,9 +5,12 @@ import com.champets.fureverhome.application.model.Application;
 import com.champets.fureverhome.application.model.dto.ApplicationDto;
 import com.champets.fureverhome.application.model.mapper.ApplicationMapper;
 import com.champets.fureverhome.application.service.ApplicationService;
+import com.champets.fureverhome.application.service.MailService;
 import com.champets.fureverhome.pet.model.Pet;
+import com.champets.fureverhome.pet.model.dto.PetDto;
 import com.champets.fureverhome.pet.service.PetService;
 import com.champets.fureverhome.user.model.User;
+import com.champets.fureverhome.user.model.dto.UserDto;
 import com.champets.fureverhome.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +33,8 @@ public class ApplicationController {
     private PetService petService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private MailService mailService;
 
     @GetMapping("/applications")
     public String listApplications(Model model) {
@@ -57,6 +62,9 @@ public class ApplicationController {
     @PostMapping("/applications/{petId}/{userId}")
     public String saveApplication(@ModelAttribute("application") ApplicationDto applicationDto, @PathVariable("petId") Long petId, @PathVariable("userId") Long userId, Model model) {
         applicationService.saveApplication(applicationDto, petId, userId);
+        UserDto userDto = userService.findById(userId);
+        PetDto petDto = petService.findPetById(petId);
+        mailService.sendEmail(userDto.getEmailAddress(), "Application Pending", "Your application for pet " + petDto.getName() + " is under review.");
         return "redirect:/applications";
     }
 

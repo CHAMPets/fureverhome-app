@@ -42,10 +42,10 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public Application saveApplication(ApplicationDto applicationDto, Long petId, Long userId) {
         Pet pet = petRepository.findById(petId).get();
-        //User user = userRepository.findById(userId).get(); null pointer exception
+        User user = userRepository.findById(userId).get(); //null pointer exception
         Application application = mapToApplication(applicationDto);
         application.setPet(pet);
-        //application.setUser(user);
+        application.setUser(user);
         application.setApplicationStatus(ApplicationStatus.PENDING);
         return applicationRepository.save(application);
     }
