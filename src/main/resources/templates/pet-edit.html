@@ -2,7 +2,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head th:replace="fragments/header :: header('Update Pet')"></head>
-<body class="d-flex flex-column h-100 bg-light">
+<body onload="automate_animation();" class="d-flex flex-column h-100 bg-light">
 <main class="flex-shrink-0">
 
   <nav th:replace="fragments/navigation :: navigation"></nav>
@@ -143,10 +143,7 @@
 <!-- Footer-->
 <footer th:replace="fragments/footer:: footer"></footer>
 
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+
 </body>
 </html>
 
