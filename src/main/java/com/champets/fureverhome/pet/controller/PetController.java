@@ -26,21 +26,21 @@ public class PetController {
     public String listPets(Model model){
         List<PetDto> pets = petService.findAllPets();
         model.addAttribute("pets", pets);
-        return "pet-list";
+        return "admin/admin-home";
     }
 
     @GetMapping("/pets/home")
     public String listActivePets(Model model){
         List<PetDto> pets = petService.findAllActivePets();
         model.addAttribute("pets", pets);
-        return "user-home";
+        return "user/user-home";
     }
 
     @GetMapping("pets/new")
     public String createPetForm(Model model){
         Pet pet = new Pet();
         model.addAttribute("pet", pet);
-        return "pet-create";
+        return "admin/pet-create";
     }
     @PostMapping("pets/new")
     public String savePet(@ModelAttribute("pet") Pet pet){
@@ -53,16 +53,16 @@ public class PetController {
     public String editPetForm(@PathVariable("petId") Long petId, Model model){
         PetDto pet = petService.findPetById(petId);
         model.addAttribute("pet", pet);
-        return "pet-edit";
+        return "admin/pet-edit";
     }
 
     @PostMapping("pets/{petId}/edit")
     public String updatePet(@PathVariable("petId") Long petId,
-                            @Valid @ModelAttribute("club") PetDto pet,
+                            @Valid @ModelAttribute("pet") PetDto pet,
                             BindingResult result, Model model){
         if(result.hasErrors()) {
             model.addAttribute("pet", pet);
-            return "clubs-edit";
+            return "admin/pet-edit";
         }
         pet.setId(petId);
         petService.updatePet(pet);
@@ -73,6 +73,6 @@ public class PetController {
     public String displayPet(@PathVariable("petId") Long petId, Model model){
         PetDto pet = petService.findPetById(petId);
         model.addAttribute("pet", pet);
-        return "pet-details";
+        return "user/pet-details";
     }
 }

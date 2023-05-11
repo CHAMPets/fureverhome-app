@@ -57,7 +57,7 @@ public class Pet {
     @Column(columnDefinition = "VARCHAR(500)")
     private String imagePath;
 
-    @Column(columnDefinition = "VARCHAR(250)")
+    @Column(columnDefinition = "VARCHAR(3000)")
     private String description;
 
     @Column(nullable = true)

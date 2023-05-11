@@ -35,14 +35,14 @@ public class ApplicationController {
     public String listApplications(Model model) {
         List<ApplicationDto> applications = applicationService.findAllApplications();
         model.addAttribute("applications", applications);
-        return "application-list";
+        return "admin/application-list";
     }
 
     @GetMapping("/applications/pet/{petId}")
     public String listApplications(@PathVariable("petId") Long petId, Model model) {
         List<ApplicationDto> applications = applicationService.findApplicationsByPetId(petId);
         model.addAttribute("applications", applications);
-        return "application-list";
+        return "admin/application-list";
     }
 
     @GetMapping("/applications/{applicationId}")
@@ -51,7 +51,7 @@ public class ApplicationController {
         model.addAttribute("applicationDto", application);
         model.addAttribute("pet", application.getPet());
         model.addAttribute("user", application.getUser());
-        return "application-details";
+        return "admin/application-details";
     }
 
     @PostMapping("/applications/{petId}/{userId}")
@@ -64,7 +64,7 @@ public class ApplicationController {
     public String editApplicationForm(@PathVariable("applicationId") Long applicationId, Model model) {
         ApplicationDto application = applicationService.findApplicationById(applicationId);
         model.addAttribute("application", application);
-        return "application-edit";
+        return "admin/application-edit";
     }
 
     @PostMapping("/applications/{applicationId}/edit")
@@ -73,7 +73,7 @@ public class ApplicationController {
                                     BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("application", application);
-            return "application-edit";
+            return "admin/application-edit";
         }
         ApplicationDto applicationDto = applicationService.findApplicationById(applicationId);
         application.setId(applicationId);
