@@ -5,6 +5,7 @@ import com.champets.fureverhome.pet.enums.Gender;
 import com.champets.fureverhome.pet.enums.BodySize;
 import com.champets.fureverhome.pet.enums.Type;
 import com.champets.fureverhome.vaccine.model.Vaccine;
+import com.champets.fureverhome.vaccine.model.VaccinePet;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -103,7 +104,7 @@ public class Pet {
 
     @OneToMany(mappedBy = "pet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Application> applications = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "vaccine", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<Vaccine> vaccineList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "pet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<VaccinePet> vaccineList = new ArrayList<>();
 }
