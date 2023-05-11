@@ -76,6 +76,7 @@ public class PetController {
 
     @GetMapping("/pets/{petId}/edit")
     public String editPetForm(@PathVariable("petId") Long petId, Model model){
+
         PetDto pet = petService.findPetById(petId);
         model.addAttribute("pet", pet);
         return "admin/pet-edit";

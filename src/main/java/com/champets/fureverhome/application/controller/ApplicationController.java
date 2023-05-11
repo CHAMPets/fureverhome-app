@@ -62,7 +62,7 @@ public class ApplicationController {
     @PostMapping("/applications/{petId}/{userId}")
     public String saveApplication(@ModelAttribute("application") ApplicationDto applicationDto, @PathVariable("petId") Long petId, @PathVariable("userId") Long userId, Model model) {
         applicationService.saveApplication(applicationDto, petId, userId);
-        UserDto userDto = userService.findById(userId);
+        UserDto userDto = userService.findUserById(userId);
         PetDto petDto = petService.findPetById(petId);
         mailService.sendEmail(userDto.getEmailAddress(), "Application Pending", "Your application for pet " + petDto.getName() + " is under review.");
         return "redirect:/applications";

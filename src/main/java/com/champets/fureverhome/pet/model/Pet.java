@@ -66,7 +66,7 @@ public class Pet {
     private Boolean isSterilized;
 
     @Column(nullable = true)
-    public Boolean active;
+    public Boolean active = true;
 
     @Column(nullable = true)
     private Integer applicationLimit;

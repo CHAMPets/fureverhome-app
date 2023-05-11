@@ -3,6 +3,7 @@ package com.champets.fureverhome.pet.model.dto;
 import com.champets.fureverhome.pet.enums.BodySize;
 import com.champets.fureverhome.pet.enums.Gender;
 import com.champets.fureverhome.pet.enums.Type;
+import com.champets.fureverhome.vaccine.model.Vaccine;
 import com.sun.istack.NotNull;
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Builder
