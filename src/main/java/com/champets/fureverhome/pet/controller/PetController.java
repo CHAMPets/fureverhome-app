@@ -1,6 +1,8 @@
 package com.champets.fureverhome.pet.controller;
 
 import com.champets.fureverhome.pet.model.dto.PetDto;
+import com.champets.fureverhome.vaccine.model.Vaccine;
+import com.champets.fureverhome.vaccine.service.VaccineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import com.champets.fureverhome.pet.service.PetService;
@@ -15,11 +17,13 @@ import java.util.List;
 @Controller
 public class PetController {
     private final PetService petService;
+    private final VaccineService vaccineService;
 
     @Autowired
-    public PetController(PetService petService) {
+    public PetController(PetService petService, VaccineService vaccineService) {
 
         this.petService = petService;
+        this.vaccineService = vaccineService;
     }
 
     @GetMapping("/pets")
@@ -39,6 +43,8 @@ public class PetController {
     @GetMapping("pets/new")
     public String createPetForm(Model model){
         Pet pet = new Pet();
+        List<Vaccine> vaccines = vaccineService.findAllVaccines();
+        model.addAttribute("vaccines", vaccines);
         model.addAttribute("pet", pet);
         return "admin/pet-create";
     }
