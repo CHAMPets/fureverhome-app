@@ -29,6 +29,13 @@ public class PetController {
         return "pet-list";
     }
 
+    @GetMapping("/pets/home")
+    public String listActivePets(Model model){
+        List<PetDto> pets = petService.findAllActivePets();
+        model.addAttribute("pets", pets);
+        return "user-home";
+    }
+
     @GetMapping("pets/new")
     public String createPetForm(Model model){
         Pet pet = new Pet();

@@ -8,6 +8,8 @@ import java.util.List;
 public interface PetService {
 
     List<PetDto> findAllPets();
+
+    List<PetDto> findAllActivePets();
     Pet savePet(Pet pet);
 
     PetDto findPetById(long petId);

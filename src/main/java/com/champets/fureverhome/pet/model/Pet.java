@@ -64,7 +64,7 @@ public class Pet {
     private Boolean isSterilized;
 
     @Column(nullable = true)
-    public Boolean isActive;
+    public Boolean active;
 
     @Column(nullable = true)
     private Integer applicationLimit;
@@ -92,12 +92,12 @@ public class Pet {
         this.isSterilized = isSterilized;
     }
 
-    public Boolean getIsActive(){
-        return isActive;
+    public Boolean getActive(){
+        return active;
     }
 
-    public void setIsActive(boolean isActive){
-        this.isActive = isActive;
+    public void setActive(boolean isActive){
+        this.active = active;
     }
 
     @OneToMany(mappedBy = "pet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

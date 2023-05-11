@@ -39,7 +39,7 @@ public class PetDto {
 
     private Type type;
     private Boolean isSterilized;
-    private Boolean isActive;
+    private Boolean active;
     private Integer applicationLimit;
     private Integer applicationCounter;
 

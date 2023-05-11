@@ -24,6 +24,13 @@ public class PetServiceImpl implements PetService {
         List<Pet> pets = petRepository.findAll();
         return pets.stream().map((pet) -> mapToPetDto(pet)).collect(Collectors.toList());
     }
+
+    @Override
+    public List<PetDto> findAllActivePets() {
+        List<Pet> pets = petRepository.findByActiveTrue();
+        return pets.stream().map((pet) -> mapToPetDto(pet)).collect(Collectors.toList());
+    }
+
     @Override
     public Pet savePet(Pet pet) {
         return petRepository.save(pet);
@@ -54,7 +61,7 @@ public class PetServiceImpl implements PetService {
                 .imagePath(pet.getImagePath())
                 .createdDate(pet.getCreatedDate())
                 .isSterilized(pet.getIsSterilized())
-                .isActive(pet.getIsActive())
+                .active(pet.getActive())
                 .rescueDate(pet.getRescueDate())
                 .applicationLimit(pet.getApplicationLimit())
                 .createdBy(pet.getCreatedBy())
@@ -77,7 +84,7 @@ public class PetServiceImpl implements PetService {
                 .imagePath(pet.getImagePath())
                 .createdDate(pet.getCreatedDate())
                 .isSterilized(pet.getIsSterilized())
-                .isActive(pet.getIsActive())
+                .active(pet.getActive())
                 .rescueDate(pet.getRescueDate())
                 .applicationLimit(pet.getApplicationLimit())
                 .createdBy(pet.getCreatedBy())
