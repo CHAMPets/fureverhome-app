@@ -5,6 +5,7 @@ import com.champets.fureverhome.pet.model.Pet;
 import com.champets.fureverhome.user.model.User;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -19,5 +20,6 @@ public class ApplicationDto {
     @NotEmpty(message="User should not be empty.")
     private User user;
     private ApplicationStatus applicationStatus;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate releaseDate;
 }

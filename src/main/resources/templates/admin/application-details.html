@@ -22,8 +22,10 @@
 <!--                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius at enim eum illum aperiam placeat esse? Mollitia omnis minima saepe recusandae libero, iste ad asperiores! Explicabo commodi quo itaque! Ipsam!</p>-->
                                     <p th:text="'Pet: ' + ${applicationDto.pet.name}"></p>
                                     <p th:text="'Status: ' + ${applicationDto.applicationStatus}"></p>
+                                    <p th:text="'Email: ' + ${applicationDto.user.emailAddress}"></p>
+                                    <p th:text="'Phone: ' + ${applicationDto.user.phoneNumber}"></p>
                                 <br />
-                                    <form method="post" th:action="@{/applications/{applicationId}/edit(applicationId=${applicationDto.id})}" th:object="${applicationDto}">
+                                    <form method="post" th:action="@{/applications/{applicationId}(applicationId=${applicationDto.id})}" th:object="${applicationDto}">
                                         <div class = "form-group">
                                             <label for="releaseDate">Release Date:</label>
                                             <input
