@@ -8,9 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class FureverhomeApplication {
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(FureverhomeApplication.class, args);
-
 	}
 
 }
