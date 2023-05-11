@@ -1,11 +1,8 @@
 package com.champets.fureverhome.user.controller;
 
-import com.champets.fureverhome.pet.model.Pet;
-import com.champets.fureverhome.pet.model.dto.PetDto;
 import com.champets.fureverhome.user.model.User;
 import com.champets.fureverhome.user.model.dto.UserDto;
 import com.champets.fureverhome.user.service.UserService;
-import com.champets.fureverhome.vaccine.model.VaccineHistory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
         import org.springframework.ui.Model;

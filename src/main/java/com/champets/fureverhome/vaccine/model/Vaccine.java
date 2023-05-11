@@ -3,10 +3,13 @@ package com.champets.fureverhome.vaccine.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.ArrayList;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "vaccines") // set the table name explicitly
 public class Vaccine {
@@ -29,6 +32,14 @@ public class Vaccine {
     @Column(columnDefinition = "VARCHAR(50)")
     private String type;
 
-    @Column(columnDefinition = "VARCHAR(250)")
+    @Column(columnDefinition = "VARCHAR(300)")
     private String description;
+
+
+
+    public Vaccine(String name, String type, String description) {
+        this.name = name;
+        this.type = type;
+        this.description = description;
+    }
 }

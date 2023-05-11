@@ -1,8 +1,8 @@
 package com.champets.fureverhome.vaccine.controller;
 
 import com.champets.fureverhome.vaccine.model.Vaccine;
-import com.champets.fureverhome.vaccine.model.VaccineHistory;
-import com.champets.fureverhome.vaccine.repository.VaccineHistoryRepository;
+import com.champets.fureverhome.vaccine.model.VaccinePet;
+import com.champets.fureverhome.vaccine.repository.VaccinePetRepository;
 import com.champets.fureverhome.vaccine.repository.VaccineRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,22 +15,22 @@ import java.util.Optional;
 public class VaccineHistoryController {
 
     private VaccineRepository vaccineRepository;
-    private VaccineHistoryRepository vaccineHistoryRepository;
+    private VaccinePetRepository vaccinePetRepository;
 
-    public VaccineHistoryController(VaccineRepository vaccineRepository, VaccineHistoryRepository vaccineHistoryRepository){
+    public VaccineHistoryController(VaccineRepository vaccineRepository, VaccinePetRepository vaccinePetRepository){
         this.vaccineRepository = vaccineRepository;
-        this.vaccineHistoryRepository = vaccineHistoryRepository;
+        this.vaccinePetRepository = vaccinePetRepository;
     }
 
     @PostMapping
-    public VaccineHistory saveHistoryWithVaccine(@RequestBody VaccineHistory vaccineHistory){
-        return vaccineHistoryRepository.save(vaccineHistory);
+    public VaccinePet saveHistoryWithVaccine(@RequestBody VaccinePet vaccinePet){
+        return vaccinePetRepository.save(vaccinePet);
     }
 
     @GetMapping("/all-vaccine-histories")
     @ResponseBody
-    public List<VaccineHistory> findAllVaccineHistories(){
-        return vaccineHistoryRepository.findAll();
+    public List<VaccinePet> findAllVaccineHistories(){
+        return vaccinePetRepository.findAll();
     }
     @GetMapping("/all-vaccines")
     @ResponseBody
@@ -38,8 +38,8 @@ public class VaccineHistoryController {
         return vaccineRepository.findAll();
     }
     @GetMapping("/{vaccineHistoryId}")
-    public Optional<VaccineHistory> findVaccineHistory(@PathVariable Long id) {
-        return vaccineHistoryRepository.findById(id);
+    public Optional<VaccinePet> findVaccineHistory(@PathVariable Long id) {
+        return vaccinePetRepository.findById(id);
     }
     @GetMapping("/vaccine/{vaccineId}")
     public Optional<Vaccine> findVaccine(@PathVariable Long id) {
