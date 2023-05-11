@@ -3,6 +3,8 @@ package com.champets.fureverhome.pet.controller;
 import com.champets.fureverhome.pet.model.dto.PetDto;
 import com.champets.fureverhome.vaccine.model.Vaccine;
 import com.champets.fureverhome.vaccine.model.VaccinePet;
+import com.champets.fureverhome.vaccine.model.dto.VaccinePetDto;
+import com.champets.fureverhome.vaccine.service.VaccinePetService;
 import com.champets.fureverhome.vaccine.service.VaccineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,12 +22,14 @@ import java.util.List;
 public class PetController {
     private final PetService petService;
     private final VaccineService vaccineService;
+    private final VaccinePetService vaccinePetService;
 
     @Autowired
-    public PetController(PetService petService, VaccineService vaccineService) {
+    public PetController(PetService petService, VaccineService vaccineService, VaccinePetService vaccinePetService) {
 
         this.petService = petService;
         this.vaccineService = vaccineService;
+        this.vaccinePetService = vaccinePetService;
     }
 
     @GetMapping("/pets")
@@ -93,7 +97,9 @@ public class PetController {
     @GetMapping("pets/{petId}")
     public String displayPet(@PathVariable("petId") Long petId, Model model){
         PetDto pet = petService.findPetById(petId);
+        List<VaccinePetDto> vaccinePet = vaccinePetService.findVaccineListByPetId(petId);
         model.addAttribute("pet", pet);
+        model.addAttribute("vaccines", vaccinePet);
         return "user/pet-details";
     }
 }
