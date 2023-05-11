@@ -2,6 +2,7 @@ package com.champets.fureverhome.pet.controller;
 
 import com.champets.fureverhome.pet.model.dto.PetDto;
 import com.champets.fureverhome.vaccine.model.Vaccine;
+import com.champets.fureverhome.vaccine.model.VaccinePet;
 import com.champets.fureverhome.vaccine.service.VaccineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import com.champets.fureverhome.pet.model.Pet;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -49,10 +51,23 @@ public class PetController {
         return "admin/pet-create";
     }
     @PostMapping("pets/new")
-    public String savePet(@ModelAttribute("pet") Pet pet){
+    public String savePet(@ModelAttribute("pet") Pet pet,
+                          @RequestParam("vaccineIds") List<Long> vaccineIds){
 
+        List<VaccinePet> vaccineHistory = new ArrayList<>();
+        for (Long vaccineId : vaccineIds) {
+            Vaccine vaccine = vaccineService.findVaccineById(vaccineId);
+            VaccinePet vaccinePet = new VaccinePet();
+            vaccinePet.setPet(pet);
+            vaccinePet.setVaccine(vaccine);
+            vaccineHistory.add(vaccinePet);
+        }
+        pet.setVaccineList(vaccineHistory);
+        // Save the pet
         petService.savePet(pet);
         return "redirect:/pets";
+//        petService.savePet(pet);
+//        return "redirect:/pets";
     }
 
     @GetMapping("/pets/{petId}/edit")

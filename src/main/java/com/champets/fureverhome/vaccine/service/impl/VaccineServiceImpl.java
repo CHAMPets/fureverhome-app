@@ -23,4 +23,10 @@ public class VaccineServiceImpl implements VaccineService {
         List<Vaccine> vaccines = vaccineRepository.findAll();
         return vaccines.stream().collect(Collectors.toList());
     }
+
+    @Override
+    public Vaccine findVaccineById(Long vaccineId) {
+        Vaccine vaccine = vaccineRepository.findById(vaccineId).get();
+        return vaccine;
+    }
 }

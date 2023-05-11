@@ -7,4 +7,6 @@ import java.util.List;
 public interface VaccineService {
 
     List<Vaccine> findAllVaccines();
+
+    Vaccine findVaccineById(Long vaccineId);
 }
