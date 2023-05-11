@@ -2,13 +2,16 @@ package com.champets.fureverhome.user.service.impl;
 
 import com.champets.fureverhome.application.model.Application;
 import com.champets.fureverhome.user.model.User;
+import com.champets.fureverhome.user.model.UserRole;
 import com.champets.fureverhome.user.model.dto.UserDto;
 import com.champets.fureverhome.user.repository.UserRepository;
+import com.champets.fureverhome.user.repository.UserRoleRepository;
 import com.champets.fureverhome.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,10 +21,12 @@ import static com.champets.fureverhome.user.model.mapper.UserMapper.mapToUser;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private UserRoleRepository userRoleRepository;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository){
         this.userRepository = userRepository;
+        this.userRoleRepository = userRoleRepository;
     }
 
     @Override
@@ -31,12 +36,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User saveUser(User user) {
-        return userRepository.save(user);
+    public void createUser(UserDto userDto) {
+        User user = new User();
+        user.setEmailAddress(userDto.getEmailAddress());
+        user.setPassword(userDto.getPassword());
+        user.setPhoneNumber(userDto.getPhoneNumber());
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setCreatedDate(userDto.getCreatedDate());
+        UserRole role = userRoleRepository.findByRoleName("USER");
+        user.setUserRole(role);
+        //user.setUserRole((UserRole) Arrays.asList(role));
+        userRepository.save(user);
     }
 
     @Override
-    public UserDto findById(Long id) {
+    public UserDto findUserById(Long id) {
         User user = userRepository.findById(id).get();
         return mapToUserDto(user);
     }
@@ -48,24 +63,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> findByEmailAddress(String emailAddress) {
+    public void deleteUser(Long userId) {
+        userRepository.deleteById(userId);
+    }
+
+    @Override
+    public UserDto findByEmailAddress(String emailAddress) {
         return null;
     }
 
-    private UserDto mapToUserDto(User user){
-        UserDto userDto = UserDto.builder()
-                .id(user.getId())
-                .emailAddress(user.getEmailAddress())
-                .password(user.getPassword())
-                .phoneNumber(user.getPhoneNumber())
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .roleId(user.getUserRole().getId())
-                .lastDateModified(user.getLastDateModified())
-                .createdBy(user.getCreatedBy())
-                .lastModifiedBy(user.getLastModifiedBy())
-                .createdDate(user.getCreatedDate())
-                .build();
-        return userDto;
-    }
 }

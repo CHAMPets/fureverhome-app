@@ -9,11 +9,13 @@ import java.util.List;
 public interface UserService {
     List<UserDto> findAllUsers();
 
-    User saveUser(User user);
-    UserDto findById(Long id);
+    void createUser(UserDto userDto);
+    UserDto findUserById(Long id); //change to findByIdUser
 
     void updateUser(UserDto userDto);
 
-    List<UserDto> findByEmailAddress(String emailAddress);
+    void deleteUser(Long id);
+
+    UserDto findByEmailAddress(String emailAddress);
 }
 

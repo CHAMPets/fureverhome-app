@@ -21,18 +21,25 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("users/new")
-    public String saveUser(@ModelAttribute("user") User user){
-        userService.saveUser(user);
-        return "redirect:/users";
-    }
 
     @GetMapping("users/new")
     public String createUserForm(Model model){
         User user = new User();
         model.addAttribute("user", user);
-        return "user-create";
+        return "admin/user-create";
     }
+    @PostMapping("users/new")
+    public String createUser(@ModelAttribute("user") UserDto userDto){
+        userService.createUser(userDto);
+        return "redirect:/users";
+    }
+
+    @GetMapping("users/{userId}/delete")
+    public String deleteUser(@PathVariable("userId")Long userId){
+        userService.deleteUser(userId);
+        return "redirect:/users";
+    }
+
 
     @GetMapping("/user-register")
     public String listUsers(Model model){
@@ -50,7 +57,7 @@ public class UserController {
 
     @GetMapping("users/{userId}/edit")
     public String editUser(@PathVariable("userId") Long userId, Model model){
-        UserDto user = userService.findById(userId);
+        UserDto user = userService.findUserById(userId);
         model.addAttribute("user",user);
         return "user-edit";
     }

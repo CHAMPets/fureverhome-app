@@ -14,12 +14,9 @@ public class UserMapper {
                 .phoneNumber(userDto.getPhoneNumber())
                 .firstName(userDto.getFirstName())
                 .lastName(userDto.getLastName())
-                .lastDateModified(userDto.getLastDateModified())
-                .createdBy(userDto.getCreatedBy())
-                .lastModifiedBy(userDto.getLastModifiedBy())
                 .createdDate(userDto.getCreatedDate())
-//                .userRole(userDto.getRoleId())
-//                .applications(userDto.getApplication())
+                .userRole(userDto.getUserRole())
+                .applications(userDto.getApplications())
                 .build();
         return user;
     }
@@ -32,12 +29,9 @@ public class UserMapper {
                 .phoneNumber(user.getPhoneNumber())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
-                .lastDateModified(user.getLastDateModified())
-                .createdBy(user.getCreatedBy())
-                .lastModifiedBy(user.getLastModifiedBy())
                 .createdDate(user.getCreatedDate())
-//                .userRole(user.getRoleId())
-//                .applications(user.getApplication())
+                .userRole(user.getUserRole())
+                .applications(user.getApplications())
                 .build();
         return userDto;
     }

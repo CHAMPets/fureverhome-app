@@ -13,7 +13,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(includeFieldNames = true)
 @Entity
 @Builder
 @Table(name = "users")
@@ -43,15 +42,6 @@ public class User {
 
     private String lastName;
 
-    @UpdateTimestamp
-    private LocalDate lastDateModified;
-
-    @Column(columnDefinition = "VARCHAR(20)")
-    private String createdBy;
-
-    @Column(columnDefinition = "VARCHAR(20)")
-    private String lastModifiedBy;
-
     @CreationTimestamp
     private LocalDate createdDate;
 
@@ -59,6 +49,6 @@ public class User {
     @JoinColumn(name = "roleId", nullable = false, insertable = false, updatable = false)
     private UserRole userRole;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Application> applications = new ArrayList<>();
 }
