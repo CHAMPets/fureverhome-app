@@ -1,75 +1,54 @@
 package com.champets.fureverhome.user.service.impl;
 
-import com.champets.fureverhome.application.model.Application;
-import com.champets.fureverhome.user.model.User;
-import com.champets.fureverhome.user.model.UserRole;
+import com.champets.fureverhome.user.model.UserEntity;
+import com.champets.fureverhome.user.model.Role;
+import com.champets.fureverhome.user.model.dto.RegistrationDto;
 import com.champets.fureverhome.user.model.dto.UserDto;
 import com.champets.fureverhome.user.repository.UserRepository;
-import com.champets.fureverhome.user.repository.UserRoleRepository;
+import com.champets.fureverhome.user.repository.RoleRepository;
 import com.champets.fureverhome.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import static com.champets.fureverhome.user.model.mapper.UserMapper.mapToUserDto;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static com.champets.fureverhome.user.model.mapper.UserMapper.mapToUserDto;
-import static com.champets.fureverhome.user.model.mapper.UserMapper.mapToUser;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private final UserRepository userRepository;
-    private UserRoleRepository userRoleRepository;
+    private UserRepository userRepository;
+    private RoleRepository roleRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository){
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.userRoleRepository = userRoleRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public List<UserDto> findAllUsers() {
-        List<User> users = userRepository.findAll();
-        return users.stream().map((user) -> mapToUserDto(user)).collect(Collectors.toList());
-    }
-
-    @Override
-    public void createUser(UserDto userDto) {
-        User user = new User();
-        user.setEmailAddress(userDto.getEmailAddress());
-        user.setPassword(userDto.getPassword());
-        user.setPhoneNumber(userDto.getPhoneNumber());
-        user.setFirstName(userDto.getFirstName());
-        user.setLastName(userDto.getLastName());
-        user.setCreatedDate(userDto.getCreatedDate());
-        UserRole role = userRoleRepository.findByRoleName("USER");
-        user.setUserRole(role);
-        //user.setUserRole((UserRole) Arrays.asList(role));
+    public void saveUser(RegistrationDto registrationDto) {
+        UserEntity user = new UserEntity();
+        user.setEmail(registrationDto.getEmail());
+        user.setFirstName(registrationDto.getFirstName());
+        user.setLastName(registrationDto.getLastName());
+        user.setPhoneNumber(registrationDto.getPhoneNumber());
+        user.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
+        Role role = roleRepository.findByName("USER");
+        user.setRoles(Arrays.asList(role));
         userRepository.save(user);
+    }
+
+    @Override
+    public UserEntity findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     @Override
     public UserDto findUserById(Long id) {
-        User user = userRepository.findById(id).get();
+        UserEntity user = userRepository.findUserById(id);
         return mapToUserDto(user);
     }
-
-    @Override
-    public void updateUser(UserDto userDto) {
-        User user = mapToUser(userDto);
-        userRepository.save(user);
-    }
-
-    @Override
-    public void deleteUser(Long userId) {
-        userRepository.deleteById(userId);
-    }
-
-    @Override
-    public UserDto findByEmailAddress(String emailAddress) {
-        return null;
-    }
-
 }

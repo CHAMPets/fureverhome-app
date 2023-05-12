@@ -3,7 +3,6 @@ package com.champets.fureverhome.user.model;
 import com.champets.fureverhome.application.model.Application;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -46,7 +45,7 @@ public class User {
     private LocalDate createdDate;
 
     @ManyToOne
-    @JoinColumn(name = "roleId", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "roleId", nullable = true, insertable = false, updatable = false)
     private UserRole userRole;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

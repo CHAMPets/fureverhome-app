@@ -10,6 +10,7 @@ import com.champets.fureverhome.pet.model.Pet;
 import com.champets.fureverhome.pet.model.dto.PetDto;
 import com.champets.fureverhome.pet.service.PetService;
 import com.champets.fureverhome.user.model.User;
+import com.champets.fureverhome.user.model.dto.RegistrationDto;
 import com.champets.fureverhome.user.model.dto.UserDto;
 import com.champets.fureverhome.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,7 @@ public class ApplicationController {
         applicationService.saveApplication(applicationDto, petId, userId);
         UserDto userDto = userService.findUserById(userId);
         PetDto petDto = petService.findPetById(petId);
-        mailService.sendEmail(userDto.getEmailAddress(), "Application Pending", "Your application for pet " + petDto.getName() + " is under review.");
+        mailService.sendEmail(userDto.getEmail(), "Application Pending", "Your application for pet " + petDto.getName() + " is under review.");
         return "redirect:/applications";
     }
 

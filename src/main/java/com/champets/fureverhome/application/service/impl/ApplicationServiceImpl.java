@@ -8,6 +8,7 @@ import com.champets.fureverhome.application.service.ApplicationService;
 import com.champets.fureverhome.pet.model.Pet;
 import com.champets.fureverhome.pet.repository.PetRepository;
 import com.champets.fureverhome.user.model.User;
+import com.champets.fureverhome.user.model.UserEntity;
 import com.champets.fureverhome.user.model.UserRole;
 import com.champets.fureverhome.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public Application saveApplication(ApplicationDto applicationDto, Long petId, Long userId) {
         Pet pet = petRepository.findById(petId).get();
-        User user = userRepository.findById(userId).get(); //null pointer exception
+        UserEntity user = userRepository.findById(userId).get(); //null pointer exception
         Application application = mapToApplication(applicationDto);
         application.setPet(pet);
         application.setUser(user);

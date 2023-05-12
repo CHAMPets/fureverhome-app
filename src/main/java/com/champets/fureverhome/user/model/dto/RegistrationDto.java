@@ -8,15 +8,15 @@ import lombok.Data;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
 @Data
-@Builder
-public class UserDto {
+public class RegistrationDto {
+
     private Long id;
-    @NotEmpty
+
     private String email;
-    @NotEmpty
+
     private String password;
 
     private String phoneNumber;
@@ -25,9 +25,5 @@ public class UserDto {
 
     private String lastName;
 
-    private LocalDate createdDate;
-
-    private UserRole userRole;
-
-    private List<Application> applications = new ArrayList<>();
+    //private List<Application> applications = new ArrayList<>();
 }

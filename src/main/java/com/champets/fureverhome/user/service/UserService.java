@@ -1,21 +1,17 @@
 package com.champets.fureverhome.user.service;
 
-import com.champets.fureverhome.application.model.dto.ApplicationDto;
-import com.champets.fureverhome.user.model.User;
+import com.champets.fureverhome.user.model.UserEntity;
+import com.champets.fureverhome.user.model.dto.RegistrationDto;
 import com.champets.fureverhome.user.model.dto.UserDto;
 
-import java.util.List;
-
 public interface UserService {
-    List<UserDto> findAllUsers();
+    void saveUser(RegistrationDto registrationDto);
+    UserEntity findByEmail(String email);
 
-    void createUser(UserDto userDto);
+//    void updateUser(UserDto userDto);
+//    void deleteUser(Long id);
+//    List<UserDto> findAllUsers();
+    //UserEntity findByUsername(String username);
     UserDto findUserById(Long id); //change to findByIdUser
-
-    void updateUser(UserDto userDto);
-
-    void deleteUser(Long id);
-
-    UserDto findByEmailAddress(String emailAddress);
 }
 

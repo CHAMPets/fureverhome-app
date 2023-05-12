@@ -3,6 +3,7 @@ package com.champets.fureverhome.application.model;
 import com.champets.fureverhome.application.enums.ApplicationStatus;
 import com.champets.fureverhome.pet.model.Pet;
 import com.champets.fureverhome.user.model.User;
+import com.champets.fureverhome.user.model.UserEntity;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -38,7 +39,7 @@ public class Application {
 
     @ManyToOne
     @JoinColumn(name="user_id")//, nullable=false)
-    private User user;
+    private UserEntity user;
 
     @Enumerated(EnumType.STRING)
     @Column(name="status", nullable=false)
