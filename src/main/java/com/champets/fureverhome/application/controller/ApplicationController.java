@@ -9,7 +9,6 @@ import com.champets.fureverhome.application.service.MailService;
 import com.champets.fureverhome.pet.model.Pet;
 import com.champets.fureverhome.pet.model.dto.PetDto;
 import com.champets.fureverhome.pet.service.PetService;
-import com.champets.fureverhome.user.model.User;
 import com.champets.fureverhome.user.model.dto.RegistrationDto;
 import com.champets.fureverhome.user.model.dto.UserDto;
 import com.champets.fureverhome.user.service.UserService;

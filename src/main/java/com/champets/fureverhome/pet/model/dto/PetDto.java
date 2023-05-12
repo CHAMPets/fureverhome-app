@@ -4,13 +4,13 @@ import com.champets.fureverhome.pet.enums.BodySize;
 import com.champets.fureverhome.pet.enums.Gender;
 import com.champets.fureverhome.pet.enums.Type;
 import com.champets.fureverhome.vaccine.model.Vaccine;
-import com.sun.istack.NotNull;
+import com.champets.fureverhome.vaccine.model.VaccinePet;
 import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
-
+import java.util.ArrayList;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.util.List;
@@ -56,5 +56,8 @@ public class PetDto {
 
     @CreationTimestamp
     private LocalDate createdDate;
+
+    private List<Vaccine> vaccines;
+    private List<VaccinePet> vaccineList = new ArrayList<>();
 
 }

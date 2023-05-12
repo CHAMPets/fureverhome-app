@@ -2,7 +2,6 @@ package com.champets.fureverhome.application.model.dto;
 
 import com.champets.fureverhome.application.enums.ApplicationStatus;
 import com.champets.fureverhome.pet.model.Pet;
-import com.champets.fureverhome.user.model.User;
 import com.champets.fureverhome.user.model.UserEntity;
 import lombok.Builder;
 import lombok.Data;

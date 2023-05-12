@@ -44,4 +44,9 @@ public class VaccinePet {
     @ManyToOne
     @JoinColumn(name = "vaccine_id")
     private Vaccine vaccine;
+    public VaccinePet(Pet pet, Vaccine vaccine) {
+        this.pet = pet;
+        this.vaccine = vaccine;
+    }
+
 }

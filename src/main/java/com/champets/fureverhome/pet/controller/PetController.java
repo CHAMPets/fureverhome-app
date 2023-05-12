@@ -4,6 +4,7 @@ import com.champets.fureverhome.pet.enums.BodySize;
 import com.champets.fureverhome.pet.enums.Gender;
 import com.champets.fureverhome.pet.enums.Type;
 import com.champets.fureverhome.pet.model.dto.PetDto;
+import com.champets.fureverhome.pet.model.mapper.PetMapper;
 import com.champets.fureverhome.vaccine.model.Vaccine;
 import com.champets.fureverhome.vaccine.model.VaccinePet;
 import com.champets.fureverhome.vaccine.model.dto.VaccinePetDto;
@@ -16,8 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.champets.fureverhome.pet.model.Pet;
-
-import javax.persistence.PreUpdate;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +98,8 @@ public class PetController {
 
     @GetMapping("/pets/{petId}/edit")
     public String editPetForm(@PathVariable("petId") Long petId, Model model){
-
+        List<Vaccine> vaccines = vaccineService.findAllVaccines();
+        model.addAttribute("vaccine", vaccines);
         PetDto pet = petService.findPetById(petId);
         model.addAttribute("pet", pet);
         return "admin/pet-edit";
@@ -114,6 +114,14 @@ public class PetController {
             return "admin/pet-edit";
         }
         pet.setId(petId);
+
+        List<VaccinePet> vaccineList = new ArrayList<>();
+        for(VaccinePet vaccinePet : vaccineList) {
+            vaccineList.add(vaccinePet);
+            vaccinePet.setPet(PetMapper.mapToPet(pet));
+        }
+        pet.setVaccineList(vaccineList);
+
         petService.updatePet(pet);
         return "redirect:/pets";
     }
@@ -127,3 +135,5 @@ public class PetController {
         return "user/pet-details";
     }
 }
+
+
