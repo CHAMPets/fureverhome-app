@@ -39,15 +39,15 @@
                     Email already exists</div>
                 <div class="login-form">
                     <form method="post" role="form" th:action="@{/register/save}" th:object="${user}">
-<!--                        <div class="form-group">-->
-<!--                            <label>Username</label>-->
-<!--                            <input-->
-<!--                                    type="text"-->
-<!--                                    class="form-control"-->
-<!--                                    placeholder="Username"-->
-<!--                                    th:field="*{username}">-->
-<!--                        </div>-->
-<!--                        <p th:if="${#fields.hasErrors('username')}" class="text-danger"></p>-->
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Username"
+                                    th:field="*{username}">
+                        </div>
+                        <p th:if="${#fields.hasErrors('username')}" class="text-danger"></p>
                         <div class="form-group">
                             <label>Email</label>
                             <input

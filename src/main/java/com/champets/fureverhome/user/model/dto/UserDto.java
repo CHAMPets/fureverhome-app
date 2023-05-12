@@ -1,7 +1,7 @@
 package com.champets.fureverhome.user.model.dto;
 
 import com.champets.fureverhome.application.model.Application;
-import com.champets.fureverhome.user.model.UserRole;
+import com.champets.fureverhome.user.model.Role;
 import lombok.Builder;
 import lombok.Data;
 
@@ -27,7 +27,7 @@ public class UserDto {
 
     private LocalDate createdDate;
 
-    private UserRole userRole;
+//    private String role;
 
     private List<Application> applications = new ArrayList<>();
 }

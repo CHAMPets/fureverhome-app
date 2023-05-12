@@ -1,8 +1,8 @@
 package com.champets.fureverhome.config;
 
 import com.champets.fureverhome.user.enums.RoleName;
-import com.champets.fureverhome.user.model.UserRole;
-import com.champets.fureverhome.user.repository.UserRoleRepository;
+import com.champets.fureverhome.user.model.Role;
+import com.champets.fureverhome.user.repository.RoleRepository;
 import com.champets.fureverhome.vaccine.model.Vaccine;
 import com.champets.fureverhome.vaccine.repository.VaccineRepository;
 import com.champets.fureverhome.user.repository.UserRepository;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 @Configuration
 public class Config {
     @Bean
-    CommandLineRunner commandLineRunner(VaccineRepository vaccineRepository, UserRoleRepository userRoleRepository) {
+    CommandLineRunner commandLineRunner(VaccineRepository vaccineRepository, RoleRepository userRoleRepository) {
         return args -> {
             if (vaccineRepository.findAll().isEmpty()) {
                 Vaccine fiveInOneVaccine = new Vaccine("5-in-1 vaccine", "CPV-DHLP", "The CPV-DHLP vaccine provides immunity against distemper, adenovirus (hepatitis), parainfluenza, and parvovirus.");
@@ -35,12 +35,12 @@ public class Config {
 
             if (userRoleRepository.findAll().isEmpty()) {
 
-                UserRole rootAdminRole = new UserRole(1L, RoleName.ROOT);
-                UserRole adminRole = new UserRole(2L, RoleName.ADMIN);
-                UserRole userRole = new UserRole(3L, RoleName.USER);
+                Role rootAdminRole = new Role(1L, "ROOT");
+                Role adminRole = new Role(2L, "ADMIN");
+                Role userRole = new Role(3L, "USER");
 
 
-                ArrayList<UserRole> roles = new ArrayList<>();
+                ArrayList<Role> roles = new ArrayList<>();
                 roles.add(rootAdminRole);
                 roles.add(adminRole);
                 roles.add(userRole);

@@ -105,4 +105,5 @@ public class ApplicationController {
 
         return "redirect:/applications";
     }
+    //comment
 }

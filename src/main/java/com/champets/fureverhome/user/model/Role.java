@@ -1,4 +1,5 @@
 package com.champets.fureverhome.user.model;
+import com.champets.fureverhome.user.enums.RoleName;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,4 +20,9 @@ public class Role {
     private String name;
     @ManyToMany(mappedBy = "roles")
     private List<UserEntity> users = new ArrayList<>();
+
+    public Role(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }
