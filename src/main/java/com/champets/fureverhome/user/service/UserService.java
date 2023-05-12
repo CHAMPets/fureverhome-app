@@ -7,11 +7,11 @@ import com.champets.fureverhome.user.model.dto.UserDto;
 public interface UserService {
     void saveUser(RegistrationDto registrationDto);
     UserEntity findByEmail(String email);
-
+    UserEntity findByUsername(String username);
 //    void updateUser(UserDto userDto);
 //    void deleteUser(Long id);
 //    List<UserDto> findAllUsers();
-    //UserEntity findByUsername(String username);
+
     UserDto findUserById(Long id); //change to findByIdUser
 }
 

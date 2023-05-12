@@ -1,5 +1,4 @@
 package com.champets.fureverhome.security;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,8 +29,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login", "/register", "/pets/home", "/css/**", "/js/**")
+                .antMatchers("/login", "/register", "/pets", "/css/**", "/js/**")
                 .permitAll()
+                .antMatchers("/admin/pets").hasAuthority("ADMIN")
+//                .antMatchers("/user/**").hasAuthority("ROLE_USER")
                 .and()
                 .formLogin(form -> form
                         .loginPage("/login")

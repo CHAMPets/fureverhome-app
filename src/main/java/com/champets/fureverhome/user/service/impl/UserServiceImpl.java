@@ -31,8 +31,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveUser(RegistrationDto registrationDto) {
         UserEntity user = new UserEntity();
-        user.setEmail(registrationDto.getEmail());
         user.setUsername(registrationDto.getUsername());
+        user.setEmail(registrationDto.getEmail());
         user.setFirstName(registrationDto.getFirstName());
         user.setLastName(registrationDto.getLastName());
         user.setPhoneNumber(registrationDto.getPhoneNumber());
@@ -45,6 +45,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public UserEntity findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     @Override

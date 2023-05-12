@@ -27,5 +27,5 @@ public class RegistrationDto {
 
     private String lastName;
 
-    //private List<Application> applications = new ArrayList<>();
+    private List<Application> applications = new ArrayList<>();
 }

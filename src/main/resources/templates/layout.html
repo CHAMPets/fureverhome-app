@@ -24,11 +24,6 @@
         <li class="nav-item"><a class="nav-link" th:href="@{/}">Home</a></li>
         <li sec:authorize="!isAuthenticated()"  class="nav-item"><a class="nav-link me-3 btn btn-primary" th:href="@{/login}">Login</a></li>
         <li sec:authorize="!isAuthenticated()"  class="nav-item"><a class="nav-link btn btn-primary" th:href="@{/register}">Register</a></li>
-        <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Welcome</a>
-          <ul  class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownPortfolio">
-            <li><a class="dropdown-item" th:href="@{/clubs/new}">Create Running Club</a></li>
-            <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
           </ul>
         </li>
       </ul>

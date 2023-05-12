@@ -14,11 +14,11 @@ public class UserMapper {
                 .id(userDto.getId())
                 .email(userDto.getEmail())
                 .password(userDto.getPassword())
-                .phoneNumber(userDto.getPhoneNumber())
-                .firstName(userDto.getFirstName())
-                .lastName(userDto.getLastName())
-                .createdDate(userDto.getCreatedDate())
-                .applications(userDto.getApplications())
+                //.phoneNumber(userDto.getPhoneNumber())
+                //.firstName(userDto.getFirstName())
+                //.lastName(userDto.getLastName())
+                //.createdDate(userDto.getCreatedDate())
+                //.applications(userDto.getApplications())
                 .build();
         return user;
     }
@@ -28,10 +28,10 @@ public class UserMapper {
                 .id(user.getId())
                 .email(user.getEmail())
                 .password(user.getPassword())
-                .phoneNumber(user.getPhoneNumber())
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .createdDate(user.getCreatedDate())
+//                .phoneNumber(user.getPhoneNumber())
+//                .firstName(user.getFirstName())
+//                .lastName(user.getLastName())
+//                .createdDate(user.getCreatedDate())
                 //.applications(user.getApplications())
                 .build();
         return userDto;

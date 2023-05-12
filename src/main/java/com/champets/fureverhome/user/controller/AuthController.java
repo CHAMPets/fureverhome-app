@@ -40,15 +40,15 @@ public class AuthController {
         if(existingUserEmail != null && existingUserEmail.getEmail() != null && !existingUserEmail.getEmail().isEmpty()) {
             return "redirect:/register?fail";
         }
-//        UserEntity existingUserUsername = userService.findByUsername(user.getUsername());
-//        if(existingUserUsername != null && existingUserUsername.getUsername() != null && !existingUserUsername.getUsername().isEmpty()) {
-//            return "redirect:/register?fail";
-//        }
+        UserEntity existingUserUsername = userService.findByUsername(user.getUsername());
+        if(existingUserUsername != null && existingUserUsername.getUsername() != null && !existingUserUsername.getUsername().isEmpty()) {
+            return "redirect:/register?fail";
+        }
         if(result.hasErrors()) {
             model.addAttribute("user", user);
             return "register";
         }
         userService.saveUser(user);
-        return "redirect:/pets?success";
+        return "redirect:/login?success";
     }
 }
