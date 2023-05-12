@@ -1,13 +1,13 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head th:replace="fragments/header :: header('View All Pets')"></head>
+<head th:replace="fragments/header :: header('Pet Catalog')"></head>
 <body class="d-flex flex-column h-100 bg-light">
 <main class="flex-shrink-0">
-
   <nav th:replace="user/user-navigation :: navigation"></nav>
+  <header th:replace="fragments/jumbotron :: jumbotron"></header>
 
-  <section class="py-5">
+  <section class="py-5" id="petCatalog">
     <div class="container px-5 my-5">
       <div class="text-center mb-5">
         <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Pet Catalog</span></h1>
@@ -84,8 +84,8 @@
   <section class="py-5 bg-gradient-primary-to-secondary text-white">
     <div class="container px-5 my-5">
       <div class="text-center">
-        <h2 class="display-4 fw-bolder mb-4">Want to rehome a pet?</h2>
-        <a class="btn btn-outline-light btn-lg px-5 py-3 fs-6 fw-bolder" href="../contact.html">Contact me</a>
+        <h2 class="display-4 fw-bolder mb-4">Looking for a fur-fect companion?</h2>
+        <a class="btn btn-outline-light btn-lg px-5 py-3 fs-6 fw-bolder" href="../contact.html">Contact us</a>
       </div>
     </div>
   </section>

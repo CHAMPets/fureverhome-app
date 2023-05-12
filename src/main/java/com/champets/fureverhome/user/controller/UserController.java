@@ -1,6 +1,5 @@
 package com.champets.fureverhome.user.controller;
 
-import com.champets.fureverhome.user.model.User;
 import com.champets.fureverhome.user.model.dto.UserDto;
 import com.champets.fureverhome.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
