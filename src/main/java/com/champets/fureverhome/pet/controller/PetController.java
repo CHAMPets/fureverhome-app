@@ -1,5 +1,8 @@
 package com.champets.fureverhome.pet.controller;
 
+import com.champets.fureverhome.pet.enums.BodySize;
+import com.champets.fureverhome.pet.enums.Gender;
+import com.champets.fureverhome.pet.enums.Type;
 import com.champets.fureverhome.pet.model.dto.PetDto;
 import com.champets.fureverhome.vaccine.model.Vaccine;
 import com.champets.fureverhome.vaccine.model.VaccinePet;
@@ -14,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.champets.fureverhome.pet.model.Pet;
 
+import javax.persistence.PreUpdate;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +48,25 @@ public class PetController {
         List<PetDto> pets = petService.findAllActivePets();
         model.addAttribute("pets", pets);
         return "user/user-home";
+    }
+
+    @GetMapping("/pets/home/filtered")
+    public String listActivePetsByFilter(   @RequestParam(value="type") String type,
+                                            @RequestParam(value="size") String size,
+                                            @RequestParam(value= "gender") String gender,
+                                            Model model){
+
+        Type enumType = (type != null && !type.equals("ALL")) ? Type.valueOf(type) : null;
+        BodySize enumSize = (size != null && !size.equals("ALL")) ? BodySize.valueOf(size) : null;
+        Gender enumGender = (gender != null && !gender.equals("ALL")) ? Gender.valueOf(gender) : null;
+
+
+        List<PetDto> pets = petService.findActivePetsByFilter(enumType, enumSize, enumGender);
+        model.addAttribute("pets", pets);
+        model.addAttribute("type", type);
+        model.addAttribute("size", size);
+        model.addAttribute("gender", gender);
+        return "user/user-home-filtered";
     }
 
     @GetMapping("pets/new")

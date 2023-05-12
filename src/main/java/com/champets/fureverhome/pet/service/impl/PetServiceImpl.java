@@ -1,5 +1,8 @@
 package com.champets.fureverhome.pet.service.impl;
 
+import com.champets.fureverhome.pet.enums.BodySize;
+import com.champets.fureverhome.pet.enums.Gender;
+import com.champets.fureverhome.pet.enums.Type;
 import com.champets.fureverhome.pet.model.Pet;
 import com.champets.fureverhome.pet.model.dto.PetDto;
 import com.champets.fureverhome.pet.repository.PetRepository;
@@ -31,6 +34,12 @@ public class PetServiceImpl implements PetService {
     @Override
     public List<PetDto> findAllActivePets() {
         List<Pet> pets = petRepository.findByActiveTrue();
+        return pets.stream().map((pet) -> mapToPetDto(pet)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PetDto> findActivePetsByFilter(Type type, BodySize size, Gender gender) {
+        List<Pet> pets = petRepository.findByFilter(type, size, gender);
         return pets.stream().map((pet) -> mapToPetDto(pet)).collect(Collectors.toList());
     }
 
