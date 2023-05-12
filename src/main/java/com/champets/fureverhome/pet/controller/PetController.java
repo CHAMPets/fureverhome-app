@@ -89,9 +89,10 @@ public class PetController {
             vaccineHistory.add(vaccinePet);
         }
         pet.setVaccineList(vaccineHistory);
-        // Save the pet
         petService.savePet(pet);
         return "redirect:/pets";
+
+//        Save the pet
 //        petService.savePet(pet);
 //        return "redirect:/pets";
     }
@@ -108,22 +109,33 @@ public class PetController {
     @PostMapping("pets/{petId}/edit")
     public String updatePet(@PathVariable("petId") Long petId,
                             @Valid @ModelAttribute("pet") PetDto pet,
-                            BindingResult result, Model model){
+                            BindingResult result, Model model,
+                            @RequestParam("vaccineIds") List<Long> vaccineIds){
+
+        petService.deletePetVaccinesByPetId(petId);
+
+        List<VaccinePet> vaccineHistory = new ArrayList<>();
+        for (Long vaccineId : vaccineIds) {
+            Vaccine vaccine = vaccineService.findVaccineById(vaccineId);
+            VaccinePet vaccinePet = new VaccinePet();
+            vaccinePet.setPet(PetMapper.mapToPet(pet));
+            vaccinePet.setVaccine(vaccine);
+            vaccineHistory.add(vaccinePet);
+        }
         if(result.hasErrors()) {
             model.addAttribute("pet", pet);
             return "admin/pet-edit";
         }
-        pet.setId(petId);
-
-        List<VaccinePet> vaccineList = new ArrayList<>();
-        for(VaccinePet vaccinePet : vaccineList) {
-            vaccineList.add(vaccinePet);
-            vaccinePet.setPet(PetMapper.mapToPet(pet));
-        }
-        pet.setVaccineList(vaccineList);
-
+        pet.setVaccineList(vaccineHistory);
         petService.updatePet(pet);
         return "redirect:/pets";
+
+//        pet.setId(petId);
+//        List<VaccinePet> vaccineList = new ArrayList<>();
+//        for(VaccinePet vaccinePet : vaccineList) {
+//            vaccineList.add(vaccinePet);
+//            vaccinePet.setPet(PetMapper.mapToPet(pet));
+//        }
     }
 
     @GetMapping("pets/{petId}")

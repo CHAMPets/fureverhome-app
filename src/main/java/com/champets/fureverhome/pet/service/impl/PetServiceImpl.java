@@ -14,7 +14,9 @@ import com.champets.fureverhome.vaccine.repository.VaccinePetRepository;
 import com.champets.fureverhome.vaccine.repository.VaccineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import javax.persistence.Query;
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -26,14 +28,17 @@ public class PetServiceImpl implements PetService {
     private final PetRepository petRepository;
     private final VaccineRepository vaccineRepository;
     private final VaccinePetRepository vaccinePetRepository;
+    private EntityManager entityManager;
 
     @Autowired
     public PetServiceImpl(PetRepository petRepository,
                           VaccineRepository vaccineRepository,
-                          VaccinePetRepository vaccinePetRepository) {
+                          VaccinePetRepository vaccinePetRepository,
+                          EntityManager entityManager) {
         this.petRepository = petRepository;
         this.vaccineRepository = vaccineRepository;
         this.vaccinePetRepository = vaccinePetRepository;
+        this.entityManager = entityManager;
     }
 
     @Override
@@ -69,12 +74,22 @@ public class PetServiceImpl implements PetService {
     public void updatePet(PetDto petDto) {
         Pet pet = PetMapper.mapToPet(petDto);
         petRepository.save(pet);
+
         List<VaccinePet> vaccineHistory = new ArrayList<>();
         for (VaccinePet vaccinePet: petDto.getVaccineList()) {
             vaccineHistory.add(vaccinePet);
         }
+
         pet.setVaccineList(vaccineHistory);
         petRepository.save(pet);
+    }
+
+    @Transactional
+    @Override
+    public void deletePetVaccinesByPetId(Long petId) {
+        Query query = entityManager.createQuery("DELETE FROM VaccinePet v WHERE v.pet.id = :petId");
+        query.setParameter("petId", petId);
+        query.executeUpdate();
     }
 
 //        Pet savedPet = petRepository.save(pet);

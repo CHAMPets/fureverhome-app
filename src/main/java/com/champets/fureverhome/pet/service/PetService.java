@@ -19,4 +19,6 @@ public interface PetService {
     PetDto findPetById(long petId);
 
     void updatePet(PetDto pet);
+
+    void deletePetVaccinesByPetId(Long petId);
 }
