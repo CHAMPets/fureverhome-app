@@ -23,10 +23,17 @@
                   <p th:text="${pet.description}"></p>
                   <a class="btn btn-primary" th:href="@{/pets/{petId}(petId=${pet.id})}" style="margin-top:15px">See more details</a>
                   <form method="post" th:action="@{/applications/{petId}/{userId}(petId=${pet.id}, userId=1)}" th:object="${application}">
-                    <input type="submit" class="btn btn-secondary" value="Adopt" style="margin-top:15px" />
+                    <div th:if="${pet.applicationCounter < pet.applicationLimit}">
+                      <input type="submit" class="btn btn-secondary" value="Adopt" style="margin-top:15px" />
+                    </div>
+                    <div th:if="${not(pet.applicationCounter < pet.applicationLimit)}">
+                      <input type="submit" class="btn btn-secondary" value="Adopt" style="margin-top:15px" disabled />
+                    </div>
+
+
                   </form>
                 </div>
-                <img class="img-fluid" th:src="${pet.imagePath}" alt="..." style="width: 300px; height: 400px;"/>
+                <img class="img-fluid" th:src="${pet.imagePath}" alt="..." style="width: 50%; height: auto;"/>
               </div>
             </div>
           </div>

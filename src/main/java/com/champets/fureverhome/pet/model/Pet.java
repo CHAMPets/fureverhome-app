@@ -69,9 +69,9 @@ public class Pet {
     public Boolean active = true;
 
     @Column(nullable = true)
-    private Integer applicationLimit;
+    private Integer applicationLimit = 3;
 
-    private Integer applicationCounter;
+    private Integer applicationCounter = 0;
 
     @UpdateTimestamp
     private LocalDate lastDateModified;

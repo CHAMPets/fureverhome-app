@@ -65,30 +65,44 @@ public class ApplicationController {
         applicationService.saveApplication(applicationDto, petId, userId);
         UserDto userDto = userService.findUserById(userId);
         PetDto petDto = petService.findPetById(petId);
+        petDto.setApplicationCounter(petDto.getApplicationCounter() + 1);
+        petService.updatePet(petDto);
         mailService.sendEmail(userDto.getEmail(), "Application Pending", "Your application for pet " + petDto.getName() + " is under review.");
+
         return "redirect:/applications";
     }
 
-    @GetMapping("/applications/{applicationId}/edit")
-    public String editApplicationForm(@PathVariable("applicationId") Long applicationId, Model model) {
-        ApplicationDto application = applicationService.findApplicationById(applicationId);
-        model.addAttribute("application", application);
-        return "admin/application-edit";
-    }
-
-    @PostMapping("/applications/{applicationId}/edit")
+    @PostMapping("/applications/{applicationId}")
     public String updateApplication(@PathVariable("applicationId") Long applicationId,
-                                    @Valid @ModelAttribute("application") ApplicationDto application,
+                                    @ModelAttribute("application") ApplicationDto application,
                                     BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            model.addAttribute("application", application);
-            return "admin/application-edit";
-        }
+//        if (result.hasErrors()) {
+//            model.addAttribute("applicationDto", application);
+//            return "admin/application-details";
+//        }
         ApplicationDto applicationDto = applicationService.findApplicationById(applicationId);
         application.setId(applicationId);
-        application.setPet(applicationDto.getPet());
         application.setUser(applicationDto.getUser());
+        switch (applicationDto.getApplicationStatus()) {
+            case APPROVED:
+                mailService.sendEmail(application.getUser().getEmail(), "Application Approved", "Your application for pet " + applicationDto.getPet().getName() + " is approved.");
+                break;
+            case REJECTED:
+                mailService.sendEmail(application.getUser().getEmail(), "Application Rejected", "Your application for pet " + applicationDto.getPet().getName() + " is rejected.");
+                break;
+            case RELEASED:
+                applicationDto.getPet().setApplicationCounter(0);
+                applicationDto.getPet().setActive(false);
+                break;
+            case CANCELLED:
+                applicationDto.getPet().setApplicationCounter(applicationDto.getPet().getApplicationCounter() - 1);
+                applicationDto.getPet().setActive(false);
+                mailService.sendEmail(application.getUser().getEmail(), "Application Cancelled", "Your application for pet " + applicationDto.getPet().getName() + " is cancelled.");
+                break;
+        }
+        application.setPet(applicationDto.getPet());
         applicationService.updateApplication(application);
+
         return "redirect:/applications";
     }
 }
