@@ -15,11 +15,21 @@
         <div class="col-md-8">
           <div class="card">
             <div class="card-body">
+
               <form role="form" th:action="@{/pets/new}" th:object="${pet}" method="post">
-                <div class="form-group">
+
+                <div class = "form-group">
                   <label for="name">Name:</label>
-                  <input type="text" class="form-control" id="name" name="name" th:field="*{name}" placeholder="Name" required>
+                  <input
+                          type="text"
+                          class="form-control"
+                          id="name"
+                          name="name"
+                          th:field="*{name}"
+                          placeholder="Name" required><br>
+                  <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
                 </div>
+
                 <div class="form-group">
                   <label for="gender">Gender:</label>
                   <select id="gender" name="gender" th:field="*{gender}" required>
@@ -28,6 +38,7 @@
                     <option value="FEMALE">Female</option>
                   </select>
                 </div>
+
                 <div class="form-group">
                   <label for="type">Type:</label>
                   <select id="type" name="type" th:field="*{type}" required>
@@ -36,10 +47,13 @@
                     <option value="DOG">Dog</option>
                   </select>
                 </div>
+
                 <div class="form-group">
                   <label for="age">Age:</label>
-                  <input type="number" id="age" name="age" class="form-control" th:field="*{age}" placeholder="Age" required>
+                  <input type="number" id="age" name="age" class="form-control" th:field="*{age}" placeholder="Age">
+                  <p th:if="${#fields.hasErrors('age')}" class="text-danger" th:errors="*{age}"></p>
                 </div>
+
                 <div class="form-group">
                   <label for="bodySize">Body Size:</label>
                   <select id="bodySize" name="bodySize" th:field="*{bodySize}" required>
@@ -49,10 +63,12 @@
                     <option value="LARGE">Large</option>
                   </select>
                 </div>
+
                 <div class="form-group">
                   <label for="rescueDate">Rescue Date:</label>
                   <input type="date" class="form-control" id="rescueDate" name="rescueDate" th:field="*{rescueDate}" placeholder="Rescue Date" required>
                 </div>
+
                 <div class="form-group">
                   <label for="imagePath">Image Path:</label>
                   <input type="text" class="form-control" id="imagePath" name="imagePath" th:field="*{imagePath}" placeholder="Image Path" required>

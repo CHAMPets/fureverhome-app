@@ -12,6 +12,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.util.ArrayList;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -21,13 +22,16 @@ public class PetDto {
 
     private Long id;
 
-    @NotEmpty(message = "Name should not be empty")
+    @NotEmpty(message = "Enter name")
     private String name;
 
+    @NotNull(message = "Enter age")
     private Integer age;
 
+    @NotNull(message = "Select a gender")
     private Gender gender;
 
+    @NotNull(message = "Select a body size")
     private BodySize bodySize;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -39,7 +43,9 @@ public class PetDto {
     @NotEmpty(message = "Description should not be empty")
     private String description;
 
+    @NotNull(message = "Select a type")
     private Type type;
+
     private Boolean isSterilized;
     private Boolean active;
     private Integer applicationLimit;
@@ -58,6 +64,6 @@ public class PetDto {
     private LocalDate createdDate;
 
     private List<Vaccine> vaccines;
-    private List<VaccinePet> vaccineList = new ArrayList<>();
+    private List<VaccinePet> vaccineList;
 
 }

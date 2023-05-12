@@ -1,6 +1,6 @@
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="fragments/header :: header('Update Pet')"></head>
 <body onload="automate_animation();" class="d-flex flex-column h-100 bg-light">
 <main class="flex-shrink-0">
@@ -24,19 +24,20 @@
                     name="name"
                     th:field="*{name}"
                     placeholder="Name"
-                    required><br>
+                    ><br>
+            <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
           </div>
           <div class = "form-group">
             <label for="gender">Gender:</label>
             <select
                     id="gender"
                     name="gender"
-                    th:field="*{gender}"
-                    required>
+                    th:field="*{gender}">
               <option value="">-- Please select --</option>
               <option value="MALE">Male</option>
               <option value="FEMALE">Female</option>
             </select><br>
+            <p th:if="${#fields.hasErrors('gender')}" class="text-danger" th:errors="*{gender}"></p>
           </div>
 
           <div class = "form-group">
@@ -44,12 +45,12 @@
             <select
                     id="type"
                     name="type"
-                    th:field="*{type}"
-                    required>
+                    th:field="*{type}">
               <option value="">-- Please select --</option>
               <option value="CAT">Cat</option>
               <option value="DOG">Dog</option>
             </select><br>
+            <p th:if="${#fields.hasErrors('type')}" class="text-danger" th:errors="*{type}"></p>
           </div>
 
           <div class="form-group">
@@ -60,8 +61,8 @@
                     name="age"
                     class="form-control"
                     th:field="*{age}"
-                    placeholder="Age"
-                    required><br>
+                    placeholder="Age"><br>
+            <p th:if="${#fields.hasErrors('age')}" class="text-danger" th:errors="*{age}"></p>
           </div>
 
 
@@ -76,6 +77,7 @@
               <option value="MEDIUM">Medium</option>
               <option value="LARGE">Large</option>
             </select><br>
+            <p th:if="${#fields.hasErrors('bodySize')}" class="text-danger" th:errors="*{bodySize}"></p>
           </div>
 
 
@@ -100,7 +102,8 @@
                     name="imagePath"
                     th:field="*{imagePath}"
                     placeholder="Image Path"
-                    required><br>
+                    ><br>
+            <p th:if="${#fields.hasErrors('imagePath')}" class="text-danger" th:errors="*{imagePath}"></p>
           </div>
 
           <div class = "form-group">
@@ -110,9 +113,9 @@
                     name="description"
                     class="form-control"
                     th:field="*{description}"
-                    placeholder="Description"
-                    required>
+                    placeholder="Description">
                   </textarea><br>
+            <p th:if="${#fields.hasErrors('description')}" class="text-danger" th:errors="*{description}"></p>
           </div>
           <div class = "form-group">
             <label for="isSterilized">Sterilized</label>
