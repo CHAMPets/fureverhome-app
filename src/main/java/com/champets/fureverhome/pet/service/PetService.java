@@ -14,7 +14,7 @@ public interface PetService {
 
     List<PetDto> findAllActivePets();
     List<PetDto> findActivePetsByFilter(Type type, BodySize size, Gender gender);
-    Pet savePet(Pet pet);
+    Pet savePet(PetDto petDto);
 
     PetDto findPetById(long petId);
 

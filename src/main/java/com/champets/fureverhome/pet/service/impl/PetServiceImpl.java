@@ -60,7 +60,8 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public Pet savePet(Pet pet) {
+    public Pet savePet(PetDto petDto) {
+        Pet pet = PetMapper.mapToPet(petDto);
         return petRepository.save(pet);
     }
 

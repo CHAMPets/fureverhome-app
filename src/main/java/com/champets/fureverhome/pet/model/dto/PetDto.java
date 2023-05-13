@@ -11,6 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.util.ArrayList;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -26,6 +27,7 @@ public class PetDto {
     private String name;
 
     @NotNull(message = "Enter age")
+    @Min(value = 1, message = "Age must be greater than 0")
     private Integer age;
 
     @NotNull(message = "Select a gender")
