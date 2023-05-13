@@ -42,9 +42,13 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/login", "/register", "/pets", "/css/**", "/js/**")
                 .permitAll()
-                .antMatchers("/pets","/pets/**").hasAuthority("ADMIN")
+//                .antMatchers("/**","/pets","/pets/").hasAuthority("ADMIN")
+//                .antMatchers("/pets/**","applications/**").hasAuthority("USER")
+                .antMatchers("/**").hasAnyAuthority("ADMIN", "USER")
+
+
                 //.antMatchers("/pets/**").hasAuthority("ADMIN")
-                .antMatchers("/pets/**").hasAuthority("USER")
+
                 //.antMatchers("/pets/home").hasAuthority("USER")
                 .and()
                 .formLogin(form -> form
