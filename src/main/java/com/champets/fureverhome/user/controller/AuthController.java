@@ -33,6 +33,14 @@ public class AuthController {
         return "register";
     }
 
+    @GetMapping("/admin/navigation")
+    public String showAdminNavigation(Model model) {
+        UserEntity user = userService.getCurrentUser();
+        model.addAttribute("user", user);
+        return "admin/admin-navigation";
+    }
+
+
     @PostMapping("/register/save")
     public String register(@Valid @ModelAttribute("user")RegistrationDto user,
                            BindingResult result, Model model) {

@@ -2,6 +2,7 @@ package com.champets.fureverhome.config;
 
 import com.champets.fureverhome.user.enums.RoleName;
 import com.champets.fureverhome.user.model.Role;
+import com.champets.fureverhome.user.model.UserEntity;
 import com.champets.fureverhome.user.repository.RoleRepository;
 import com.champets.fureverhome.vaccine.model.Vaccine;
 import com.champets.fureverhome.vaccine.repository.VaccineRepository;
@@ -11,9 +12,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 public class Config {
+
     @Bean
     CommandLineRunner commandLineRunner(VaccineRepository vaccineRepository, RoleRepository userRoleRepository) {
         return args -> {

@@ -8,6 +8,8 @@ import com.champets.fureverhome.user.repository.UserRepository;
 import com.champets.fureverhome.user.repository.RoleRepository;
 import com.champets.fureverhome.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -56,5 +58,15 @@ public class UserServiceImpl implements UserService {
     public UserDto findUserById(Long id) {
         UserEntity user = userRepository.findUserById(id);
         return mapToUserDto(user);
+    }
+
+    @Override
+    public UserEntity getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) {
+            return null;
+        }
+        String username = authentication.getName();
+        return userRepository.findByUsername(username);
     }
 }
