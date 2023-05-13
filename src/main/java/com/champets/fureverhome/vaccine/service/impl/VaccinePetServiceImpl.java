@@ -33,7 +33,7 @@ public class VaccinePetServiceImpl implements VaccinePetService {
         Pet pet = petRepository.findById(petId).get();
         Vaccine vaccine = vaccineRepository.findById(vaccineId).get();
         VaccinePet vaccinePet = mapToVaccinePet(vaccinePetDto);
-        return null;
+        return vaccinePet;
     }
 
     @Override

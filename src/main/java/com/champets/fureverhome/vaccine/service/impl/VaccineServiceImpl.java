@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,9 +25,14 @@ public class VaccineServiceImpl implements VaccineService {
         return vaccines.stream().collect(Collectors.toList());
     }
 
+//    @Override
+//    public Vaccine findVaccineById(Long vaccineId) {
+//        Vaccine vaccine = vaccineRepository.findById(vaccineId).get();
+//        return vaccine;
+//    }
     @Override
-    public Vaccine findVaccineById(Long vaccineId) {
-        Vaccine vaccine = vaccineRepository.findById(vaccineId).get();
-        return vaccine;
+    public Vaccine findVaccineById(Long id) {
+        Optional<Vaccine> vaccine = vaccineRepository.findById(id);
+        return vaccine.isPresent() ? vaccine.get() : null;
     }
 }
