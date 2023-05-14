@@ -43,13 +43,17 @@ public class SecurityConfig {
                 .antMatchers("/login", "/register", "/applications/**","/applications", "/css/**", "/js/**")
                 //.antMatchers("/login", "/register", "/pets", "/css/**", "/js/**")
                 .permitAll()
+//
+//                .antMatchers("/**").hasAnyRole("ADMIN", "USER")
+//                .and()
+//                .authorizeRequests()
+//
+//                .antMatchers("/**").hasAnyAuthority("ADMIN","USER")
+
+
                 //.antMatchers("/pets/**").hasRole("USER")
-                .antMatchers("/**").hasAnyRole("ADMIN", "USER")
-                .and()
-                .authorizeRequests()
-////                .antMatchers("/**","/pets","/pets/").hasAuthority("ADMIN")
+                ////                .antMatchers("/**","/pets","/pets/").hasAuthority("ADMIN")
 //                .antMatchers("/pets/**","applications/**").hasAuthority("USER")
-                .antMatchers("/**").hasAnyAuthority("ADMIN","USER")
 //                .and()
 //                .authorizeRequests()
 //                .antMatchers("/pets/**").hasAnyAuthority( "USER")
