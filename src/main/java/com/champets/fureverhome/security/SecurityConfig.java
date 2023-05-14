@@ -2,6 +2,7 @@ package com.champets.fureverhome.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -43,6 +44,7 @@ public class SecurityConfig {
                 .antMatchers("/login", "/register", "/applications/**","/applications", "/css/**", "/js/**")
                 //.antMatchers("/login", "/register", "/pets", "/css/**", "/js/**")
                 .permitAll()
+
 //
 //                .antMatchers("/**").hasAnyRole("ADMIN", "USER")
 //                .and()

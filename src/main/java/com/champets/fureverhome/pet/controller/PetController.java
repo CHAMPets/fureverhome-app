@@ -11,6 +11,7 @@ import com.champets.fureverhome.vaccine.model.dto.VaccinePetDto;
 import com.champets.fureverhome.vaccine.service.VaccinePetService;
 import com.champets.fureverhome.vaccine.service.VaccineService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import com.champets.fureverhome.pet.service.PetService;
 import org.springframework.ui.Model;
@@ -20,6 +21,8 @@ import com.champets.fureverhome.pet.model.Pet;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.champets.fureverhome.pet.model.mapper.PetMapper.mapToPet;
 
 @Controller
 public class PetController {
@@ -33,6 +36,20 @@ public class PetController {
         this.petService = petService;
         this.vaccineService = vaccineService;
         this.vaccinePetService = vaccinePetService;
+    }
+
+    private List<VaccinePet> createVaccineHistory(List<Long> vaccineIds, PetDto petDto) {
+        List<VaccinePet> vaccineHistory = new ArrayList<>();
+        if (vaccineIds != null && !vaccineIds.isEmpty()) {
+            for (Long vaccineId : vaccineIds) {
+                Vaccine vaccine = vaccineService.findVaccineById(vaccineId);
+                VaccinePet vaccinePet = new VaccinePet();
+                vaccinePet.setPet(mapToPet(petDto));
+                vaccinePet.setVaccine(vaccine);
+                vaccineHistory.add(vaccinePet);
+            }
+        }
+        return vaccineHistory;
     }
 
     @GetMapping("/pets")
@@ -87,23 +104,27 @@ public class PetController {
             model.addAttribute("pet", petDto);
             model.addAttribute("vaccines", vaccines);
             return "admin/pet-create";
-        } else {
-            if (!(vaccineIds == null || vaccineIds.isEmpty())) {
-                List<VaccinePet> vaccineHistory = new ArrayList<>();
-                for (Long vaccineId : vaccineIds) {
-                    Vaccine vaccine = vaccineService.findVaccineById(vaccineId);
-                    VaccinePet vaccinePet = new VaccinePet();
-                    vaccinePet.setPet(PetMapper.mapToPet(petDto));
-                    vaccinePet.setVaccine(vaccine);
-                    vaccineHistory.add(vaccinePet);
-                }
-                Pet pet = PetMapper.mapToPet(petDto);
-                pet.setVaccineList(vaccineHistory);
-            }
-            petService.savePet(petDto);
-            return "redirect:/pets";
         }
+        List<VaccinePet> vaccineHistory = createVaccineHistory(vaccineIds, petDto);
+        Pet pet = mapToPet(petDto);
+        pet.setVaccineList(vaccineHistory);
+        petService.savePet(petDto);
+        return "redirect:/pets";
     }
+
+    //        else {
+//            if (!(vaccineIds == null || vaccineIds.isEmpty())) {
+//                List<VaccinePet> vaccineHistory = new ArrayList<>();
+//                for (Long vaccineId : vaccineIds) {
+//                    Vaccine vaccine = vaccineService.findVaccineById(vaccineId);
+//                    VaccinePet vaccinePet = new VaccinePet();
+//                    vaccinePet.setPet(PetMapper.mapToPet(petDto));
+//                    vaccinePet.setVaccine(vaccine);
+//                    vaccineHistory.add(vaccinePet);
+//                }
+//                Pet pet = PetMapper.mapToPet(petDto);
+//                pet.setVaccineList(vaccineHistory);
+//            }
 
     @GetMapping("/pets/{petId}/edit")
     public String editPetForm(@PathVariable("petId") Long petId, Model model){
@@ -128,23 +149,11 @@ public class PetController {
             model.addAttribute("vaccine", vaccines);
             model.addAttribute("pet", pet);
             return "admin/pet-edit";
-        } else {
-            if (!(vaccineIds == null || vaccineIds.isEmpty())) {
-                List<VaccinePet> vaccineHistory = new ArrayList<>();
-                for (Long vaccineId : vaccineIds) {
-                    Vaccine vaccine = vaccineService.findVaccineById(vaccineId);
-                    VaccinePet vaccinePet = new VaccinePet();
-                    vaccinePet.setPet(PetMapper.mapToPet(pet));
-                    vaccinePet.setVaccine(vaccine);
-                    vaccineHistory.add(vaccinePet);
-                }
-                pet.setVaccineList(vaccineHistory);
-            } else {
-                List<VaccinePet> vaccineHistory = new ArrayList<>();
-                pet.setVaccineList(vaccineHistory);
-            }
-            petService.updatePet(pet);
-            return "redirect:/pets";
+        }
+        List<VaccinePet> vaccineHistory = createVaccineHistory(vaccineIds, pet);
+        pet.setVaccineList(vaccineHistory);
+        petService.updatePet(pet);
+        return "redirect:/pets";
         }
 
 //        pet.setId(petId);
@@ -156,7 +165,22 @@ public class PetController {
 //              model.addAttribute("vaccine", vaccines);
 //              return"redirect:/pets/"+petId+"/edit";
 //              List<Vaccine> vaccines = vaccineService.findAllVaccines();
-    }
+
+    //        else {
+//            if (!(vaccineIds == null || vaccineIds.isEmpty())) {
+//                List<VaccinePet> vaccineHistory = new ArrayList<>();
+//                for (Long vaccineId : vaccineIds) {
+//                    Vaccine vaccine = vaccineService.findVaccineById(vaccineId);
+//                    VaccinePet vaccinePet = new VaccinePet();
+//                    vaccinePet.setPet(PetMapper.mapToPet(pet));
+//                    vaccinePet.setVaccine(vaccine);
+//                    vaccineHistory.add(vaccinePet);
+//                }
+//                pet.setVaccineList(vaccineHistory);
+//            } else {
+//                List<VaccinePet> vaccineHistory = new ArrayList<>();
+//                pet.setVaccineList(vaccineHistory);
+//            }
 
     @GetMapping("pets/{petId}")
     public String displayPet(@PathVariable("petId") Long petId, Model model){

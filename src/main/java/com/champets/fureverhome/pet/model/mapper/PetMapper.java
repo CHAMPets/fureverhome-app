@@ -24,6 +24,8 @@ public class PetMapper {
                 .createdBy(pet.getCreatedBy())
                 .lastDateModified(pet.getLastDateModified())
                 .lastModifiedBy(pet.getLastModifiedBy())
+                .vaccineList(pet.getVaccineList())
+                .applications(pet.getApplications())
                 .build();
         return petDto;
     }
@@ -47,6 +49,8 @@ public class PetMapper {
                 .createdBy(pet.getCreatedBy())
                 .lastDateModified(pet.getLastDateModified())
                 .lastModifiedBy(pet.getLastModifiedBy())
+                .vaccineList(pet.getVaccineList())
+                .applications(pet.getApplications())
                 .build();
         return petDto;
     }

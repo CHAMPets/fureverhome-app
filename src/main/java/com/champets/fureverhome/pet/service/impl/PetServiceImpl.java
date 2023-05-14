@@ -23,6 +23,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.champets.fureverhome.pet.model.mapper.PetMapper.mapToPet;
+import static com.champets.fureverhome.pet.model.mapper.PetMapper.mapToPetDto;
+
 @Service
 public class PetServiceImpl implements PetService {
     private final PetRepository petRepository;
@@ -44,36 +47,36 @@ public class PetServiceImpl implements PetService {
     @Override
     public List<PetDto> findAllPets() {
         List<Pet> pets = petRepository.findAll();
-        return pets.stream().map((pet) -> PetMapper.mapToPetDto(pet)).collect(Collectors.toList());
+        return pets.stream().map((pet) -> mapToPetDto(pet)).collect(Collectors.toList());
     }
 
     @Override
     public List<PetDto> findAllActivePets() {
         List<Pet> pets = petRepository.findByActiveTrue();
-        return pets.stream().map((pet) -> PetMapper.mapToPetDto(pet)).collect(Collectors.toList());
+        return pets.stream().map((pet) -> mapToPetDto(pet)).collect(Collectors.toList());
     }
 
     @Override
     public List<PetDto> findActivePetsByFilter(Type type, BodySize size, Gender gender) {
         List<Pet> pets = petRepository.findByFilter(type, size, gender);
-        return pets.stream().map((pet) -> PetMapper.mapToPetDto(pet)).collect(Collectors.toList());
+        return pets.stream().map((pet) -> mapToPetDto(pet)).collect(Collectors.toList());
     }
 
     @Override
     public Pet savePet(PetDto petDto) {
-        Pet pet = PetMapper.mapToPet(petDto);
+        Pet pet = mapToPet(petDto);
         return petRepository.save(pet);
     }
 
     @Override
     public PetDto findPetById(long petId) {
         Pet pet = petRepository.findById(petId).get();
-        return PetMapper.mapToPetDto(pet);
+        return mapToPetDto(pet);
     }
 
     @Override
     public void updatePet(PetDto petDto) {
-        Pet pet = PetMapper.mapToPet(petDto);
+        Pet pet = mapToPet(petDto);
         petRepository.save(pet);
 
         List<VaccinePet> vaccineHistory = new ArrayList<>();

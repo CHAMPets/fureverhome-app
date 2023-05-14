@@ -1,5 +1,6 @@
 package com.champets.fureverhome.pet.model.dto;
 
+import com.champets.fureverhome.application.model.Application;
 import com.champets.fureverhome.pet.enums.BodySize;
 import com.champets.fureverhome.pet.enums.Gender;
 import com.champets.fureverhome.pet.enums.Type;
@@ -53,7 +54,6 @@ public class PetDto {
     private Integer applicationLimit;
     private Integer applicationCounter;
 
-    @UpdateTimestamp
     private LocalDate lastDateModified;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -62,10 +62,12 @@ public class PetDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String lastModifiedBy;
 
-    @CreationTimestamp
     private LocalDate createdDate;
 
-    private List<Vaccine> vaccines;
+//    private List<Vaccine> vaccines;
+
+    @NotEmpty(message = "Please select at least one vaccine")
     private List<VaccinePet> vaccineList;
+    private List<Application> applications;
 
 }
