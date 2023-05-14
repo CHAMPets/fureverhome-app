@@ -40,11 +40,23 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login", "/register", "/pets", "/css/**", "/js/**")
+                .antMatchers("/login", "/register", "/applications/**","/applications", "/css/**", "/js/**")
+                //.antMatchers("/login", "/register", "/pets", "/css/**", "/js/**")
                 .permitAll()
-//                .antMatchers("/**","/pets","/pets/").hasAuthority("ADMIN")
+                //.antMatchers("/pets/**").hasRole("USER")
+                .antMatchers("/**").hasAnyRole("ADMIN", "USER")
+                .and()
+                .authorizeRequests()
+////                .antMatchers("/**","/pets","/pets/").hasAuthority("ADMIN")
 //                .antMatchers("/pets/**","applications/**").hasAuthority("USER")
-                .antMatchers("/**").hasAnyAuthority("ADMIN", "USER")
+                .antMatchers("/**").hasAnyAuthority("ADMIN","USER")
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/pets/**").hasAnyAuthority( "USER")
+
+
+                //.antMatchers("/**").hasAnyAuthority("ADMIN", "USER")
+//                .antMatchers("pets/**").hasAnyAuthority( "USER")
 
 
                 //.antMatchers("/pets/**").hasAuthority("ADMIN")
