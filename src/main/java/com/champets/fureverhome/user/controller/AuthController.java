@@ -26,26 +26,6 @@ public class AuthController {
 
     @GetMapping("/login")
     public String loginPage() {
-//        UserEntity user = userService.getCurrentUser();
-//        if(user != null) {
-//            List<SimpleGrantedAuthority> authorities = user.getRoles().stream()
-//                    .map((role) -> new SimpleGrantedAuthority(role.getName()))
-//                    .collect(Collectors.toList());
-//
-//            // Check if the user has the "admin" role
-//            boolean isAdmin = authorities.stream()
-//                    .anyMatch(authority -> authority.
-//                            getAuthority().
-//                            equals("ADMIN"));
-//
-//            if (isAdmin) {
-//                // Redirect to the admin page
-//                return "redirect:/admin";
-//            } else {
-//                // Redirect to a different page for non-admin users
-//                return "redirect:/user";
-//            }
-//        } else {
             return "login";
         }
 
@@ -77,7 +57,7 @@ public class AuthController {
         }
         if(result.hasErrors()) {
             model.addAttribute("user", user);
-            return "register";
+            return "login";
         }
         userService.saveUser(user);
         return "redirect:/login?success";

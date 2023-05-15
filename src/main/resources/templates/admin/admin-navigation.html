@@ -8,8 +8,6 @@
                 <li class="nav-item" th:object="${user}" th:if="${user != null}">
                     <span class="nav-link">Hello, <span th:text="${user.username}"></span></span>
                 </li>
-<!--                <li class="nav-item"><span class="nav-link" th:object="${user}" th:if="${user != null}" >Hello, <span th:text="${user.name}"></span></span></li>-->
-
                 <li class="nav-item"><a class="nav-link" th:href="@{/admin}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="../resume.html">About Us</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{admin/pets/new}">Add a Pet</a></li>

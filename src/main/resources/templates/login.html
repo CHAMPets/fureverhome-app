@@ -1,73 +1,145 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
-<head>
-  <title>Register</title>
-</head>
-<section layout:fragment="body">
-  <style>
-    .card {
-      margin-top: 20px;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    }
+<html lang="en" xmlns:th="http://thymeleaf.org">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/login-style.css">
+<body>
+<h2>FurEverHome</h2>
+    <div class="main">
+      <div class="col-md-6 col-sm-12">
+    <div th:if="${param.error}" class="alert alert-success">
+      Invalid username and password.
+    </div>
+    <div th:if="${param.logout}" class="alert alert-success">
+      You have been logged out.
+    </div>
+     <div th:if="${param.fail}" class="alert alert-success">
+      Email already exists.
+     </div>
 
-    .main {
-      padding: 0px 10px;
-      display: flex;
-<!--      justify-content: center;-->
-      align-items: center;
-      height: 50vh;
-    }
+<div class="container" id="container">
+  <div class="form-container sign-up-container">
+<!--    <form method="post" role="form" th:action="@{/register/save}" th:object="${user}">-->
+      <form action="#">
+        <h1>Create Account</h1>
+        <div class="social-container">
+          <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+          <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <span>or use your email for registration</span>
+        <input type="text" placeholder="Name" />
+        <input type="email" placeholder="Email" />
+        <input type="password" placeholder="Password" />
+        <button>Sign Up</button>
+      </form>
+    </div>
+<!--      <h1>Create Account</h1>-->
+<!--      <div class="social-container">-->
+<!--        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>-->
+<!--        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>-->
+<!--        <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>-->
+<!--      </div>-->
+<!--      <span>or use your email for registration</span>-->
+<!--      <input type="text" class="form-control" placeholder="Username" th:field="*{username}">-->
+<!--      <p th:if="${#fields.hasErrors('username')}" class="text-danger"></p>-->
+<!--      <input-->
+<!--              type="text"-->
+<!--              class="form-control"-->
+<!--              placeholder="Email"-->
+<!--              th:field="*{email}">-->
+<!--      <p th:if="${#fields.hasErrors('email')}" class="text-danger"></p>-->
 
+<!--      <input-->
+<!--              type="text"-->
+<!--              class="form-control"-->
+<!--              placeholder="First Name"-->
+<!--              th:field="*{firstName}">-->
+<!--      <p th:if="${#fields.hasErrors('firstName')}" class="text-danger"></p>-->
 
-    @media screen and (max-width: 450px) {
-      .login-form{
-        margin-top: 10%;
-      }
-      .register-form{
-        margin-top: 10%;
-      }
-    }
-    @media screen and (min-width: 768px){
-      .main{
-        margin-left: 30%;
-      }
+<!--      <input-->
+<!--              type="text"-->
+<!--              class="form-control"-->
+<!--              placeholder="last Name"-->
+<!--              th:field="*{lastName}">-->
 
-      .sidenav{
-        width: 40%;
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        left: 0;
-      }
-    }
-  </style>
-  <div class="main">
-    <div class="col-md-6 col-sm-12">
-      <div th:if="${param.error}" class="alert alert-success">
-        Invalid username and password.
+<!--      <p th:if="${#fields.hasErrors('lastName')}" class="text-danger"></p>-->
+
+<!--      <input-->
+<!--              type="text"-->
+<!--              class="form-control"-->
+<!--              placeholder="Phone Number"-->
+<!--              th:field="*{phoneNumber}">-->
+
+<!--      <p th:if="${#fields.hasErrors('phoneNumber')}" class="text-danger"></p>-->
+
+<!--      <input type="password" class="form-control" placeholder="Password" th:field="*{password}">-->
+<!--      <input type="password" class="form-control" placeholder="Confirm Password" id="confirm_password" required>-->
+<!--      <p th:if="${#fields.hasErrors('password')}" class="text-danger"></p>-->
+<!--      <button type="submit">Sign Up</button>-->
+<!--    </form>-->
+<!--  </div>-->
+  <div class="form-container sign-in-container">
+    <form method="post" th:action="@{/login}">
+      <h1>Sign in</h1>
+      <div class="social-container">
+        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+        <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
       </div>
-      <div th:if="${param.logout}" class="alert alert-success">
-        You have been logged out.</div>
-      <div class="card">
-        <div class="card-header">
-          Login Form
-        </div>
-        <div class="card-body">
-          <form method="post" th:action="@{/login}">
-            <div class="form-group">
-              <label>Username</label>
-              <input id="username" type="text" class="form-control" placeholder="Username" name="username">
-            </div>
-            <div class="form-group">
-              <label>Password</label>
-              <input id="password" type="password" class="form-control" placeholder="Password" name="password">
-            </div>
-            </br>
-            <button type="submit" value="Log in" class="btn btn-primary">Login</button>
-          </form>
-        </div>
+      <span>or use your account</span>
+      <input id="username" type="text" class="form-control" placeholder="Username" name="username">
+      <input id="password" type="password" class="form-control" placeholder="Password" name="password">
+      <a href="#">Forgot your password?</a>
+      <button type="submit" value="Log in">Sign In</button>
+    </form>
+  </div>
+  <div class="overlay-container">
+    <div class="overlay">
+      <div class="overlay-panel overlay-left">
+        <h1>Welcome Back!</h1>
+        <p>To keep connected with us please login with your personal info</p>
+        <button class="ghost" id="signIn">Sign In</button>
+      </div>
+      <div class="overlay-panel overlay-right">
+        <h1>Hello, Fur Friend!</h1>
+        <p>Enter your personal details and start adopting pets</p>
+        <button class="ghost" id="signUp">Sign Up</button>
       </div>
     </div>
   </div>
-</section>
+</div>
+
+<footer>
+  <p>
+    Copyright &copy; FurEverHome - CHAMPets
+  </p>
+</footer>
+</body>
+
+  <script>
+      const signUpButton = document.getElementById('signUp');
+      const signInButton = document.getElementById('signIn');
+      const container = document.getElementById('container');
+
+      signUpButton.addEventListener('click', () => {
+          container.classList.add("right-panel-active");
+      });
+
+      signInButton.addEventListener('click', () => {
+          container.classList.remove("right-panel-active");
+      });
+  </script>
+            <script>
+                        var password = document.getElementById("password");
+                        var confirm_password = document.getElementById("confirm_password");
+                        function validatePassword() {
+                            if (password.value != confirm_password.value) {
+                                confirm_password.setCustomValidity("Passwords Don't Match");
+                            } else {
+                                confirm_password.setCustomValidity('');
+                            }
+                        }
+                        password.onchange = validatePassword;
+                        confirm_password.onkeyup = validatePassword;
+            </script>
 </html>

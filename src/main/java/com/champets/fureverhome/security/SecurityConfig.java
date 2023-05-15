@@ -28,14 +28,14 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-//    @Bean
-//    public AccessDeniedHandler accessDeniedHandler() {
-//        return (request, response, accessDeniedException) -> {
-//            response.setStatus(HttpStatus.FORBIDDEN.value());
-//            request.setAttribute("errorMessage", "Access denied");
-//            request.getRequestDispatcher("/error").forward(request, response);
-//        };
-//    }
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return (request, response, accessDeniedException) -> {
+            response.setStatus(HttpStatus.FORBIDDEN.value());
+            request.setAttribute("errorMessage", "Access denied");
+            request.getRequestDispatcher("/error").forward(request, response);
+        };
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
@@ -44,30 +44,6 @@ public class SecurityConfig {
                 .antMatchers("/login", "/register", "/css/**", "/js/**").permitAll()
                 .antMatchers("/admin/**").hasAnyAuthority("ADMIN")
                 .antMatchers("/home/**", "/pets/**", "/applications/**").hasAnyAuthority("USER")
-
-//
-//                .antMatchers("/**").hasAnyRole("ADMIN", "USER")
-//                .and()
-//                .authorizeRequests()
-//
-//                .antMatchers("/**").hasAnyAuthority("ADMIN","USER")
-
-
-                //.antMatchers("/pets/**").hasRole("USER")
-                ////                .antMatchers("/**","/pets","/pets/").hasAuthority("ADMIN")
-//                .antMatchers("/pets/**","applications/**").hasAuthority("USER")
-//                .and()
-//                .authorizeRequests()
-//                .antMatchers("/pets/**").hasAnyAuthority( "USER")
-
-
-                //.antMatchers("/**").hasAnyAuthority("ADMIN", "USER")
-//                .antMatchers("pets/**").hasAnyAuthority( "USER")
-
-
-                //.antMatchers("/pets/**").hasAuthority("ADMIN")
-
-                //.antMatchers("/pets/home").hasAuthority("USER")
                 .and()
                 .formLogin(form -> form
                         .loginPage("/login")

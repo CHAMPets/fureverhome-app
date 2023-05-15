@@ -67,7 +67,9 @@ public class PetController {
 
     @GetMapping("/home")
     public String listActivePets(Model model){
+        UserEntity user = userService.getCurrentUser();
         List<PetDto> pets = petService.findAllActivePets();
+        model.addAttribute("user", user);
         model.addAttribute("pets", pets);
         return "user/user-home";
     }
