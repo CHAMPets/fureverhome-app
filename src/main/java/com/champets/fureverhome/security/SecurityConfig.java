@@ -41,9 +41,9 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login", "/register","/pets", "/applications/**","/applications", "/css/**", "/js/**")
+                .antMatchers("/login", "/register", "/pets/**", "/css/**", "/js/**").permitAll()
+//                .antMatchers("/pets/**").hasAnyAuthority("ADMIN")
                 //.antMatchers("/login", "/register", "/pets", "/css/**", "/js/**")
-                .permitAll()
 
 //
 //                .antMatchers("/**").hasAnyRole("ADMIN", "USER")
@@ -71,15 +71,19 @@ public class SecurityConfig {
                 .and()
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/login", false)
-                        .successHandler((request, response, authentication) -> {
-                            if (authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ADMIN"))) {
-                                response.sendRedirect("/pets");
-                            }
-                            else if (authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("USER"))) {
-                                response.sendRedirect("/pets/home");
-                            }
-                        })
+//                        .defaultSuccessUrl("/login", false)
+
+//                        .loginPage("/login")
+                        .defaultSuccessUrl("/pets")
+
+//                        .successHandler((request, response, authentication) -> {
+//                            if (authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ADMIN"))) {
+//                                response.sendRedirect("/pets");
+//                            }
+//                            else if (authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("USER"))) {
+//                                response.sendRedirect("/pets/home");
+//                            }
+//                        })
                         .loginProcessingUrl("/login")
                         .failureUrl("/login?error=true")
                         .permitAll()

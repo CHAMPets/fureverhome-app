@@ -77,7 +77,7 @@ public class PetServiceImpl implements PetService {
     @Override
     public void updatePet(PetDto petDto) {
         Pet pet = mapToPet(petDto);
-        petRepository.save(pet);
+
 
         List<VaccinePet> vaccineHistory = new ArrayList<>();
         for (VaccinePet vaccinePet: petDto.getVaccineList()) {

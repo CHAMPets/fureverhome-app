@@ -66,7 +66,7 @@ public class PetDto {
 
 //    private List<Vaccine> vaccines;
 
-    @NotEmpty(message = "Please select at least one vaccine")
+//    @NotEmpty(message = "Please select at least one vaccine")
     private List<VaccinePet> vaccineList;
     private List<Application> applications;
 

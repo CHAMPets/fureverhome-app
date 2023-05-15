@@ -85,7 +85,7 @@ public class PetController {
         return "user/user-home-filtered";
     }
 
-    @GetMapping("pets/new")
+    @GetMapping("/pets/new")
     public String createPetForm(Model model){
         Pet pet = new Pet();
         List<Vaccine> vaccines = vaccineService.findAllVaccines();
@@ -93,7 +93,7 @@ public class PetController {
         model.addAttribute("pet", pet);
         return "admin/pet-create";
     }
-    @PostMapping("pets/new")
+    @PostMapping("/pets/new")
     public String savePet(@Valid @ModelAttribute("pet") PetDto petDto,
                           BindingResult result,
                           @RequestParam(name = "vaccineIds", required = false) List<Long> vaccineIds,
@@ -150,6 +150,7 @@ public class PetController {
             model.addAttribute("pet", pet);
             return "admin/pet-edit";
         }
+        petService.deletePetVaccinesByPetId(petId);
         List<VaccinePet> vaccineHistory = createVaccineHistory(vaccineIds, pet);
         pet.setVaccineList(vaccineHistory);
         petService.updatePet(pet);
