@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
         if (authentication == null) {
             return null;
         }
-        String username = authentication.getName();
-        return userRepository.findByUsername(username);
+        String email = authentication.getName();
+        return userRepository.findByEmail(email);
     }
 }
