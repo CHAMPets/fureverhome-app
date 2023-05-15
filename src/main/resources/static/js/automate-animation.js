@@ -3,6 +3,10 @@ function automate_animation() {
     for (var i = 0; i < h1_list.length; i++)
         h1_list[i].setAttribute("data-aos", "fade-up");
 
+    var h2_list = document.querySelectorAll("h2");
+    for (var i = 0; i < h2_list.length; i++)
+        h2_list[i].setAttribute("data-aos", "fade-up");
+
     var card_list = document.querySelectorAll(".card");
     for (var i = 0; i < card_list.length; i++)
         card_list[i].setAttribute("data-aos", "zoom-in");

@@ -39,6 +39,12 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
+    public List<ApplicationDto> findApplicationsByUserId(Long userId) {
+        List<Application> applications = applicationRepository.findApplicationsByUserId(userId);
+        return applications.stream().map(application -> mapToApplicationDto(application)).collect(Collectors.toList());
+    }
+
+    @Override
     public Application saveApplication(ApplicationDto applicationDto, Long petId, Long userId) {
         Pet pet = petRepository.findById(petId).get();
         UserEntity user = userRepository.findById(userId).get(); //null pointer exception

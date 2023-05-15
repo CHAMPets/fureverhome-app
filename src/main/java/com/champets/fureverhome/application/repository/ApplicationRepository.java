@@ -9,6 +9,9 @@ import java.util.List;
 public interface ApplicationRepository extends JpaRepository<Application, Long> {
     @Query("SELECT a from Application a WHERE a.pet.id = :petId")
     List<Application> findApplicationsByPetId(Long petId);
+
+    @Query("SELECT a from Application a WHERE a.user.id = :userId")
+    List<Application> findApplicationsByUserId(Long userId);
 //    @Query("SELECT a from Application a WHERE a.user.emailAddress LIKE CONCAT('%', :query, '%')")
 //    List<Application> searchApplicationsByEmailAddress(String emailAddress);
 

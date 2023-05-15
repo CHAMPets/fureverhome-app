@@ -2,7 +2,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head th:replace="fragments/header :: header('View All Pets')"></head>
-<body class="d-flex flex-column h-100 bg-light">
+<body onload="automate_animation();" class="d-flex flex-column h-100 bg-light">
 <main class="flex-shrink-0">
 
     <nav th:replace="user/user-navigation :: navigation"></nav>
@@ -81,14 +81,7 @@
     </section>
     </section>
     <!-- Call to action section-->
-    <section class="py-5 bg-gradient-primary-to-secondary text-white">
-        <div class="container px-5 my-5">
-            <div class="text-center">
-                <h2 class="display-4 fw-bolder mb-4">Want to rehome a pet?</h2>
-                <a class="btn btn-outline-light btn-lg px-5 py-3 fs-6 fw-bolder" href="../contact.html">Contact me</a>
-            </div>
-        </div>
-    </section>
+    <section th:replace="fragments/call-to-action :: call-to-action"></section>
 </main>
 <!-- Footer-->
 <footer th:replace="fragments/footer:: footer"></footer>

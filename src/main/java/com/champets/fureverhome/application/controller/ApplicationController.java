@@ -9,6 +9,7 @@ import com.champets.fureverhome.application.service.MailService;
 import com.champets.fureverhome.pet.model.Pet;
 import com.champets.fureverhome.pet.model.dto.PetDto;
 import com.champets.fureverhome.pet.service.PetService;
+import com.champets.fureverhome.user.model.UserEntity;
 import com.champets.fureverhome.user.model.dto.RegistrationDto;
 import com.champets.fureverhome.user.model.dto.UserDto;
 import com.champets.fureverhome.user.service.UserService;
@@ -36,21 +37,30 @@ public class ApplicationController {
     @Autowired
     private MailService mailService;
 
-    @GetMapping("/applications")
+    @GetMapping("/admin/applications")
     public String listApplications(Model model) {
         List<ApplicationDto> applications = applicationService.findAllApplications();
         model.addAttribute("applications", applications);
         return "admin/application-list";
     }
 
-    @GetMapping("/applications/pet/{petId}")
+    @GetMapping("/admin/applications/pet/{petId}")
     public String listApplications(@PathVariable("petId") Long petId, Model model) {
         List<ApplicationDto> applications = applicationService.findApplicationsByPetId(petId);
         model.addAttribute("applications", applications);
         return "admin/application-list";
     }
 
-    @GetMapping("/applications/{applicationId}")
+    @GetMapping("/applications")
+    public String listUserApplications(Model model) {
+        UserEntity user = userService.getCurrentUser();
+
+        List<ApplicationDto> applications = applicationService.findApplicationsByUserId(user.getId());
+        model.addAttribute("applications", applications);
+        return "user/application-list";
+    }
+
+    @GetMapping("/admin/applications/{applicationId}")
     public String applicationDetail(@PathVariable("applicationId") Long applicationId, Model model) {
         ApplicationDto application = applicationService.findApplicationById(applicationId);
         model.addAttribute("applicationDto", application);
@@ -59,7 +69,7 @@ public class ApplicationController {
         return "admin/application-details";
     }
 
-    @PostMapping("/applications/{petId}/{userId}")
+    @PostMapping("/admin/applications/{petId}/{userId}")
     public String saveApplication(@ModelAttribute("application") ApplicationDto applicationDto, @PathVariable("petId") Long petId, @PathVariable("userId") Long userId, Model model) {
         applicationService.saveApplication(applicationDto, petId, userId);
         UserDto userDto = userService.findUserById(userId);
@@ -71,14 +81,10 @@ public class ApplicationController {
         return "redirect:/applications";
     }
 
-    @PostMapping("/applications/{applicationId}")
+    @PostMapping("/admin/applications/{applicationId}")
     public String updateApplication(@PathVariable("applicationId") Long applicationId,
                                     @ModelAttribute("application") ApplicationDto application,
-                                    BindingResult result, Model model) {
-//        if (result.hasErrors()) {
-//            model.addAttribute("applicationDto", application);
-//            return "admin/application-details";
-//        }
+                                    Model model) {
         ApplicationDto applicationDto = applicationService.findApplicationById(applicationId);
         application.setId(applicationId);
         application.setUser(applicationDto.getUser());
@@ -87,6 +93,7 @@ public class ApplicationController {
                 mailService.sendEmail(application.getUser().getEmail(), "Application Approved", "Your application for pet " + applicationDto.getPet().getName() + " is approved.");
                 break;
             case REJECTED:
+                applicationDto.getPet().setApplicationCounter(applicationDto.getPet().getApplicationCounter() - 1);
                 mailService.sendEmail(application.getUser().getEmail(), "Application Rejected", "Your application for pet " + applicationDto.getPet().getName() + " is rejected.");
                 break;
             case RELEASED:
@@ -94,7 +101,6 @@ public class ApplicationController {
                 applicationDto.getPet().setActive(false);
                 break;
             case CANCELLED:
-                applicationDto.getPet().setApplicationCounter(applicationDto.getPet().getApplicationCounter() - 1);
                 applicationDto.getPet().setActive(false);
                 mailService.sendEmail(application.getUser().getEmail(), "Application Cancelled", "Your application for pet " + applicationDto.getPet().getName() + " is cancelled.");
                 break;
@@ -102,7 +108,6 @@ public class ApplicationController {
         application.setPet(applicationDto.getPet());
         applicationService.updateApplication(application);
 
-        return "redirect:/applications";
+        return "redirect:/admin/applications";
     }
-    //comment
 }
