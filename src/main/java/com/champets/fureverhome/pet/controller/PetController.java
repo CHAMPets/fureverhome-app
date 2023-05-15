@@ -73,7 +73,7 @@ public class PetController {
     }
 
     @GetMapping("/home/filtered")
-    public String listActivePetsByFilter(   @RequestParam(value="type") String type,
+    public String listActivePetsByFilterAsUser(   @RequestParam(value="type") String type,
                                             @RequestParam(value="size") String size,
                                             @RequestParam(value= "gender") String gender,
                                             Model model){
@@ -89,6 +89,24 @@ public class PetController {
         model.addAttribute("size", size);
         model.addAttribute("gender", gender);
         return "user/user-home-filtered";
+    }
+
+    @GetMapping("/admin/filtered")
+    public String listActivePetsByFilterAsAdmin(   @RequestParam(value="type") String type,
+                                            @RequestParam(value="size") String size,
+                                            @RequestParam(value= "gender") String gender,
+                                            Model model){
+
+        Type enumType = (type != null && !type.equals("ALL")) ? Type.valueOf(type) : null;
+        BodySize enumSize = (size != null && !size.equals("ALL")) ? BodySize.valueOf(size) : null;
+        Gender enumGender = (gender != null && !gender.equals("ALL")) ? Gender.valueOf(gender) : null;
+
+        List<PetDto> pets = petService.findActivePetsByFilter(enumType, enumSize, enumGender);
+        model.addAttribute("pets", pets);
+        model.addAttribute("type", type);
+        model.addAttribute("size", size);
+        model.addAttribute("gender", gender);
+        return "admin/admin-home-filtered";
     }
 
     @GetMapping("/admin/pets/new")
@@ -190,12 +208,21 @@ public class PetController {
 //            }
 
     @GetMapping("/pets/{petId}")
-    public String displayPet(@PathVariable("petId") Long petId, Model model){
+    public String displayPetAsUser(@PathVariable("petId") Long petId, Model model){
         PetDto pet = petService.findPetById(petId);
         List<VaccinePetDto> vaccinePet = vaccinePetService.findVaccineListByPetId(petId);
         model.addAttribute("pet", pet);
         model.addAttribute("vaccines", vaccinePet);
-        return "user/pet-details";
+        return "user/user-pet-details";
+    }
+
+    @GetMapping("/admin/pets/{petId}")
+    public String displayPetAsAdmin(@PathVariable("petId") Long petId, Model model){
+        PetDto pet = petService.findPetById(petId);
+        List<VaccinePetDto> vaccinePet = vaccinePetService.findVaccineListByPetId(petId);
+        model.addAttribute("pet", pet);
+        model.addAttribute("vaccines", vaccinePet);
+        return "admin/admin-pet-details";
     }
 }
 

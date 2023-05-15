@@ -13,14 +13,20 @@
         <div class="col-lg-11 col-xl-9 col-xxl-8">
           <section th:object="${pet}">
             <div class="d-flex align-items-center justify-content-between mb-4">
-              <h2 th:text="${pet.name}" class="text-primary fw-bolder mb-0"></h2>
-              <form method="post" th:action="@{/applications/{petId}/{userId}(petId=${pet.id}, userId=1)}" th:object="${application}">
-                <button type="submit" class="btn btn-primary px-4 py-3" style="margin-top:15px">
-                  <div class="d-inline-block bi bi-send me-2"></div>
-                  Adopt
+              <div>
+                <h2 th:text="${pet.name}" class="text-primary fw-bolder mb-0"></h2>
+              </div>
+              <div>
+                <form method="post" th:action="@{/applications/{petId}/{userId}(petId=${pet.id}, userId=1)}" th:object="${application}">
+                  <button type="submit" class="btn btn-primary btn-lg me-3" style="font-size: 1.1rem; width: 150px">
+                    <div class="d-inline-block bi bi-send me-2"></div>
+                    Adopt
+                  </button>
+                </form>
+                <button type="button" onclick="history.back();" class="btn btn-secondary btn-lg me-3" style="font-size: 1.1rem; width: 150px">
+                  <i class="bi bi-arrow-left"></i> Back
                 </button>
-              </form>
-
+              </div>
             </div>
             <div class="row">
               <div class="col-md-6 text-center">
