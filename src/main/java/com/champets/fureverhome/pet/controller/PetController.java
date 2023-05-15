@@ -5,6 +5,8 @@ import com.champets.fureverhome.pet.enums.Gender;
 import com.champets.fureverhome.pet.enums.Type;
 import com.champets.fureverhome.pet.model.dto.PetDto;
 import com.champets.fureverhome.pet.model.mapper.PetMapper;
+import com.champets.fureverhome.user.model.UserEntity;
+import com.champets.fureverhome.user.service.UserService;
 import com.champets.fureverhome.vaccine.model.Vaccine;
 import com.champets.fureverhome.vaccine.model.VaccinePet;
 import com.champets.fureverhome.vaccine.model.dto.VaccinePetDto;
@@ -29,13 +31,15 @@ public class PetController {
     private final PetService petService;
     private final VaccineService vaccineService;
     private final VaccinePetService vaccinePetService;
+    private final UserService userService;
 
     @Autowired
-    public PetController(PetService petService, VaccineService vaccineService, VaccinePetService vaccinePetService) {
+    public PetController(PetService petService, VaccineService vaccineService, VaccinePetService vaccinePetService, UserService userService) {
 
         this.petService = petService;
         this.vaccineService = vaccineService;
         this.vaccinePetService = vaccinePetService;
+        this.userService = userService;
     }
 
     private List<VaccinePet> createVaccineHistory(List<Long> vaccineIds, PetDto petDto) {
@@ -52,21 +56,23 @@ public class PetController {
         return vaccineHistory;
     }
 
-    @GetMapping("/pets")
+    @GetMapping("/admin")
     public String listPets(Model model){
+        UserEntity user = userService.getCurrentUser();
         List<PetDto> pets = petService.findAllPets();
+        model.addAttribute("user", user);
         model.addAttribute("pets", pets);
         return "admin/admin-home";
     }
 
-    @GetMapping("/pets/home")
+    @GetMapping("/home")
     public String listActivePets(Model model){
         List<PetDto> pets = petService.findAllActivePets();
         model.addAttribute("pets", pets);
         return "user/user-home";
     }
 
-    @GetMapping("/pets/home/filtered")
+    @GetMapping("/home/filtered")
     public String listActivePetsByFilter(   @RequestParam(value="type") String type,
                                             @RequestParam(value="size") String size,
                                             @RequestParam(value= "gender") String gender,
@@ -85,7 +91,7 @@ public class PetController {
         return "user/user-home-filtered";
     }
 
-    @GetMapping("/pets/new")
+    @GetMapping("/admin/pets/new")
     public String createPetForm(Model model){
         Pet pet = new Pet();
         List<Vaccine> vaccines = vaccineService.findAllVaccines();
@@ -93,7 +99,7 @@ public class PetController {
         model.addAttribute("pet", pet);
         return "admin/pet-create";
     }
-    @PostMapping("/pets/new")
+    @PostMapping("/admin/pets/new")
     public String savePet(@Valid @ModelAttribute("pet") PetDto petDto,
                           BindingResult result,
                           @RequestParam(name = "vaccineIds", required = false) List<Long> vaccineIds,
@@ -109,7 +115,7 @@ public class PetController {
         Pet pet = mapToPet(petDto);
         pet.setVaccineList(vaccineHistory);
         petService.savePet(petDto);
-        return "redirect:/pets";
+        return "redirect:/admin";
     }
 
     //        else {
@@ -126,7 +132,7 @@ public class PetController {
 //                pet.setVaccineList(vaccineHistory);
 //            }
 
-    @GetMapping("/pets/{petId}/edit")
+    @GetMapping("/admin/pets/{petId}/edit")
     public String editPetForm(@PathVariable("petId") Long petId, Model model){
         List<Vaccine> vaccines = vaccineService.findAllVaccines();
         model.addAttribute("vaccine", vaccines);
@@ -135,7 +141,7 @@ public class PetController {
         return "admin/pet-edit";
     }
 
-    @PostMapping("pets/{petId}/edit")
+    @PostMapping("/admin/pets/{petId}/edit")
     public String updatePet(@PathVariable("petId") Long petId,
                             @Valid @ModelAttribute("pet") PetDto pet,
                             BindingResult result,
@@ -154,7 +160,7 @@ public class PetController {
         List<VaccinePet> vaccineHistory = createVaccineHistory(vaccineIds, pet);
         pet.setVaccineList(vaccineHistory);
         petService.updatePet(pet);
-        return "redirect:/pets";
+        return "redirect:/admin";
         }
 
 //        pet.setId(petId);
@@ -183,7 +189,7 @@ public class PetController {
 //                pet.setVaccineList(vaccineHistory);
 //            }
 
-    @GetMapping("pets/{petId}")
+    @GetMapping("/pets/{petId}")
     public String displayPet(@PathVariable("petId") Long petId, Model model){
         PetDto pet = petService.findPetById(petId);
         List<VaccinePetDto> vaccinePet = vaccinePetService.findVaccineListByPetId(petId);

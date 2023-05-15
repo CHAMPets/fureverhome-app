@@ -28,22 +28,22 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public AccessDeniedHandler accessDeniedHandler() {
-        return (request, response, accessDeniedException) -> {
-            response.setStatus(HttpStatus.FORBIDDEN.value());
-            request.setAttribute("errorMessage", "Access denied");
-            request.getRequestDispatcher("/error").forward(request, response);
-        };
-    }
+//    @Bean
+//    public AccessDeniedHandler accessDeniedHandler() {
+//        return (request, response, accessDeniedException) -> {
+//            response.setStatus(HttpStatus.FORBIDDEN.value());
+//            request.setAttribute("errorMessage", "Access denied");
+//            request.getRequestDispatcher("/error").forward(request, response);
+//        };
+//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login", "/register", "/pets/**", "/css/**", "/js/**").permitAll()
-//                .antMatchers("/pets/**").hasAnyAuthority("ADMIN")
-                //.antMatchers("/login", "/register", "/pets", "/css/**", "/js/**")
+                .antMatchers("/login", "/register", "/css/**", "/js/**").permitAll()
+                .antMatchers("/admin/**").hasAnyAuthority("ADMIN")
+                .antMatchers("/home/**", "/pets/**", "/applications/**").hasAnyAuthority("USER")
 
 //
 //                .antMatchers("/**").hasAnyRole("ADMIN", "USER")
@@ -71,19 +71,16 @@ public class SecurityConfig {
                 .and()
                 .formLogin(form -> form
                         .loginPage("/login")
-//                        .defaultSuccessUrl("/login", false)
-
-//                        .loginPage("/login")
-                        .defaultSuccessUrl("/pets")
-
-//                        .successHandler((request, response, authentication) -> {
-//                            if (authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ADMIN"))) {
-//                                response.sendRedirect("/pets");
-//                            }
-//                            else if (authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("USER"))) {
-//                                response.sendRedirect("/pets/home");
-//                            }
-//                        })
+                        .defaultSuccessUrl("/login", false)
+//                      .loginPage("/login")
+                        .successHandler((request, response, authentication) -> {
+                            if (authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ADMIN"))) {
+                                response.sendRedirect("/admin");
+                            }
+                            else if (authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("USER"))) {
+                                response.sendRedirect("/home");
+                            }
+                        })
                         .loginProcessingUrl("/login")
                         .failureUrl("/login?error=true")
                         .permitAll()
