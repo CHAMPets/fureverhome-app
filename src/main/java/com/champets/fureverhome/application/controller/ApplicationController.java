@@ -8,6 +8,7 @@ import com.champets.fureverhome.application.service.ApplicationService;
 import com.champets.fureverhome.application.service.MailService;
 import com.champets.fureverhome.pet.model.Pet;
 import com.champets.fureverhome.pet.model.dto.PetDto;
+import com.champets.fureverhome.pet.model.mapper.PetMapper;
 import com.champets.fureverhome.pet.service.PetService;
 import com.champets.fureverhome.user.model.UserEntity;
 import com.champets.fureverhome.user.model.dto.RegistrationDto;
@@ -25,6 +26,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
+
+import static com.champets.fureverhome.pet.model.mapper.PetMapper.mapToPetDto;
 
 @Controller
 public class ApplicationController {
@@ -98,19 +101,22 @@ public class ApplicationController {
         application.setUser(applicationDto.getUser());
         switch (applicationDto.getApplicationStatus()) {
             case APPROVED:
-                mailService.sendEmail(application.getUser().getEmail(), "Application Approved", "Your application for pet " + applicationDto.getPet().getName() + " is approved. Drop by our shelter and meet your furry friend.");
+                mailService.sendEmail(application.getUser().getEmail(), "Application #" + applicationDto.getId() + " Approved", "Your application for pet " + applicationDto.getPet().getName() + " is approved. Drop by our shelter and meet your furry friend.");
                 break;
             case REJECTED:
                 applicationDto.getPet().setApplicationCounter(applicationDto.getPet().getApplicationCounter() - 1);
-                mailService.sendEmail(application.getUser().getEmail(), "Application Rejected", "We regret to inform that your application for pet " + applicationDto.getPet().getName() + " is rejected.");
+                mailService.sendEmail(application.getUser().getEmail(), "Application #" + applicationDto.getId() + " Rejected", "We regret to inform that your application for pet " + applicationDto.getPet().getName() + " is rejected.");
                 break;
             case RELEASED:
                 applicationDto.getPet().setApplicationCounter(0);
                 applicationDto.getPet().setActive(false);
+                petService.savePet(mapToPetDto(applicationDto.getPet()));
+                mailService.sendEmail(application.getUser().getEmail(), "Pet Released", "The pet " + applicationDto.getPet().getName() + " has been released. Thank you for your interest in adopting. We appreciate your support for our shelter and encourage you to continue considering our other adorable pets in the future.");
                 break;
             case CANCELLED:
                 applicationDto.getPet().setActive(false);
-                mailService.sendEmail(application.getUser().getEmail(), "Application Cancelled", "We regret to inform that your application for pet " + applicationDto.getPet().getName() + " is cancelled.");
+                petService.savePet(mapToPetDto(applicationDto.getPet()));
+                mailService.sendEmail(application.getUser().getEmail(), "Application #" + applicationDto.getId() + " Cancelled", "We regret to inform that your application for pet " + applicationDto.getPet().getName() + " is cancelled.");
                 break;
         }
         application.setPet(applicationDto.getPet());

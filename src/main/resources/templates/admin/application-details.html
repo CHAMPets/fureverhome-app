@@ -19,19 +19,19 @@
                     </a>
                 </div>
                 <div class="col-lg-11 col-xl-9 col-xxl-8">
-                    <div th:object="${applicationDto}" class="card overflow-hidden shadow rounded-4 border-0 mb-5">
+                    <div th:object="${applicationDto}" class="card overflow-hidden shadow rounded-4 border-0 mb-5" >
                         <div class="card-body p-0">
                             <div class="d-flex align-items-center">
                                 <div class="p-5">
                                     <h2 th:text="'Application #' + ${applicationDto.id}" class="fw-bolder"></h2>
-<!--                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius at enim eum illum aperiam placeat esse? Mollitia omnis minima saepe recusandae libero, iste ad asperiores! Explicabo commodi quo itaque! Ipsam!</p>-->
-                                    <p th:text="'Pet: ' + ${applicationDto.pet.name}"></p>
+                                    <a th:href="@{/admin/pets/{petId}(petId=${applicationDto.pet.id})}" style="color: #212529;"><p th:text="'Pet: ' + ${applicationDto.pet.name}"></p></a>
                                     <p th:text="'Status: ' + ${applicationDto.applicationStatus}"></p>
                                     <p th:text="'Email: ' + ${applicationDto.user.email}"></p>
                                     <p th:text="'Phone: ' + ${applicationDto.user.phoneNumber}"></p>
+                                    <p th:if="${applicationDto.releaseDate != null}" th:text="'Release Date: ' + ${applicationDto.releaseDate}"></p>
                                 <br />
-                                    <form method="post" th:action="@{/admin/applications/{applicationId}(applicationId=${applicationDto.id})}" th:object="${applicationDto}">
-                                        <div class = "form-group">
+                                    <form method="post" th:action="@{/admin/applications/{applicationId}(applicationId=${applicationDto.id})}" th:object="${applicationDto}" th:if="${applicationDto.applicationStatus.name() != 'RELEASED' && applicationDto.applicationStatus.name() != 'CANCELLED'}">
+                                        <div class = "form-group" th:if="${applicationDto.applicationStatus.name() == 'APPROVED'}">
                                             <label for="releaseDate">Release Date:</label>
                                             <input
                                                     type="date"
@@ -42,18 +42,17 @@
                                                     placeholder="Release Date"
                                                     required><br>
                                         </div>
-                                        <div class = "form-group">
+                                        <div class = "form-group" >
                                         <label for="applicationStatus">Application Status:</label>
                                         <select
                                                 id="applicationStatus"
                                                 name="applicationStatus"
                                                 th:field="*{applicationStatus}"
                                                 required>
-                                            <option value="PENDING">Pending</option>
-                                            <option value="APPROVED">Approved</option>
-                                            <option value="REJECTED">Rejected</option>
-                                            <option value="RELEASED">Released</option>
-                                            <option value="CANCELLED">Cancelled</option>
+                                            <option value="APPROVED" th:if="${applicationDto.applicationStatus.name() == 'PENDING'}">Approved</option>
+                                            <option value="REJECTED" th:if="${applicationDto.applicationStatus.name() == 'PENDING'}">Rejected</option>
+                                            <option value="RELEASED" th:if="${applicationDto.applicationStatus.name() == 'APPROVED'}">Released</option>
+                                            <option value="CANCELLED" th:if="${#strings.contains({'PENDING', 'APPROVED'}, applicationDto.applicationStatus.name())}">Cancelled</option>
                                         </select><br>
                                     </div>
                                     <button class="btn btn-primary" type="submit">Update Application</button>

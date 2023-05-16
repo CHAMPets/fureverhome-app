@@ -25,7 +25,7 @@
                                 <div class="p-5">
                                     <h2 th:text="'Application #' + ${applicationDto.id}" class="fw-bolder"></h2>
 <!--                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius at enim eum illum aperiam placeat esse? Mollitia omnis minima saepe recusandae libero, iste ad asperiores! Explicabo commodi quo itaque! Ipsam!</p>-->
-                                    <p th:text="'Pet: ' + ${applicationDto.pet.name}"></p>
+                                    <a th:href="@{/pets/{petId}(petId=${applicationDto.pet.id})}" style="color: #212529;"><p th:text="'Pet: ' + ${applicationDto.pet.name}"></p></a>
                                     <p th:text="'Status: ' + ${applicationDto.applicationStatus}"></p>
                                     <p th:text="'Email: ' + ${applicationDto.user.email}"></p>
                                     <p th:text="'Phone: ' + ${applicationDto.user.phoneNumber}"></p>
