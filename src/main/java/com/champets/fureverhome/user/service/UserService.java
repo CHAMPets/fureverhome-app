@@ -12,6 +12,6 @@ public interface UserService {
 //    void deleteUser(Long id);
 //    List<UserDto> findAllUsers();
     UserEntity getCurrentUser();
-    UserDto findUserById(Long id); //change to findByIdUser
+    UserDto findUserById(Long id);
 }
 

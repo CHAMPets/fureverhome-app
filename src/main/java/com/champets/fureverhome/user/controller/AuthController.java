@@ -51,11 +51,11 @@ public class AuthController {
                            BindingResult result, Model model) {
         UserEntity existingUserEmail = userService.findByEmail(user.getEmail());
         if(existingUserEmail != null && existingUserEmail.getEmail() != null && !existingUserEmail.getEmail().isEmpty()) {
-            return "redirect:/register?fail";
+            return "redirect:/login?fail";
         }
         UserEntity existingUserUsername = userService.findByUsername(user.getUsername());
         if(existingUserUsername != null && existingUserUsername.getUsername() != null && !existingUserUsername.getUsername().isEmpty()) {
-            return "redirect:/register?fail";
+            return "redirect:/login?fail";
         }
         if(result.hasErrors()) {
             model.addAttribute("user", user);
