@@ -4,30 +4,33 @@ import com.champets.fureverhome.pet.enums.BodySize;
 import com.champets.fureverhome.pet.enums.Gender;
 import com.champets.fureverhome.pet.enums.Type;
 import com.champets.fureverhome.pet.model.dto.PetDto;
-import com.champets.fureverhome.pet.model.mapper.PetMapper;
 import com.champets.fureverhome.user.model.UserEntity;
 import com.champets.fureverhome.user.service.UserService;
+import com.champets.fureverhome.utility.FileUploadUtil;
 import com.champets.fureverhome.vaccine.model.Vaccine;
 import com.champets.fureverhome.vaccine.model.VaccinePet;
 import com.champets.fureverhome.vaccine.model.dto.VaccinePetDto;
 import com.champets.fureverhome.vaccine.service.VaccinePetService;
 import com.champets.fureverhome.vaccine.service.VaccineService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import com.champets.fureverhome.pet.service.PetService;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.champets.fureverhome.pet.model.Pet;
+import org.springframework.web.multipart.MultipartFile;
+import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.champets.fureverhome.pet.model.mapper.PetMapper.mapToPet;
+import static com.champets.fureverhome.utility.FileUploadUtil.uploadFile;
 
 @Controller
 public class PetController {
+
     private final PetService petService;
     private final VaccineService vaccineService;
     private final VaccinePetService vaccinePetService;
@@ -35,12 +38,12 @@ public class PetController {
 
     @Autowired
     public PetController(PetService petService, VaccineService vaccineService, VaccinePetService vaccinePetService, UserService userService) {
-
         this.petService = petService;
         this.vaccineService = vaccineService;
         this.vaccinePetService = vaccinePetService;
         this.userService = userService;
     }
+
 
     private List<VaccinePet> createVaccineHistory(List<Long> vaccineIds, PetDto petDto) {
         List<VaccinePet> vaccineHistory = new ArrayList<>();
@@ -57,7 +60,7 @@ public class PetController {
     }
 
     @GetMapping("/admin")
-    public String listPets(Model model){
+    public String listPets(Model model) {
         UserEntity user = userService.getCurrentUser();
         List<PetDto> pets = petService.findAllPets();
         model.addAttribute("user", user);
@@ -66,7 +69,7 @@ public class PetController {
     }
 
     @GetMapping("/home")
-    public String listActivePets(Model model){
+    public String listActivePets(Model model) {
         UserEntity user = userService.getCurrentUser();
         List<PetDto> pets = petService.findAllActivePets();
         model.addAttribute("pets", pets);
@@ -75,10 +78,10 @@ public class PetController {
     }
 
     @GetMapping("/home/filtered")
-    public String listActivePetsByFilterAsUser(   @RequestParam(value="type") String type,
-                                            @RequestParam(value="size") String size,
-                                            @RequestParam(value= "gender") String gender,
-                                            Model model){
+    public String listActivePetsByFilterAsUser(@RequestParam(value = "type") String type,
+                                               @RequestParam(value = "size") String size,
+                                               @RequestParam(value = "gender") String gender,
+                                               Model model) {
 
         Type enumType = (type != null && !type.equals("ALL")) ? Type.valueOf(type) : null;
         BodySize enumSize = (size != null && !size.equals("ALL")) ? BodySize.valueOf(size) : null;
@@ -94,10 +97,10 @@ public class PetController {
     }
 
     @GetMapping("/admin/filtered")
-    public String listActivePetsByFilterAsAdmin(   @RequestParam(value="type") String type,
-                                            @RequestParam(value="size") String size,
-                                            @RequestParam(value= "gender") String gender,
-                                            Model model){
+    public String listActivePetsByFilterAsAdmin(@RequestParam(value = "type") String type,
+                                                @RequestParam(value = "size") String size,
+                                                @RequestParam(value = "gender") String gender,
+                                                Model model) {
 
         Type enumType = (type != null && !type.equals("ALL")) ? Type.valueOf(type) : null;
         BodySize enumSize = (size != null && !size.equals("ALL")) ? BodySize.valueOf(size) : null;
@@ -112,25 +115,30 @@ public class PetController {
     }
 
     @GetMapping("/admin/pets/new")
-    public String createPetForm(Model model){
+    public String createPetForm(Model model) {
         Pet pet = new Pet();
         List<Vaccine> vaccines = vaccineService.findAllVaccines();
         model.addAttribute("vaccines", vaccines);
         model.addAttribute("pet", pet);
         return "admin/pet-create";
     }
+
     @PostMapping("/admin/pets/new")
     public String savePet(@Valid @ModelAttribute("pet") PetDto petDto,
                           BindingResult result,
                           @RequestParam(name = "vaccineIds", required = false) List<Long> vaccineIds,
-                          Model model){
+                          Model model,
+                          MultipartFile file) {
 
-        if(result.hasErrors()){
+        String nameImage = uploadFile(file);
+
+        if (result.hasErrors() || nameImage == null) {
             List<Vaccine> vaccines = vaccineService.findAllVaccines();
             model.addAttribute("pet", petDto);
             model.addAttribute("vaccines", vaccines);
             return "admin/pet-create";
         }
+        petDto.setImagePath(nameImage);
         List<VaccinePet> vaccineHistory = createVaccineHistory(vaccineIds, petDto);
         Pet pet = mapToPet(petDto);
         pet.setVaccineList(vaccineHistory);
@@ -153,7 +161,7 @@ public class PetController {
 //            }
 
     @GetMapping("/admin/pets/{petId}/edit")
-    public String editPetForm(@PathVariable("petId") Long petId, Model model){
+    public String editPetForm(@PathVariable("petId") Long petId, Model model) {
         List<Vaccine> vaccines = vaccineService.findAllVaccines();
         model.addAttribute("vaccine", vaccines);
         PetDto pet = petService.findPetById(petId);
@@ -166,7 +174,7 @@ public class PetController {
                             @Valid @ModelAttribute("pet") PetDto pet,
                             BindingResult result,
                             Model model,
-                            @RequestParam(name = "vaccineIds", required = false) List<Long> vaccineIds){
+                            @RequestParam(name = "vaccineIds", required = false) List<Long> vaccineIds) {
 
         petService.deletePetVaccinesByPetId(petId);
 
@@ -181,7 +189,7 @@ public class PetController {
         pet.setVaccineList(vaccineHistory);
         petService.updatePet(pet);
         return "redirect:/admin";
-        }
+    }
 
 //        pet.setId(petId);
 //        List<VaccinePet> vaccineList = new ArrayList<>();
@@ -210,7 +218,7 @@ public class PetController {
 //            }
 
     @GetMapping("/pets/{petId}")
-    public String displayPetAsUser(@PathVariable("petId") Long petId, Model model){
+    public String displayPetAsUser(@PathVariable("petId") Long petId, Model model) {
         PetDto pet = petService.findPetById(petId);
         List<VaccinePetDto> vaccinePet = vaccinePetService.findVaccineListByPetId(petId);
         model.addAttribute("pet", pet);
@@ -219,7 +227,7 @@ public class PetController {
     }
 
     @GetMapping("/admin/pets/{petId}")
-    public String displayPetAsAdmin(@PathVariable("petId") Long petId, Model model){
+    public String displayPetAsAdmin(@PathVariable("petId") Long petId, Model model) {
         PetDto pet = petService.findPetById(petId);
         List<VaccinePetDto> vaccinePet = vaccinePetService.findVaccineListByPetId(petId);
         model.addAttribute("pet", pet);
@@ -227,5 +235,6 @@ public class PetController {
         return "admin/admin-pet-details";
     }
 }
+
 
 

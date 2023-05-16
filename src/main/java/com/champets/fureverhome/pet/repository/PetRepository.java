@@ -19,6 +19,8 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
     @Query("SELECT p FROM Pet p WHERE (:type is null or p.type = :type) and (:size is null or p.bodySize = :size) and (:gender is null or p.gender = :gender)")
     List<Pet> findByFilter(Type type, BodySize size, Gender gender);
 
+    List<Pet> findAllByOrderByCreatedDateDesc();
+
     //    @Query("SELECT p FROM Pet p WHERE p.name = ?1")
 //    Optional<Pet> findPetByName(String name);
 }
