@@ -3,7 +3,6 @@ package com.champets.fureverhome.user.controller;
 import com.champets.fureverhome.user.model.UserEntity;
 import com.champets.fureverhome.user.model.dto.RegistrationDto;
 import com.champets.fureverhome.user.service.UserService;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,15 +11,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Controller
-public class AuthController {
+public class UserController {
     private UserService userService;
 
-    public AuthController(UserService userService) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
@@ -30,13 +27,6 @@ public class AuthController {
         model.addAttribute("user", user);
         return "login";
         }
-
-    @GetMapping("/register")
-    public String getRegisterForm(Model model) {
-        RegistrationDto user = new RegistrationDto();
-        model.addAttribute("user", user);
-        return "register";
-    }
 
     @GetMapping("/admin/navigation")
     public String showAdminNavigation(Model model) {

@@ -11,12 +11,16 @@
       <div class="col-md-6 col-sm-12">
 
           <div th:if="${param.success}" class="dialog-box dialog-box-success">
+              <p class="dialog-box-icon-success">✔️ </p>
               <p class="dialog-box-message-success">Congratulations! Your registration was successful.</p>
           </div>
+
           <div th:if="${param.error}" class="dialog-box dialog-box-success">
+              <p class="dialog-box-icon-success">❌ </p>
               <p class="dialog-box-message-fail">Invalid username and password.</p>
           </div>
           <div th:if="${param.fail}" class="dialog-box dialog-box-success">
+              <p class="dialog-box-icon-success">❌ </p>
               <p class="dialog-box-message-fail">Email or Username already exists.</p>
           </div>
           <div th:if="${param.logout}" class="dialog-box dialog-box-success">
