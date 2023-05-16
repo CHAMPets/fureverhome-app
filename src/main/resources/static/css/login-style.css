@@ -46,20 +46,20 @@ a {
 
 button {
     border-radius: 20px;
-    border: 1px solid #ebae9d;
-    background-color: #ebae9d;
-    color: #FFFFFF;
+    border: 1px solid #EEE4E1;
+    background-color: #EEE4E1;
+    color: #6C7781;
     font-size: 12px;
     font-weight: bold;
     padding: 12px 45px;
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: transform 80ms ease-in;
-    cursor: pointer; /* Add cursor property */
+    cursor: pointer;
 }
 
 button:hover {
-    background-color: #DAC4BE;
+    background-color: #D1A2AB;
 }
 
 button:active {
@@ -72,6 +72,7 @@ button:focus {
 
 button.ghost {
     background-color: transparent;
+    color: #FFFFFF;
     border-color: #FFFFFF;
 }
 
@@ -296,4 +297,19 @@ footer a {
 .back-button:focus {
   outline: none;
 }
+
+.social {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10px;
+}
+
+.social img {
+  width: 100%;
+  height: auto;
+}
+
 
