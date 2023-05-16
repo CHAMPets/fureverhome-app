@@ -5,14 +5,20 @@
 <body onload="automate_animation();" class="d-flex flex-column h-100 bg-light">
 <main class="flex-shrink-0">
 
-  <nav th:replace="user/user-navigation :: navigation"></nav>
+  <nav th:replace="admin/admin-navigation :: navigation"></nav>
 
   <section class="py-5">
     <div class="container px-5 my-5">
       <div class="row gx-5 justify-content-center">
         <div class="justify-content-start">
-
         </div>
+
+        <div>
+        <a href="javascript:void(0)" onclick="history.back();" class="btn btn-primary me-3" style="font-size: 1.1rem; width: 150px; justify-content: flex-start;">
+          <i class="bi bi-arrow-left"></i> Back
+        </a>
+        </div>
+
         <div class="col-lg-11 col-xl-9 col-xxl-8">
           <section th:object="${pet}">
             <div class="d-flex align-items-center justify-content-between mb-4">
@@ -23,9 +29,6 @@
                 <a th:href="@{/admin/pets/{id}/edit(id=${pet.id})}" class="btn btn-warning me-3" style="font-size: 1.1rem; width: 150px">
                   <div class="d-inline-block bi bi-pencil-square me-2"></div>
                   Edit
-                </a>
-                <a href="javascript:void(0)" onclick="history.back();" class="btn btn-tertiary me-3" style="font-size: 1.1rem; width: 150px">
-                  <i class="bi bi-arrow-left"></i> Back
                 </a>
               </div>
             </div>

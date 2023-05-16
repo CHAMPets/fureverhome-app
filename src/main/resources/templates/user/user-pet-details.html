@@ -10,6 +10,11 @@
   <section class="py-5">
     <div class="container px-5 my-5">
       <div class="row gx-5 justify-content-center">
+        <div>
+          <a href="javascript:void(0)" onclick="history.back();" class="btn btn-primary me-3" style="font-size: 1.1rem; width: 150px; justify-content: flex-start;">
+            <i class="bi bi-arrow-left"></i> Back
+          </a>
+        </div>
         <div class="col-lg-11 col-xl-9 col-xxl-8">
           <section th:object="${pet}">
             <div class="d-flex align-items-center justify-content-between mb-4">
@@ -23,9 +28,6 @@
                     Adopt
                   </button>
                 </form>
-                <button type="button" onclick="history.back();" class="btn btn-primary btn-lg me-3" style="font-size: 1.1rem; width: 150px">
-                  <i class="bi bi-arrow-left"></i> Back
-                </button>
               </div>
             </div>
             <div class="row">
