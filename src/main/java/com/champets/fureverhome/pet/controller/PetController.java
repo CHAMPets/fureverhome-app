@@ -174,11 +174,13 @@ public class PetController {
                             @Valid @ModelAttribute("pet") PetDto pet,
                             BindingResult result,
                             Model model,
-                            @RequestParam(name = "vaccineIds", required = false) List<Long> vaccineIds) {
+                            @RequestParam(name = "vaccineIds", required = false) List<Long> vaccineIds,
+                            MultipartFile file) {
 
         petService.deletePetVaccinesByPetId(petId);
+        String nameImage = uploadFile(file);
 
-        if (result.hasErrors()) {
+        if (result.hasErrors() || nameImage == null) {
             List<Vaccine> vaccines = vaccineService.findAllVaccines();
             model.addAttribute("vaccine", vaccines);
             model.addAttribute("pet", pet);
@@ -186,6 +188,7 @@ public class PetController {
         }
         petService.deletePetVaccinesByPetId(petId);
         List<VaccinePet> vaccineHistory = createVaccineHistory(vaccineIds, pet);
+        pet.setImagePath(nameImage);
         pet.setVaccineList(vaccineHistory);
         petService.updatePet(pet);
         return "redirect:/admin";

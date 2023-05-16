@@ -28,14 +28,14 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public AccessDeniedHandler accessDeniedHandler() {
-        return (request, response, accessDeniedException) -> {
-            response.setStatus(HttpStatus.FORBIDDEN.value());
-            request.setAttribute("errorMessage", "Access denied");
-            request.getRequestDispatcher("/error").forward(request, response);
-        };
-    }
+//    @Bean
+//    public AccessDeniedHandler accessDeniedHandler() {
+//        return (request, response, accessDeniedException) -> {
+//            response.setStatus(HttpStatus.FORBIDDEN.value());
+//            request.setAttribute("errorMessage", "Access denied");
+//            request.getRequestDispatcher("/error").forward(request, response);
+//        };
+//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{

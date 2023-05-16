@@ -40,7 +40,7 @@ public class PetDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate rescueDate;
 
-//    @NotEmpty(message = "Image path should not be empty")
+//    @NotEmpty(message = "Select an image")
     private String imagePath;
 
     public String getImagePath() {
