@@ -10,6 +10,11 @@
  * Copyright 2011-2022 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+::selection {
+   background-color: #a1cdf1;
+   color: white;
+ }
+
 :root {
   --bs-blue: #1e30f3;
   --bs-indigo: #6610f2;
@@ -2892,13 +2897,13 @@ textarea.form-control-lg {
   --bs-btn-color: white;
   --bs-btn-bg: #D4A0A7;
   --bs-btn-border-color: #D4A0A7;
-  --bs-btn-hover-color: #D4A0A7;
-  --bs-btn-hover-bg: #6c757d;
-  --bs-btn-hover-border-color: #6c757d;
+  --bs-btn-hover-color: white;
+  --bs-btn-hover-bg: #CC8E98;
+  --bs-btn-hover-border-color: #CC8E98;
   --bs-btn-focus-shadow-rgb: 192, 26, 109;
-  --bs-btn-active-color: #6c757d;
-  --bs-btn-active-bg: #687178;
-  --bs-btn-active-border-color: #687178;
+  --bs-btn-active-color: white;
+  --bs-btn-active-bg: #C6808C;
+  --bs-btn-active-border-color: #C6808C;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #6c757d;
   --bs-btn-disabled-bg: #DFA7B3;

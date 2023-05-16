@@ -14,6 +14,8 @@ public interface PetService {
 
     List<PetDto> findAllActivePets();
     List<PetDto> findActivePetsByFilter(Type type, BodySize size, Gender gender);
+
+    List<PetDto> findActivePetsNotAppliedByUser(Long userId);
     Pet savePet(PetDto petDto);
 
     PetDto findPetById(long petId);

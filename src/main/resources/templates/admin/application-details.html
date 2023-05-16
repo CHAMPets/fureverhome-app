@@ -25,7 +25,7 @@
                                     <p th:text="'Email: ' + ${applicationDto.user.email}"></p>
                                     <p th:text="'Phone: ' + ${applicationDto.user.phoneNumber}"></p>
                                 <br />
-                                    <form method="post" th:action="@{/applications/{applicationId}(applicationId=${applicationDto.id})}" th:object="${applicationDto}">
+                                    <form method="post" th:action="@{/admin/applications/{applicationId}(applicationId=${applicationDto.id})}" th:object="${applicationDto}">
                                         <div class = "form-group">
                                             <label for="releaseDate">Release Date:</label>
                                             <input

@@ -24,7 +24,7 @@
                                     <p th:text="'Status: ' + ${applicationDto.applicationStatus}"></p>
                                     <p th:text="'Email: ' + ${applicationDto.user.email}"></p>
                                     <p th:text="'Phone: ' + ${applicationDto.user.phoneNumber}"></p>
-                                    <a class="btn btn-primary" th:href="@{/applications/{applicationId}(applicationId=${applicationDto.id})}" style="margin-top:15px">View application</a>
+                                    <a class="btn btn-primary" th:href="@{/admin/applications/{applicationId}(applicationId=${applicationDto.id})}" style="margin-top:15px">View application</a>
 
                                 </div>
                                 <img class="img-fluid" th:src="${applicationDto.pet.imagePath}" alt="..." style="width: 300px; height: 400px;"/>

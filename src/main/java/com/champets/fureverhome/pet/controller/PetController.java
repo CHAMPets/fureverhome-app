@@ -71,7 +71,7 @@ public class PetController {
     @GetMapping("/home")
     public String listActivePets(Model model) {
         UserEntity user = userService.getCurrentUser();
-        List<PetDto> pets = petService.findAllActivePets();
+        List<PetDto> pets = petService.findActivePetsNotAppliedByUser(user.getId());
         model.addAttribute("pets", pets);
         model.addAttribute("user", user);
         return "user/user-home";

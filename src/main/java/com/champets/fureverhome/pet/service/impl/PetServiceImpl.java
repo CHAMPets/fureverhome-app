@@ -63,6 +63,12 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
+    public List<PetDto> findActivePetsNotAppliedByUser(Long userId) {
+        List<Pet> pets = petRepository.findPetsNotAppliedByUser(userId);
+        return pets.stream().map((pet) -> mapToPetDto(pet)).collect(Collectors.toList());
+    }
+
+    @Override
     public Pet savePet(PetDto petDto) {
         Pet pet = mapToPet(petDto);
         return petRepository.save(pet);
