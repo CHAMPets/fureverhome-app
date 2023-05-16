@@ -1,144 +1,148 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="fragments/header :: header('Add a Pet')"></head>
 <body onload="automate_animation();" class="d-flex flex-column h-100 bg-light">
 <main class="flex-shrink-0">
 
-  <nav th:replace="admin/admin-navigation :: navigation"></nav>
+    <nav th:replace="admin/admin-navigation :: navigation"></nav>
 
-  <section class="py-5">
-    <div class="container px-5 my-5">
-      <div class="text-center mb-5">
-        <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Add a Pet</span></h1>
-      </div>
-      <div class="row gx-5 justify-content-center">
-        <div class="col-md-8">
-          <div class="card">
-            <div class="card-body">
+    <section class="py-5">
+        <div class="container px-5 my-5">
+            <div class="text-center mb-5">
+                <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Add a Pet</span></h1>
+            </div>
+            <div class="row gx-5 justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <form role="form" th:action="@{/admin/pets/new}" th:object="${pet}" method="post"
+                                  enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label for="name">Name:</label>
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            id="name"
+                                            name="name"
+                                            th:field="*{name}"
+                                            placeholder="Name"><br>
+                                    <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
+                                </div>
 
-              <form role="form" th:action="@{/admin/pets/new}" th:object="${pet}" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label for="gender">Gender:</label>
+                                    <select id="gender" name="gender" th:field="*{gender}" class="form-select">
+                                        <option value="">-- Please select --</option>
+                                        <option value="MALE">Male</option>
+                                        <option value="FEMALE">Female</option>
+                                    </select>
+                                    <p th:if="${#fields.hasErrors('gender')}" class="text-danger"
+                                       th:errors="*{gender}"></p>
+                                </div>
 
-                <div class = "form-group">
-                  <label for="name">Name:</label>
-                  <input
-                          type="text"
-                          class="form-control"
-                          id="name"
-                          name="name"
-                          th:field="*{name}"
-                          placeholder="Name"><br>
-                  <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
-                </div>
+                                <div class="form-group">
+                                    <label for="type">Type:</label>
+                                    <select id="type" name="type" th:field="*{type}" class="form-select">
+                                        <option value="">-- Please select --</option>
+                                        <option value="CAT">Cat</option>
+                                        <option value="DOG">Dog</option>
+                                    </select>
+                                    <p th:if="${#fields.hasErrors('type')}" class="text-danger" th:errors="*{type}"></p>
+                                </div>
 
-                <div class="form-group">
-                  <label for="gender">Gender:</label>
-                  <select id="gender" name="gender" th:field="*{gender}" class="form-select">
-                    <option value="">Please select</option>
-                    <option value="MALE">Male</option>
-                    <option value="FEMALE">Female</option>
-                  </select>
-                  <p th:if="${#fields.hasErrors('gender')}" class="text-danger" th:errors="*{gender}"></p>
-                </div>
+                                <div class="form-group">
+                                    <label for="age">Age:</label>
+                                    <input type="number" id="age" name="age" class="form-control" th:field="*{age}"
+                                           placeholder="Age">
+                                    <p th:if="${#fields.hasErrors('age')}" class="text-danger" th:errors="*{age}"></p>
+                                </div>
 
-                <div class="form-group">
-                  <label for="type">Type:</label>
-                  <select id="type" name="type" th:field="*{type}" class="form-select">
-                    <option value="">Please select</option>
-                    <option value="CAT">Cat</option>
-                    <option value="DOG">Dog</option>
-                  </select>
-                  <p th:if="${#fields.hasErrors('type')}" class="text-danger" th:errors="*{type}"></p>
-                </div>
+                                <div class="form-group">
+                                    <label for="bodySize">Body Size:</label>
+                                    <select id="bodySize" name="bodySize" th:field="*{bodySize}" class="form-select">
+                                        <option value="">-- Please select --</option>
+                                        <option value="SMALL">Small</option>
+                                        <option value="MEDIUM">Medium</option>
+                                        <option value="LARGE">Large</option>
+                                    </select>
+                                    <p th:if="${#fields.hasErrors('bodySize')}" class="text-danger"
+                                       th:errors="*{bodySize}"></p>
+                                </div>
 
-                <div class="form-group">
-                  <label for="age">Age:</label>
-                  <input type="number" id="age" name="age" class="form-control" th:field="*{age}" placeholder="Age">
-                  <p th:if="${#fields.hasErrors('age')}" class="text-danger" th:errors="*{age}"></p>
-                </div>
+                                <div class="form-group">
+                                    <label for="rescueDate">Rescue Date:</label>
+                                    <input type="date" class="form-control" id="rescueDate" name="rescueDate"
+                                           th:field="*{rescueDate}" placeholder="Rescue Date">
+                                </div>
 
-                <div class="form-group">
-                  <label for="bodySize">Body Size:</label>
-                  <select id="bodySize" name="bodySize" th:field="*{bodySize}" class="form-select">
-                    <option value="">-- Please select --</option>
-                    <option value="SMALL">Small</option>
-                    <option value="MEDIUM">Medium</option>
-                    <option value="LARGE">Large</option>
-                  </select>
-                  <p th:if="${#fields.hasErrors('bodySize')}" class="text-danger" th:errors="*{bodySize}"></p>
-                </div>
+                                <!--                <div class="form-group">-->
+                                <!--                  <label for="imagePath">Image Path:</label>-->
+                                <!--                  <input type="text" class="form-control" id="imagePath" name="imagePath" th:field="*{imagePath}" placeholder="Image Path">-->
+                                <!--                  <p th:if="${#fields.hasErrors('imagePath')}" class="text-danger" th:errors="*{imagePath}"></p>-->
+                                <!--                </div>-->
 
-                <div class="form-group">
-                  <label for="rescueDate">Rescue Date:</label>
-                  <input type="date" class="form-control" id="rescueDate" name="rescueDate" th:field="*{rescueDate}" placeholder="Rescue Date">
-                </div>
+                                <div class="form-group">
+                                    <input type="hidden" th:field="*{imagePath}"/>
+                                    <label for="imagePath">Image:</label>
+                                    <input type="file"
+                                           class="form-control"
+                                           id="imagePath"
+                                           name="file"
+                                           accept="image/*"
+                                           required>
+                                </div>
 
-<!--                <div class="form-group">-->
-<!--                  <label for="imagePath">Image Path:</label>-->
-<!--                  <input type="text" class="form-control" id="imagePath" name="imagePath" th:field="*{imagePath}" placeholder="Image Path">-->
-<!--                  <p th:if="${#fields.hasErrors('imagePath')}" class="text-danger" th:errors="*{imagePath}"></p>-->
-<!--                </div>-->
+                                <div class="form-group">
+                                    <label for="description">Description:</label>
+                                    <textarea
+                                            id="description"
+                                            name="description"
+                                            class="form-control"
+                                            th:field="*{description}"
+                                            placeholder="Description"
+                                    >
+                        </textarea>
+                                    <p th:if="${#fields.hasErrors('description')}" class="text-danger"
+                                       th:errors="*{description}"></p>
+                                </div>
 
-                <div class="form-group">
-                  <input type="hidden" th:field="*{imagePath}"/>
-                  <label for="imagePath">Image:</label>
-                  <input type="file"
-                         class="form-control"
-                         id="imagePath"
-                         name="file"
-                         accept="image/*"
-                         required>
-                </div>
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input class="form-check-input"
+                                               type="checkbox"
+                                               id="isSterilized"
+                                               name="isSterilized"
+                                               th:field="*{isSterilized}">
+                                        <label class="form-check-label" for="isSterilized">Is Sterilized?</label>
+                                    </div>
+                                </div>
 
-                <div class = "form-group">
-                  <label for="description">Description:</label>
-                  <textarea
-                          id="description"
-                          name="description"
-                          class="form-control"
-                          th:field="*{description}"
-                          placeholder="Description"
-                          >
-                        </textarea><br>
-                  <p th:if="${#fields.hasErrors('description')}" class="text-danger" th:errors="*{description}"></p>
-                </div>
-
-                <div class = "form-group">
-<div class="form-check">
-                  <input class="form-check-input"
-                          type="checkbox"
-                          id="isSterilized"
-                          name="isSterilized"
-                          th:field="*{isSterilized}">
-                  <label class="form-check-label" for="isSterilized">Is Sterilized?</label>
-                  <br>
-  </div>
-                </div>
-
-                <div class="form-group">
-                  <label>Vaccine Type:</label>
-                  <div th:each="vaccine : ${vaccines}">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox"
-                             th:id="${'vaccine' + vaccine.id}"
-                             th:name="vaccineIds"
-                             th:value="${vaccine.id}">
-                      <label class="form-check-label"
-                             th:for="${'vaccine' + vaccine.id}"
-                             th:text="${vaccine.name}">
-                      </label>
+                                <div class="form-group">
+                                    <label>Vaccine Type:</label>
+                                    <div th:each="vaccine : ${vaccines}">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox"
+                                                   th:id="${'vaccine' + vaccine.id}"
+                                                   th:name="vaccineIds"
+                                                   th:value="${vaccine.id}">
+                                            <label class="form-check-label"
+                                                   th:for="${'vaccine' + vaccine.id}"
+                                                   th:text="${vaccine.name}">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="active" value="true">
+                                <br/>
+                                <button type="submit" class="btn btn-primary">Add Pet</button>
+                            </form>
+                        </div>
                     </div>
-                  </div>
                 </div>
-                <input type="hidden" name="active" value="true">
-                <br />
-                <button type="submit" class="btn btn-primary">Add Pet</button>
-             </form>
-           </div>
-          </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 </main>
 <!-- Footer-->
 <footer th:replace="fragments/footer:: footer"></footer>
