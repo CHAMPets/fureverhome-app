@@ -11,7 +11,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Plus Jakarta Sans';
     height: 100vh;
     margin: -20px 0 50px;
 }
@@ -110,7 +110,7 @@ input {
     overflow: hidden;
     width: 768px;
     max-width: 100%;
-    min-height: 580px;
+    min-height: 600px;
 }
 
 .form-container {
@@ -310,6 +310,18 @@ footer a {
 .social img {
   width: 100%;
   height: auto;
+}
+.dialog-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dialog-box-message-success {
+   color: green;
+}
+.dialog-box-message-fail {
+   color: red;
 }
 
 

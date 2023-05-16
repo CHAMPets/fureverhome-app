@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
   <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/login-style.css">
+
 <body>
 <button class="back-button" onclick="goBack()"></button>
 <h2>FurEverHome</h2>
@@ -9,16 +11,16 @@
       <div class="col-md-6 col-sm-12">
 
           <div th:if="${param.success}" class="dialog-box dialog-box-success">
-              <p class="dialog-box-message">Congratulations! Your registration was successful.</p>
+              <p class="dialog-box-message-success">Congratulations! Your registration was successful.</p>
           </div>
           <div th:if="${param.error}" class="dialog-box dialog-box-success">
-              <p class="dialog-box-message">Invalid username and password.</p>
+              <p class="dialog-box-message-fail">Invalid username and password.</p>
           </div>
           <div th:if="${param.fail}" class="dialog-box dialog-box-success">
-              <p class="dialog-box-message">Email or Username already exists.</p>
+              <p class="dialog-box-message-fail">Email or Username already exists.</p>
           </div>
           <div th:if="${param.logout}" class="dialog-box dialog-box-success">
-              <p class="dialog-box-message">You have been logged out.</p>
+              <p class="dialog-box-message-success">You have been logged out.</p>
           </div>
 
           <div class="container" id="container">
@@ -28,7 +30,7 @@
                 <input type="text" class="form-control" placeholder="Username" th:field="*{username}"required>
                 <p th:if="${#fields.hasErrors('username')}" class="text-danger"></p>
                 <input
-                        type="text"
+                        type="email"
                         class="form-control"
                         placeholder="Email"
                         th:field="*{email}"required>
@@ -135,8 +137,8 @@ passwordInput.addEventListener('input', () => {
   const numberRegex = /\d/;
   const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
 
-  if (password.length < 8) {
-    passwordError.innerText = 'Password should be at least 8 characters long';
+  if (password.length < 8 || password.length > 15) {
+    passwordError.innerText = 'Password should be at least 8 characters long & maximum of 15 characters';
   } else if (!uppercaseRegex.test(password)) {
     passwordError.innerText = 'Password should contain at least one uppercase letter';
   } else if (!numberRegex.test(password)) {
