@@ -87,9 +87,12 @@ public class PetController {
         BodySize enumSize = (size != null && !size.equals("ALL")) ? BodySize.valueOf(size) : null;
         Gender enumGender = (gender != null && !gender.equals("ALL")) ? Gender.valueOf(gender) : null;
 
+
         Long userId = userService.getCurrentUser().getId();
 
         List<PetDto> pets = petService.findActivePetsNotAppliedByUserWithFilter(userId, enumType, enumSize, enumGender);
+        UserEntity user = userService.getCurrentUser();
+        model.addAttribute("user", user);
         model.addAttribute("pets", pets);
         model.addAttribute("type", type);
         model.addAttribute("size", size);
@@ -109,7 +112,7 @@ public class PetController {
 
 
         UserEntity user = userService.getCurrentUser();
-        List<PetDto> pets = petService.findActivePetsByFilter(enumType, enumSize, enumGender);
+        List<PetDto> pets = petService.findPetsByFilter(enumType, enumSize, enumGender);
         model.addAttribute("user", user);
         model.addAttribute("pets", pets);
         model.addAttribute("type", type);
