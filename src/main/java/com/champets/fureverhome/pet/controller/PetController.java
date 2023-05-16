@@ -87,15 +87,9 @@ public class PetController {
         BodySize enumSize = (size != null && !size.equals("ALL")) ? BodySize.valueOf(size) : null;
         Gender enumGender = (gender != null && !gender.equals("ALL")) ? Gender.valueOf(gender) : null;
 
-<<<<<<< Updated upstream
         Long userId = userService.getCurrentUser().getId();
 
         List<PetDto> pets = petService.findActivePetsNotAppliedByUserWithFilter(userId, enumType, enumSize, enumGender);
-=======
-        UserEntity user = userService.getCurrentUser();
-        List<PetDto> pets = petService.findActivePetsByFilter(enumType, enumSize, enumGender);
-        model.addAttribute("user", user);
->>>>>>> Stashed changes
         model.addAttribute("pets", pets);
         model.addAttribute("type", type);
         model.addAttribute("size", size);
