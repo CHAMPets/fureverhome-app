@@ -1,5 +1,8 @@
 package com.champets.fureverhome.pet.controller;
 
+import com.champets.fureverhome.application.model.Application;
+import com.champets.fureverhome.application.model.dto.ApplicationDto;
+import com.champets.fureverhome.application.service.ApplicationService;
 import com.champets.fureverhome.pet.enums.BodySize;
 import com.champets.fureverhome.pet.enums.Gender;
 import com.champets.fureverhome.pet.enums.Type;
@@ -33,12 +36,15 @@ public class PetController {
     private final VaccinePetService vaccinePetService;
     private final UserService userService;
 
+    private final ApplicationService applicationService;
+
     @Autowired
-    public PetController(PetService petService, VaccineService vaccineService, VaccinePetService vaccinePetService, UserService userService) {
+    public PetController(PetService petService, VaccineService vaccineService, VaccinePetService vaccinePetService, UserService userService, ApplicationService applicationService) {
         this.petService = petService;
         this.vaccineService = vaccineService;
         this.vaccinePetService = vaccinePetService;
         this.userService = userService;
+        this.applicationService = applicationService;
     }
 
 
@@ -233,10 +239,11 @@ public class PetController {
         UserEntity user = userService.getCurrentUser();
         PetDto pet = petService.findPetById(petId);
         List<VaccinePetDto> vaccinePet = vaccinePetService.findVaccineListByPetId(petId);
+        //ApplicationDto application = applicationService.findApplicationsByPetIdAndUserId(petId, user.getId());
         model.addAttribute("pet", pet);
         model.addAttribute("user", user);
         model.addAttribute("vaccines", vaccinePet);
-        model.addAttribute("user", user);
+        //model.addAttribute("application", application);
         return "user/user-pet-details";
     }
 

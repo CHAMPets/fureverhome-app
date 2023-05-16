@@ -16,6 +16,8 @@ public interface ApplicationService {
 
     List<ApplicationDto> findApplicationsByUserId(Long userId);
 
+    ApplicationDto findApplicationsByPetIdAndUserId(Long petId, Long userId);
+
     void updateApplication(ApplicationDto applicationDto);
 
     List<ApplicationDto> searchApplicationsByEmailAddress(String emailAddress);

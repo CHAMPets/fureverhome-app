@@ -120,8 +120,8 @@
 }
 
 @keyframes slide_down {
-  0%   {top:400px;}
-  100% {top:-100px;}
+  0%   {top:-100px;}
+  100% {top:400px;}
 }
 
 body {

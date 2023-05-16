@@ -9,17 +9,17 @@
           <div class="fs-3 fw-light text-muted" style="opacity: 0; animation: fade_in 1s ease 2s forwards;">We connect pets with their FurEverHome,</div>
           <h1 class="display-3 fw-bolder mb-5" style="opacity: 0; animation: fade_in 1s ease 3s forwards;"><span class="text-gradient d-inline">Making adoption seamless</span></h1>
           <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start mb-3">
-            <a class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" th:if="${user != null}" href="#petCatalog" style="transform: scale(0); animation: zoom_in 2s ease 4s forwards;">See Catalog</a>
+            <a class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" th:if="${user != null}" href="#petCatalog" style="transform: scale(0); animation: zoom_in 2s ease 3.5s forwards;">See Catalog</a>
             <a class="btn btn-outline-dark btn-lg px-5 py-3 fs-6 fw-bolder" th:if="${user != null}" th:href="@{/about}" style="transform: scale(0); animation: zoom_in 2s ease 4s forwards;">About</a>
-            <a class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" th:if="${user == null}" th:href="@{/login}" style="transform: scale(0); animation: zoom_in 2s ease 4s forwards;">Log In</a>
-            <a class="btn btn-outline-dark btn-lg px-5 py-3 fs-6 fw-bolder" th:if="${user == null}" th:href="@{/login}" style="transform: scale(0); animation: zoom_in 2s ease 4s forwards;">Sign Up</a>
+            <a class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" th:if="${user == null}" th:href="@{/login}" style="transform: scale(0); animation: zoom_in 2s ease 3.5s forwards;">Log In</a>
+            <a class="btn btn-outline-dark btn-lg px-5 py-3 fs-6 fw-bolder" th:if="${user == null}" th:href="@{/login}" style="transform: scale(0); animation: zoom_in 2s ease 3.5s forwards;">Sign Up</a>
           </div>
         </div>
       </div>
       <div class="col-xxl-7">
         <!-- Header profile picture-->
         <div class="d-flex justify-content-center mt-5 mt-xxl-0">
-          <div class="profile bg-gradient-primary-to-secondary" style="transform: scale(0); animation: zoom_in 2s ease 5s forwards;">
+          <div class="profile bg-gradient-primary-to-secondary" style="transform: scale(0); animation: zoom_in 2s ease 4s forwards;">
             <!-- TIP: For best results, use a photo with a transparent background like the demo example below-->
             <!-- Watch a tutorial on how to do this on YouTube (link)-->
             <img class="profile-img" src="../assets/profile.png" alt="..." />
