@@ -22,7 +22,7 @@
 <!--                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius at enim eum illum aperiam placeat esse? Mollitia omnis minima saepe recusandae libero, iste ad asperiores! Explicabo commodi quo itaque! Ipsam!</p>-->
                                     <p th:text="'Pet: ' + ${applicationDto.pet.name}"></p>
                                     <p th:text="'Status: ' + ${applicationDto.applicationStatus}"></p>
-                                    <p th:text="'Email: ' + ${applicationDto.user.emailAddress}"></p>
+                                    <p th:text="'Email: ' + ${applicationDto.user.email}"></p>
                                     <p th:text="'Phone: ' + ${applicationDto.user.phoneNumber}"></p>
                                     <a class="btn btn-primary" th:href="@{/applications/{applicationId}(applicationId=${applicationDto.id})}" style="margin-top:15px">View application</a>
 

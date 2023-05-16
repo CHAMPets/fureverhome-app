@@ -24,7 +24,9 @@ public class FureverhomeApplication {
 	}
 
 	@GetMapping("/about")
-	public String displayAbout() {
+	public String displayAbout(Model model) {
+		UserEntity user = userService.getCurrentUser();
+		model.addAttribute("user", user);
 		return "user/user-about";
 	}
 

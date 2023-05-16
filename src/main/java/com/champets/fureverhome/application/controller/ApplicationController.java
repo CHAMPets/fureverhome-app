@@ -57,6 +57,7 @@ public class ApplicationController {
 
         List<ApplicationDto> applications = applicationService.findApplicationsByUserId(user.getId());
         model.addAttribute("applications", applications);
+        model.addAttribute("user", user);
         return "user/application-list";
     }
 
@@ -69,10 +70,11 @@ public class ApplicationController {
         return "admin/application-details";
     }
 
-    @PostMapping("/admin/applications/{petId}/{userId}")
-    public String saveApplication(@ModelAttribute("application") ApplicationDto applicationDto, @PathVariable("petId") Long petId, @PathVariable("userId") Long userId, Model model) {
-        applicationService.saveApplication(applicationDto, petId, userId);
-        UserDto userDto = userService.findUserById(userId);
+    @PostMapping("/applications/{petId}")
+    public String saveApplication(@ModelAttribute("application") ApplicationDto applicationDto, @PathVariable("petId") Long petId, Model model) {
+        UserEntity user = userService.getCurrentUser();
+        applicationService.saveApplication(applicationDto, petId, user.getId());
+        UserDto userDto = userService.findUserById(user.getId());
         PetDto petDto = petService.findPetById(petId);
         petDto.setApplicationCounter(petDto.getApplicationCounter() + 1);
         petService.updatePet(petDto);

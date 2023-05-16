@@ -63,7 +63,7 @@
                   <!--                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius at enim eum illum aperiam placeat esse? Mollitia omnis minima saepe recusandae libero, iste ad asperiores! Explicabo commodi quo itaque! Ipsam!</p>-->
                   <p th:text="${pet.description}"></p>
                   <a class="btn btn-primary" th:href="@{/pets/{petId}(petId=${pet.id})}" style="margin-top:15px">See more details</a>
-                  <form method="post" th:action="@{/applications/{petId}/{userId}(petId=${pet.id}, userId=1)}" th:object="${application}">
+                  <form method="post" th:action="@{/applications/{petId}(petId=${pet.id})}" th:object="${application}">
                     <div th:if="${pet.applicationCounter < pet.applicationLimit}">
                       <input type="submit" class="btn btn-secondary" value="Adopt" style="margin-top:15px" />
                     </div>
@@ -89,14 +89,6 @@
 <!-- Footer-->
 <footer th:replace="fragments/footer :: footer"></footer>
 
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="js/scripts.js"></script>
-
-<script>
-
-</script>
 </body>
 </html>
 
