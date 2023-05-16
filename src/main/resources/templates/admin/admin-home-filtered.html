@@ -18,7 +18,7 @@
           <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="bi bi-arrow-up"></i></button>
 
           <!-- Start Filter section -->
-          <form class="row gx-5 justify-content-center mb-4" method="get" action="/admin/filtered">
+          <form id="filterForm" class="row gx-5 justify-content-center mb-4" method="get" action="/admin/filtered">
             <div class="col-md-6 col-lg-4">
               <div class="input-group">
                 <label class="input-group-text" for="typeFilter">Type</label>
@@ -83,12 +83,10 @@
 <footer th:replace="fragments/footer:: footer"></footer>
 <script>
   const filterForm = document.getElementById('filterForm');
-
   const resetFilterButton = filterForm.querySelector('button[type="reset"]');
 
   resetFilterButton.addEventListener('click', () => {
-    filterForm.reset();
-    filterForm.submit();
+      window.location.href = '/admin';
   });
 </script>
 </body>

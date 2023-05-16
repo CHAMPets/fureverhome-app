@@ -18,7 +18,7 @@
                     <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="bi bi-arrow-up"></i></button>
 
                     <!-- Start Filter section -->
-                    <form class="row gx-5 justify-content-center mb-4" method="get" action="/home/filtered">
+                    <form id="filterForm" class="row gx-5 justify-content-center mb-4" method="get" action="/home/filtered">
                         <div class="col-md-6 col-lg-4">
                             <div class="input-group">
                                 <label class="input-group-text" for="typeFilter">Type</label>
@@ -52,7 +52,7 @@
                         </div>
                         <div class="col-12 text-right mt-3">
                             <button type="submit" class="btn btn-primary">Filter</button>
-                            <button type="reset" class="btn btn-secondary">Clear</button>
+                            <button type="reset" class="btn btn-secondary">Reset</button>
                         </div>
                     </form>
                     <!-- End filter section -->
@@ -91,12 +91,10 @@
 <footer th:replace="fragments/footer:: footer"></footer>
 <script>
   const filterForm = document.getElementById('filterForm');
-
   const resetFilterButton = filterForm.querySelector('button[type="reset"]');
 
   resetFilterButton.addEventListener('click', () => {
-    filterForm.reset();
-    filterForm.submit();
+      window.location.href = '/home';
   });
 </script>
 </body>

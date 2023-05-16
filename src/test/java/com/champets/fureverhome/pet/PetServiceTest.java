@@ -84,10 +84,10 @@ class PetServiceTest {
         Gender gender = Gender.MALE;
         List<Pet> pets = new ArrayList<>();
         pets.add(new Pet());
-        when(petRepository.findByFilter(type, size, gender)).thenReturn(pets);
+        when(petRepository.findPetsByFilter(type, size, gender)).thenReturn(pets);
 
         // Act
-        List<PetDto> result = petService.findActivePetsByFilter(type, size, gender);
+        List<PetDto> result = petService.findPetsByFilter(type, size, gender);
 
         // Assert
         assertEquals(1, result.size());

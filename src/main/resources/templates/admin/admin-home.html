@@ -52,7 +52,7 @@
                         </div>
                         <div class="col-12 text-right mt-3">
                             <button type="submit" class="btn btn-primary">Filter</button>
-                            <button type="reset" class="btn btn-secondary">Clear</button>
+                            <button type="reset" class="btn btn-secondary">Reset</button>
                         </div>
                     </form>
                     <!-- End filter section -->
@@ -83,13 +83,10 @@
 <footer th:replace="fragments/footer:: footer"></footer>
 <script>
   const filterForm = document.getElementById('filterForm');
-
-
   const resetFilterButton = filterForm.querySelector('button[type="reset"]');
 
   resetFilterButton.addEventListener('click', () => {
-    filterForm.reset();
-    filterForm.submit();
+      window.location.href = '/admin';
   });
 </script>
 </body>

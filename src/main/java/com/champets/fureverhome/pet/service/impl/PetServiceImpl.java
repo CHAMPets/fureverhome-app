@@ -57,14 +57,20 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public List<PetDto> findActivePetsByFilter(Type type, BodySize size, Gender gender) {
-        List<Pet> pets = petRepository.findByFilter(type, size, gender);
+    public List<PetDto> findPetsByFilter(Type type, BodySize size, Gender gender) {
+        List<Pet> pets = petRepository.findPetsByFilter(type, size, gender);
         return pets.stream().map((pet) -> mapToPetDto(pet)).collect(Collectors.toList());
     }
 
     @Override
     public List<PetDto> findActivePetsNotAppliedByUser(Long userId) {
         List<Pet> pets = petRepository.findPetsNotAppliedByUser(userId);
+        return pets.stream().map((pet) -> mapToPetDto(pet)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PetDto> findActivePetsNotAppliedByUserWithFilter(Long userId, Type type, BodySize size, Gender gender) {
+        List<Pet> pets = petRepository.findActivePetsNotAppliedByUserWithFilter(userId, type, size, gender);
         return pets.stream().map((pet) -> mapToPetDto(pet)).collect(Collectors.toList());
     }
 
