@@ -17,14 +17,17 @@ public class FileUploadUtil {
                 if (!uploadDir.exists())
                     uploadDir.mkdirs();
 
-                String name = String.valueOf(new Date().getTime()) + ".jpg";
-                File serverFile = new File(uploadDir, name);
-                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-                stream.write(bytes);
-                stream.close();
+                String originalFileName = file.getOriginalFilename();
+                if (originalFileName != null && !originalFileName.isEmpty()) {
+                    File serverFile = new File(uploadDir, originalFileName);
+                    BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+                    stream.write(bytes);
+                    stream.close();
 
-                String imagePath = "/assets/" + name;
-                return imagePath;
+                    String imagePath = "/assets/" + originalFileName;
+                    return imagePath;
+                }
+
             } catch (Exception e) {
 
             }

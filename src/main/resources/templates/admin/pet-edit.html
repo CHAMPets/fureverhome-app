@@ -94,18 +94,6 @@
             <br>
           </div>
 
-<!--          <div class = "form-group">-->
-<!--            <label for="imagePath">Image Path:</label>-->
-<!--            <input-->
-<!--                    type="text"-->
-<!--                    class="form-control"-->
-<!--                    id="imagePath"-->
-<!--                    name="imagePath"-->
-<!--                    th:field="*{imagePath}"-->
-<!--                    placeholder="Image Path">-->
-<!--            <br>-->
-<!--            <p th:if="${#fields.hasErrors('imagePath')}" class="text-danger" th:errors="*{imagePath}"></p>-->
-<!--          </div>-->
           <div class="form-group">
             <label for="imagePath">Image:</label>
             <input type="hidden" th:field="*{imagePath}"/>
@@ -114,8 +102,7 @@
                    id="imagePath"
                    name="file"
                    accept="image/*"
-            required>
-<!--            <p th:if="${#fields.hasErrors('imagePath')}" class="text-danger" th:errors="*{imagePath}"></p>-->
+                   required>
           </div>
 
           <div class = "form-group">

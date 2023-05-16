@@ -46,7 +46,7 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public List<PetDto> findAllPets() {
-        List<Pet> pets = petRepository.findAllByOrderByCreatedDateDesc();
+        List<Pet> pets = petRepository.findAll();
         return pets.stream().map((pet) -> mapToPetDto(pet)).collect(Collectors.toList());
     }
 

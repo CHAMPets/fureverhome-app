@@ -6,7 +6,6 @@ import com.champets.fureverhome.pet.enums.Type;
 import com.champets.fureverhome.pet.model.dto.PetDto;
 import com.champets.fureverhome.user.model.UserEntity;
 import com.champets.fureverhome.user.service.UserService;
-import com.champets.fureverhome.utility.FileUploadUtil;
 import com.champets.fureverhome.vaccine.model.Vaccine;
 import com.champets.fureverhome.vaccine.model.VaccinePet;
 import com.champets.fureverhome.vaccine.model.dto.VaccinePetDto;
@@ -20,11 +19,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.champets.fureverhome.pet.model.Pet;
 import org.springframework.web.multipart.MultipartFile;
-import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-
 import static com.champets.fureverhome.pet.model.mapper.PetMapper.mapToPet;
 import static com.champets.fureverhome.utility.FileUploadUtil.uploadFile;
 
@@ -186,7 +183,7 @@ public class PetController {
                             BindingResult result,
                             Model model,
                             @RequestParam(name = "vaccineIds", required = false) List<Long> vaccineIds,
-                            MultipartFile file) {
+                            @RequestParam("file") MultipartFile file) {
 
         petService.deletePetVaccinesByPetId(petId);
         String nameImage = uploadFile(file);

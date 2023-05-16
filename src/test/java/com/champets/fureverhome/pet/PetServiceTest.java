@@ -18,27 +18,25 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static com.champets.fureverhome.pet.model.mapper.PetMapper.mapToPet;
 import static com.champets.fureverhome.pet.model.mapper.PetMapper.mapToPetDto;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 class PetServiceTest {
 
     @Mock
     private PetRepository petRepository;
-
     @Mock
     private VaccineRepository vaccineRepository;
-
     @Mock
     private VaccinePetRepository vaccinePetRepository;
-
     @Mock
     private EntityManager entityManager;
-
     private PetService petService;
 
     @BeforeEach
@@ -105,6 +103,12 @@ class PetServiceTest {
 
         // Assert
         assertEquals(pet, result);
+
+        // Arrange (Negative Test)
+        when(petRepository.save(any())).thenThrow(new RuntimeException("Failed to save pet."));
+
+        // Act and Assert (Negative Test)
+        assertThrows(RuntimeException.class, () -> petService.savePet(mapToPetDto(pet)));
     }
 
     @Test
@@ -119,22 +123,39 @@ class PetServiceTest {
 
         // Assert
         assertEquals(mapToPetDto(pet), result);
+
+        // Arrange (Negative Test: Empty Optional)
+        when(petRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        // Act and Assert (Negative Test: Empty Optional)
+        assertThrows(NoSuchElementException.class, () -> petService.findPetById(petId));
+
+        // Arrange (Negative Test: Exception)
+        when(petRepository.findById(anyLong())).thenThrow(new RuntimeException("Failed to find pet."));
+
+        // Act and Assert (Negative Test: Exception)
+        assertThrows(RuntimeException.class, () -> petService.findPetById(petId));
     }
 
-//    @Test
-//    void testUpdatePet() {
-//        // Arrange
-//        Pet pet = new Pet();
-//        pet.setVaccineList(new ArrayList<>());
-//        when(petRepository.save(pet)).thenReturn(pet);
-//
-//        // Act
-//        petService.updatePet(mapToPetDto(pet));
-//
-//        // Assert
-//        assertEquals(1, pet.getVaccineList().size());
-//        verify(petRepository, times(2)).save(pet);
-//    }
+
+    @Test
+    void testUpdatePet() {
+
+        Pet pet = new Pet();
+        when(petRepository.save(any())).thenReturn(pet);
+
+        // Act
+        petService.updatePet(mapToPetDto(pet));
+
+        // Assert
+        verify(petRepository, times(1)).save(any());
+
+        // Arrange (Negative Test)
+        PetDto nullPetDto = null;
+
+        // Act and Assert (Negative Test)
+        assertThrows(NullPointerException.class, () -> petService.updatePet(nullPetDto));
+    }
 
     @Test
     void testDeletePetVaccinesByPetId() {
@@ -150,5 +171,12 @@ class PetServiceTest {
         verify(entityManager).createQuery("DELETE FROM VaccinePet v WHERE v.pet.id = :petId");
         verify(query).setParameter("petId", petId);
         verify(query).executeUpdate();
+
+        // Arrange (Negative Test)
+        when(entityManager.createQuery("DELETE FROM VaccinePet v WHERE v.pet.id = :petId"))
+                .thenThrow(new RuntimeException("Failed to create query."));
+
+        // Act and Assert (Negative Test)
+        assertThrows(RuntimeException.class, () -> petService.deletePetVaccinesByPetId(petId));
     }
 }
