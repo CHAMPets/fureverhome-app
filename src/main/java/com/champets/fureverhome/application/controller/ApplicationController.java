@@ -84,7 +84,7 @@ public class ApplicationController {
         PetDto petDto = petService.findPetById(petId);
         petDto.setApplicationCounter(petDto.getApplicationCounter() + 1);
         petService.updatePet(petDto);
-        mailService.sendEmail(userDto.getEmail(), "Application Pending", "Your application for pet " + petDto.getName() + " is under review.");
+        mailService.sendEmail(userDto.getEmail(), "Application #" + applicationDto.getId() + " Pending", "Your application for pet " + petDto.getName() + " is under review. Kindly respond by providing your documents.");
 
         return "redirect:/applications";
     }
@@ -98,11 +98,11 @@ public class ApplicationController {
         application.setUser(applicationDto.getUser());
         switch (applicationDto.getApplicationStatus()) {
             case APPROVED:
-                mailService.sendEmail(application.getUser().getEmail(), "Application Approved", "Your application for pet " + applicationDto.getPet().getName() + " is approved.");
+                mailService.sendEmail(application.getUser().getEmail(), "Application Approved", "Your application for pet " + applicationDto.getPet().getName() + " is approved. Drop by our shelter and meet your furry friend.");
                 break;
             case REJECTED:
                 applicationDto.getPet().setApplicationCounter(applicationDto.getPet().getApplicationCounter() - 1);
-                mailService.sendEmail(application.getUser().getEmail(), "Application Rejected", "Your application for pet " + applicationDto.getPet().getName() + " is rejected.");
+                mailService.sendEmail(application.getUser().getEmail(), "Application Rejected", "We regret to inform that your application for pet " + applicationDto.getPet().getName() + " is rejected.");
                 break;
             case RELEASED:
                 applicationDto.getPet().setApplicationCounter(0);
@@ -110,7 +110,7 @@ public class ApplicationController {
                 break;
             case CANCELLED:
                 applicationDto.getPet().setActive(false);
-                mailService.sendEmail(application.getUser().getEmail(), "Application Cancelled", "Your application for pet " + applicationDto.getPet().getName() + " is cancelled.");
+                mailService.sendEmail(application.getUser().getEmail(), "Application Cancelled", "We regret to inform that your application for pet " + applicationDto.getPet().getName() + " is cancelled.");
                 break;
         }
         application.setPet(applicationDto.getPet());

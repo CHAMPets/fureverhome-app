@@ -24,6 +24,7 @@
                                     <p th:text="'Status: ' + ${applicationDto.applicationStatus}"></p>
                                     <p th:text="'Email: ' + ${applicationDto.user.email}"></p>
                                     <p th:text="'Phone: ' + ${applicationDto.user.phoneNumber}"></p>
+                                    <p th:if="${applicationDto.releaseDate != null}" th:text="'Release Date: ' + ${applicationDto.releaseDate}"></p>
                                     <a class="btn btn-primary" th:href="@{/admin/applications/{applicationId}(applicationId=${applicationDto.id})}" style="margin-top:15px">View application</a>
 
                                 </div>

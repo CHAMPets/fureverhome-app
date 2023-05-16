@@ -22,7 +22,7 @@
                 <h2 th:text="${pet.name}" class="text-primary fw-bolder mb-0"></h2>
               </div>
               <div>
-                <form method="post" th:action="@{/applications/{petId}/{userId}(petId=${pet.id}, userId=1)}" th:object="${application}">
+                <form method="post" th:action="@{/applications/{petId}(petId=${pet.id})}" th:object="${application}">
                   <button type="submit" class="btn btn-primary btn-lg me-3" style="font-size: 1.1rem; width: 150px">
                     <div class="d-inline-block bi bi-send me-2"></div>
                     Adopt

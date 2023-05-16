@@ -135,6 +135,27 @@ body {
   background-color: var(--bs-body-bg);
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+}
+
+/* Define the scrollbar styles */
+body::-webkit-scrollbar {
+  width: 8px; /* Set the width of the scrollbar */
+}
+
+/* Track */
+body::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Set the background color of the scrollbar track */
+}
+
+/* Handle */
+body::-webkit-scrollbar-thumb {
+  background: #888; /* Set the color of the scrollbar handle */
+}
+
+/* Handle on hover */
+body::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Set the color of the scrollbar handle when hovering */
 }
 
 hr {

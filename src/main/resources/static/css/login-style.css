@@ -76,7 +76,8 @@ button.ghost {
 }
 
 button.ghost:hover {
-    background-color: #DAC4BE;
+    background-color: white;
+    color: #6c757d;
 }
 
 
@@ -171,8 +172,8 @@ input {
 
 .overlay {
     background: #EBAE9D;
-    background: -webkit-linear-gradient(to right, #EBAE9D, #e3c1b8);
-    background: linear-gradient(to right, #EBAE9D, #e3ac9d);
+    background: -webkit-linear-gradient(135deg, #a1cdf1, #D4A0A7);
+    background: linear-gradient(135deg, #a1cdf1, #D4A0A7);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;

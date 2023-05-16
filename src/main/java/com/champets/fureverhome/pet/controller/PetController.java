@@ -233,12 +233,13 @@ public class PetController {
 
     @GetMapping("/pets/{petId}")
     public String displayPetAsUser(@PathVariable("petId") Long petId, Model model) {
-        PetDto pet = petService.findPetById(petId);
         UserEntity user = userService.getCurrentUser();
+        PetDto pet = petService.findPetById(petId);
         List<VaccinePetDto> vaccinePet = vaccinePetService.findVaccineListByPetId(petId);
         model.addAttribute("pet", pet);
         model.addAttribute("user", user);
         model.addAttribute("vaccines", vaccinePet);
+        model.addAttribute("user", user);
         return "user/user-pet-details";
     }
 

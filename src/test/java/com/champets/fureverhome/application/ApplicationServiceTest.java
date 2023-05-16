@@ -76,6 +76,24 @@ public class ApplicationServiceTest {
     }
 
     @Test
+    public void testFindApplicationsByUserId() {
+        // Arrange
+        Long userId = 1L;
+        List<Application> expectedApplications = new ArrayList<>();
+        expectedApplications.add(new Application());
+        expectedApplications.add(new Application());
+
+        when(mockApplicationRepository.findApplicationsByUserId(userId)).thenReturn(expectedApplications);
+
+        // Act
+        List<ApplicationDto> result = applicationService.findApplicationsByUserId(userId);
+
+        // Assert
+        assertEquals(expectedApplications.size(), result.size());
+        verify(mockApplicationRepository, times(1)).findApplicationsByUserId(userId);
+    }
+
+    @Test
     public void testSaveApplication() {
         // Arrange
         Long petId = 1L;
