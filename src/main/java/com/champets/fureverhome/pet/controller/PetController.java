@@ -69,7 +69,6 @@ public class PetController {
     public String listActivePets(Model model){
         UserEntity user = userService.getCurrentUser();
         List<PetDto> pets = petService.findAllActivePets();
-        model.addAttribute("user", user);
         model.addAttribute("pets", pets);
         model.addAttribute("user", user);
         return "user/user-home";

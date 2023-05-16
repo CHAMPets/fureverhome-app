@@ -19,13 +19,7 @@ public class FureverhomeApplication {
 	@GetMapping("/")
 	public String displayHome(Model model) {
 		UserEntity user = userService.getCurrentUser();
-		String username = SecurityUtil.getSessionUser();
-		user = userService.findByUsername(username);
 		model.addAttribute("user", user);
-		if (user == null) {
-			return "layout";
-		}
-		//model.addAttribute("user", user);
 		return "user/user-home";
 	}
 

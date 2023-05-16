@@ -7,7 +7,7 @@
   <nav th:replace="user/user-navigation :: navigation"></nav>
   <header th:replace="fragments/jumbotron :: jumbotron"></header>
 
-  <section class="py-5" id="petCatalog">
+  <section class="py-5" id="petCatalog" th:object="${user}" th:if="${user != null}">
     <div class="container px-5 my-5">
       <div class="text-center mb-5">
         <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Pet Catalog</span></h1>
