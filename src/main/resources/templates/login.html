@@ -3,6 +3,7 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="css/login-style.css">
 <body>
+<button class="back-button" onclick="goBack()"></button>
 <h2>FurEverHome</h2>
     <div class="main">
       <div class="col-md-6 col-sm-12">
@@ -54,48 +55,6 @@
           <button type="submit">Sign Up</button>
       </form>
     </div>
-    <!--    <form method="post" role="form" th:action="@{/register/save}" th:object="${user}">-->
-<!--      <h1>Create Account</h1>-->
-<!--      <div class="social-container">-->
-<!--        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>-->
-<!--        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>-->
-<!--        <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>-->
-<!--      </div>-->
-<!--      <span>or use your email for registration</span>-->
-<!--      <input type="text" class="form-control" placeholder="Username" th:field="*{username}">-->
-<!--      <p th:if="${#fields.hasErrors('username')}" class="text-danger"></p>-->
-<!--      <input-->
-<!--              type="text"-->
-<!--              class="form-control"-->
-<!--              placeholder="Email"-->
-<!--              th:field="*{email}">-->
-<!--      <p th:if="${#fields.hasErrors('email')}" class="text-danger"></p>-->
-<!--      <input-->
-<!--              type="text"-->
-<!--              class="form-control"-->
-<!--              placeholder="First Name"-->
-<!--              th:field="*{firstName}">-->
-<!--      <p th:if="${#fields.hasErrors('firstName')}" class="text-danger"></p>-->
-<!--      <input-->
-<!--              type="text"-->
-<!--              class="form-control"-->
-<!--              placeholder="last Name"-->
-<!--              th:field="*{lastName}">-->
-<!--      <p th:if="${#fields.hasErrors('lastName')}" class="text-danger"></p>-->
-<!--      <input-->
-<!--              type="text"-->
-<!--              class="form-control"-->
-<!--              placeholder="Phone Number"-->
-<!--              th:field="*{phoneNumber}">-->
-
-<!--      <p th:if="${#fields.hasErrors('phoneNumber')}" class="text-danger"></p>-->
-
-<!--      <input type="password" class="form-control" placeholder="Password" th:field="*{password}">-->
-<!--      <input type="password" class="form-control" placeholder="Confirm Password" id="confirm_password" required>-->
-<!--      <p th:if="${#fields.hasErrors('password')}" class="text-danger"></p>-->
-<!--      <button type="submit">Sign Up</button>-->
-<!--    </form>-->
-<!--  </div>-->
   <div class="form-container sign-in-container">
     <form method="post" th:action="@{/login}">
       <h1>Sign in</h1>
@@ -160,4 +119,11 @@
                         password.onchange = validatePassword;
                         confirm_password.onkeyup = validatePassword;
             </script>
+  <script>
+  function goBack() {
+    window.location.href = "/";
+  }
+</script>
+
+
 </html>

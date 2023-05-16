@@ -48,7 +48,6 @@ button {
     border-radius: 20px;
     border: 1px solid #ebae9d;
     background-color: #ebae9d;
-    hover: #6c757d;
     color: #FFFFFF;
     font-size: 12px;
     font-weight: bold;
@@ -56,11 +55,12 @@ button {
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: transform 80ms ease-in;
+    cursor: pointer; /* Add cursor property */
 }
-.button:hover {
-      background-color:DAC4BE;
-      transition: 0.7s;
-  }
+
+button:hover {
+    background-color: #DAC4BE;
+}
 
 button:active {
     transform: scale(0.95);
@@ -73,6 +73,10 @@ button:focus {
 button.ghost {
     background-color: transparent;
     border-color: #FFFFFF;
+}
+
+button.ghost:hover {
+    background-color: #DAC4BE;
 }
 
 
@@ -166,9 +170,9 @@ input {
 }
 
 .overlay {
-    background: #E2D0CB;
-    background: -webkit-linear-gradient(to right, #E2D0CB, #e3c1b8);
-    background: linear-gradient(to right, #E2D0CB, #e3c1b8);
+    background: #EBAE9D;
+    background: -webkit-linear-gradient(to right, #EBAE9D, #e3c1b8);
+    background: linear-gradient(to right, #EBAE9D, #e3ac9d);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;
@@ -256,3 +260,39 @@ footer a {
     color: #3c97bf;
     text-decoration: none;
 }
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  width: 40px;
+  height: 60px;
+  border-radius: 100%;
+
+}
+
+.back-button::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-right: 2px solid #000;
+  border-top: 2px solid #000;
+  transform: rotate(-135deg);
+  position: absolute;
+  top: 30%;
+  left: 40%;
+  transform-origin: center;
+}
+
+.back-button:hover::before {
+  border-color: #666;
+}
+
+.back-button:focus {
+  outline: none;
+}
+

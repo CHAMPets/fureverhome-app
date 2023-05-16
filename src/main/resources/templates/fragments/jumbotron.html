@@ -12,7 +12,7 @@
             <a class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" th:if="${user != null}" href="#petCatalog" style="transform: scale(0); animation: zoom_in 2s ease 4s forwards;">See Catalog</a>
             <a class="btn btn-outline-dark btn-lg px-5 py-3 fs-6 fw-bolder" th:if="${user != null}" th:href="@{/about}" style="transform: scale(0); animation: zoom_in 2s ease 4s forwards;">About</a>
             <a class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" th:if="${user == null}" th:href="@{/login}" style="transform: scale(0); animation: zoom_in 2s ease 4s forwards;">Log In</a>
-            <a class="btn btn-outline-dark btn-lg px-5 py-3 fs-6 fw-bolder" th:if="${user == null}" th:href="@{/register}" style="transform: scale(0); animation: zoom_in 2s ease 4s forwards;">Sign Up</a>
+            <a class="btn btn-outline-dark btn-lg px-5 py-3 fs-6 fw-bolder" th:if="${user == null}" th:href="@{/login}" style="transform: scale(0); animation: zoom_in 2s ease 4s forwards;">Sign Up</a>
           </div>
         </div>
       </div>
