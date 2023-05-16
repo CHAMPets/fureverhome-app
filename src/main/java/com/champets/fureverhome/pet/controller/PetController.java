@@ -87,9 +87,15 @@ public class PetController {
         BodySize enumSize = (size != null && !size.equals("ALL")) ? BodySize.valueOf(size) : null;
         Gender enumGender = (gender != null && !gender.equals("ALL")) ? Gender.valueOf(gender) : null;
 
+<<<<<<< Updated upstream
         Long userId = userService.getCurrentUser().getId();
 
         List<PetDto> pets = petService.findActivePetsNotAppliedByUserWithFilter(userId, enumType, enumSize, enumGender);
+=======
+        UserEntity user = userService.getCurrentUser();
+        List<PetDto> pets = petService.findActivePetsByFilter(enumType, enumSize, enumGender);
+        model.addAttribute("user", user);
+>>>>>>> Stashed changes
         model.addAttribute("pets", pets);
         model.addAttribute("type", type);
         model.addAttribute("size", size);
@@ -107,7 +113,10 @@ public class PetController {
         BodySize enumSize = (size != null && !size.equals("ALL")) ? BodySize.valueOf(size) : null;
         Gender enumGender = (gender != null && !gender.equals("ALL")) ? Gender.valueOf(gender) : null;
 
-        List<PetDto> pets = petService.findPetsByFilter(enumType, enumSize, enumGender);
+
+        UserEntity user = userService.getCurrentUser();
+        List<PetDto> pets = petService.findActivePetsByFilter(enumType, enumSize, enumGender);
+        model.addAttribute("user", user);
         model.addAttribute("pets", pets);
         model.addAttribute("type", type);
         model.addAttribute("size", size);
@@ -118,7 +127,9 @@ public class PetController {
     @GetMapping("/admin/pets/new")
     public String createPetForm(Model model) {
         Pet pet = new Pet();
+        UserEntity user = userService.getCurrentUser();
         List<Vaccine> vaccines = vaccineService.findAllVaccines();
+        model.addAttribute("user", user);
         model.addAttribute("vaccines", vaccines);
         model.addAttribute("pet", pet);
         return "admin/pet-create";
@@ -166,6 +177,8 @@ public class PetController {
         List<Vaccine> vaccines = vaccineService.findAllVaccines();
         model.addAttribute("vaccine", vaccines);
         PetDto pet = petService.findPetById(petId);
+        UserEntity user = userService.getCurrentUser();
+        model.addAttribute("user", user);
         model.addAttribute("pet", pet);
         return "admin/pet-edit";
     }
@@ -224,8 +237,10 @@ public class PetController {
     @GetMapping("/pets/{petId}")
     public String displayPetAsUser(@PathVariable("petId") Long petId, Model model) {
         PetDto pet = petService.findPetById(petId);
+        UserEntity user = userService.getCurrentUser();
         List<VaccinePetDto> vaccinePet = vaccinePetService.findVaccineListByPetId(petId);
         model.addAttribute("pet", pet);
+        model.addAttribute("user", user);
         model.addAttribute("vaccines", vaccinePet);
         return "user/user-pet-details";
     }
@@ -233,8 +248,10 @@ public class PetController {
     @GetMapping("/admin/pets/{petId}")
     public String displayPetAsAdmin(@PathVariable("petId") Long petId, Model model) {
         PetDto pet = petService.findPetById(petId);
+        UserEntity user = userService.getCurrentUser();
         List<VaccinePetDto> vaccinePet = vaccinePetService.findVaccineListByPetId(petId);
         model.addAttribute("pet", pet);
+        model.addAttribute("user", user);
         model.addAttribute("vaccines", vaccinePet);
         return "admin/admin-pet-details";
     }

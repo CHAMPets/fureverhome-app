@@ -40,6 +40,8 @@ public class ApplicationController {
     @GetMapping("/admin/applications")
     public String listApplications(Model model) {
         List<ApplicationDto> applications = applicationService.findAllApplications();
+        UserEntity user = userService.getCurrentUser();
+        model.addAttribute("user", user);
         model.addAttribute("applications", applications);
         return "admin/application-list";
     }
@@ -47,6 +49,8 @@ public class ApplicationController {
     @GetMapping("/admin/applications/pet/{petId}")
     public String listApplications(@PathVariable("petId") Long petId, Model model) {
         List<ApplicationDto> applications = applicationService.findApplicationsByPetId(petId);
+        UserEntity user = userService.getCurrentUser();
+        model.addAttribute("user", user);
         model.addAttribute("applications", applications);
         return "admin/application-list";
     }
@@ -64,9 +68,11 @@ public class ApplicationController {
     @GetMapping("/admin/applications/{applicationId}")
     public String applicationDetail(@PathVariable("applicationId") Long applicationId, Model model) {
         ApplicationDto application = applicationService.findApplicationById(applicationId);
+        UserEntity user = userService.getCurrentUser();
+        model.addAttribute("user", user);
         model.addAttribute("applicationDto", application);
-        model.addAttribute("pet", application.getPet());
-        model.addAttribute("user", application.getUser());
+//        model.addAttribute("petApp", application.getPet());
+//        model.addAttribute("userApp", application.getUser());
         return "admin/application-details";
     }
 
@@ -109,6 +115,7 @@ public class ApplicationController {
         }
         application.setPet(applicationDto.getPet());
         applicationService.updateApplication(application);
+
 
         return "redirect:/admin/applications";
     }
