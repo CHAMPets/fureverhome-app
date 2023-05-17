@@ -165,24 +165,8 @@ public class ApplicationServiceTest {
         verify(mockApplicationRepository, times(1)).save(any(Application.class));
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testFindApplicationsByPetIdAndUserId_InvalidPetId_ThrowsException() {
-        // Arrange
-        Long petId = 1L;
-        Long userId = 1L;
-
-        // Configure mock behavior
-        when(mockApplicationRepository.findApplicationByPetIdAndUserId(petId, userId)).thenReturn(null);
-
-        // Act
-        applicationService.findApplicationByPetIdAndUserId(petId, userId);
-
-        // Assert
-        // Expecting NoSuchElementException to be thrown
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testFindApplicationsByPetIdAndUserId_InvalidUserId_ReturnsNull() {
+    @Test
+    public void testFindApplicationByPetIdAndUserId_InvalidPetId_ReturnsNull() {
         // Arrange
         Long petId = 1L;
         Long userId = 1L;
@@ -194,6 +178,23 @@ public class ApplicationServiceTest {
         Optional<Application> result = applicationService.findApplicationByPetIdAndUserId(petId, userId);
 
         // Assert
+        assertNull(result);
+    }
+
+    @Test
+    public void testFindApplicationByPetIdAndUserId_InvalidUserId_ReturnsNull() {
+        // Arrange
+        Long petId = 1L;
+        Long userId = 1L;
+
+        // Configure mock behavior
+        when(mockApplicationRepository.findApplicationByPetIdAndUserId(petId, userId)).thenReturn(null);
+
+        // Act
+        Optional<Application> result = applicationService.findApplicationByPetIdAndUserId(petId, userId);
+
+        // Assert
+        assertNull(result);
     }
 
 
