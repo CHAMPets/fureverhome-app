@@ -151,7 +151,16 @@
                                             th:field="*{active}">
                                     <br>
                                 </div>
-                                <button type="submit">Add Pet</button>
+
+                                <input type="hidden"
+                                       name="applicationCounter"
+                                       th:field="*{applicationCounter}">
+
+                                <input type="hidden"
+                                       name="applicationLimit"
+                                       th:field="*{applicationLimit}">
+
+                                <button type="submit">Edit Pet</button>
                             </form>
                         </div>
                     </div>

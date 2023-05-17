@@ -14,6 +14,9 @@
             </div>
             <div class="row gx-5 justify-content-center">
                 <div class="col-lg-11 col-xl-9 col-xxl-8">
+                    <div class="row text-center p-5 m-5" th:if="${#lists.isEmpty(applications)}">
+                        <h1 style="color: #6c757d">No applications found.</h1>
+                    </div>
                     <div th:each="applicationDto, applicationIndex : ${applications}" class="card overflow-hidden shadow rounded-4 border-0 mb-5">
                         <div class="card-body p-0">
                             <div class="d-flex align-items-center">

@@ -28,6 +28,8 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import static com.champets.fureverhome.pet.model.mapper.PetMapper.mapToPet;
 import static com.champets.fureverhome.utility.FileUploadUtil.uploadFile;
 
@@ -247,11 +249,13 @@ public class PetController {
         UserEntity user = userService.getCurrentUser();
         PetDto pet = petService.findPetById(petId);
         List<VaccinePetDto> vaccinePet = vaccinePetService.findVaccineListByPetId(petId);
-        //ApplicationDto application = applicationService.findApplicationsByPetIdAndUserId(petId, user.getId());
+
+        Optional<Application> application = applicationService.findApplicationByPetIdAndUserId(petId, user.getId());
+
         model.addAttribute("pet", pet);
         model.addAttribute("user", user);
         model.addAttribute("vaccines", vaccinePet);
-        //model.addAttribute("application", application);
+        model.addAttribute("application", application);
         return "user/user-pet-details";
     }
 

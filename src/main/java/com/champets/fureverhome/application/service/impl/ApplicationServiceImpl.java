@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.champets.fureverhome.application.model.mapper.ApplicationMapper.mapToApplication;
@@ -45,9 +46,9 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public ApplicationDto findApplicationsByPetIdAndUserId(Long petId, Long userId) {
-        Application application = applicationRepository.findApplicationsByPetIdAndUserId(petId, userId);
-        return mapToApplicationDto(application);
+    public Optional<Application> findApplicationByPetIdAndUserId(Long petId, Long userId) {
+        Optional<Application> application = applicationRepository.findApplicationByPetIdAndUserId(petId, userId);
+        return application;
     }
 
     @Override
@@ -73,10 +74,4 @@ public class ApplicationServiceImpl implements ApplicationService {
         applicationRepository.save(application);
     }
 
-    @Override
-    public List<ApplicationDto> searchApplicationsByEmailAddress(String emailAddress) {
-//        List<Application> applications = applicationRepository.searchApplicationsByEmailAddress(emailAddress);
-//        return applications.stream().map(application -> mapToApplicationDto(application)).collect(Collectors.toList());
-        return null;
-    }
 }

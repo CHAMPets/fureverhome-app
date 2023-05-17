@@ -4,6 +4,7 @@ import com.champets.fureverhome.application.model.Application;
 import com.champets.fureverhome.application.model.dto.ApplicationDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ApplicationService {
     List<ApplicationDto> findAllApplications();
@@ -16,9 +17,8 @@ public interface ApplicationService {
 
     List<ApplicationDto> findApplicationsByUserId(Long userId);
 
-    ApplicationDto findApplicationsByPetIdAndUserId(Long petId, Long userId);
+    Optional<Application> findApplicationByPetIdAndUserId(Long petId, Long userId);
 
     void updateApplication(ApplicationDto applicationDto);
 
-    List<ApplicationDto> searchApplicationsByEmailAddress(String emailAddress);
 }
