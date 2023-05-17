@@ -36,8 +36,6 @@ public class UserEntity {
     @CreationTimestamp
     private LocalDate createdDate;
 
-
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Application> applications = new ArrayList<>();
 }

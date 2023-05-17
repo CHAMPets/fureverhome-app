@@ -16,11 +16,11 @@
           </div>
 
           <div th:if="${param.error}" class="dialog-box dialog-box-success">
-              <p class="dialog-box-icon-success">❌ </p>
+              <p class="dialog-box-icon-success">❌  </p>
               <p class="dialog-box-message-fail">Invalid username and password.</p>
           </div>
           <div th:if="${param.fail}" class="dialog-box dialog-box-success">
-              <p class="dialog-box-icon-success">❌ </p>
+              <p class="dialog-box-icon-success">❌  </p>
               <p class="dialog-box-message-fail">Email or Username already exists.</p>
           </div>
           <div th:if="${param.logout}" class="dialog-box dialog-box-success">
@@ -72,9 +72,9 @@
     <form method="post" th:action="@{/login}">
       <h1>Sign in</h1>
         <div class="social-container">
-            <a href="#" class="social"><img src="../assets/troy.jpg"></a>
-            <a href="#" class="social"><img src="../assets/jon.jpg"></a>
-            <a href="#" class="social"><img src="../assets/rey.jpg"></a>
+            <a href="#" class="social"><img src="../assets/logo.png"></a>
+            <a href="#" class="social"><img src="../assets/logo.png"></a>
+            <a href="#" class="social"><img src="../assets/logo.png"></a>
         </div>
       <input id="username" type="text" class="form-control" placeholder="Username" name="username">
       <input id="password" type="password" class="form-control" placeholder="Password" name="password">

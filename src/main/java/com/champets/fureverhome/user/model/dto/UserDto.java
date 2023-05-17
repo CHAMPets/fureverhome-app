@@ -19,6 +19,8 @@ public class UserDto {
     @NotEmpty
     private String password;
 
+    private String username;
+
     private String phoneNumber;
 
     private String firstName;
@@ -26,8 +28,6 @@ public class UserDto {
     private String lastName;
 
     private LocalDate createdDate;
-
-//    private String role;
 
     private List<Application> applications = new ArrayList<>();
 }
