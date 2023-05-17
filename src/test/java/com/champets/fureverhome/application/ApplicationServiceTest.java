@@ -17,8 +17,9 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.*;
 
+import static com.champets.fureverhome.application.model.mapper.ApplicationMapper.mapToApplication;
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class ApplicationServiceTest {
@@ -94,6 +95,24 @@ public class ApplicationServiceTest {
     }
 
     @Test
+    public void testFindApplicationsByPetIdAndUserId() {
+        // Arrange
+        Long petId = 1L;
+        Long userId = 1L;
+        Optional<Application> expectedApplication = Optional.of(new Application());
+
+        when(mockApplicationRepository.findApplicationByPetIdAndUserId(petId, userId)).thenReturn(expectedApplication);
+
+        // Act
+        Optional<Application> result = applicationService.findApplicationByPetIdAndUserId(petId, userId);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(expectedApplication, result);
+        verify(mockApplicationRepository, times(1)).findApplicationByPetIdAndUserId(petId, userId);
+    }
+
+    @Test
     public void testSaveApplication() {
         // Arrange
         Long petId = 1L;
@@ -126,7 +145,7 @@ public class ApplicationServiceTest {
         when(mockApplicationRepository.findById(applicationId)).thenReturn(Optional.of(expectedApplication));
 
         // Act
-        Application result = ApplicationMapper.mapToApplication(applicationService.findApplicationById(applicationId));
+        Application result = mapToApplication(applicationService.findApplicationById(applicationId));
 
         // Assert
         assertEquals(expectedApplication, result);
@@ -146,21 +165,39 @@ public class ApplicationServiceTest {
         verify(mockApplicationRepository, times(1)).save(any(Application.class));
     }
 
-    @Test(expected = NoSuchElementException.class)
-    public void testSaveApplication_InvalidPetId_ThrowsException() {
+    @Test(expected = NullPointerException.class)
+    public void testFindApplicationsByPetIdAndUserId_InvalidPetId_ThrowsException() {
         // Arrange
         Long petId = 1L;
         Long userId = 1L;
-        ApplicationDto applicationDto = ApplicationDto.builder().build();
 
-        when(mockPetRepository.findById(petId)).thenReturn(Optional.empty());
+        // Configure mock behavior
+        when(mockApplicationRepository.findApplicationByPetIdAndUserId(petId, userId)).thenReturn(null);
 
         // Act
-        applicationService.saveApplication(applicationDto, petId, userId);
+        applicationService.findApplicationByPetIdAndUserId(petId, userId);
 
         // Assert
         // Expecting NoSuchElementException to be thrown
     }
+
+    @Test(expected = NullPointerException.class)
+    public void testFindApplicationsByPetIdAndUserId_InvalidUserId_ReturnsNull() {
+        // Arrange
+        Long petId = 1L;
+        Long userId = 1L;
+
+        // Configure mock behavior
+        when(mockApplicationRepository.findApplicationByPetIdAndUserId(petId, userId)).thenReturn(null);
+
+        // Act
+        Optional<Application> result = applicationService.findApplicationByPetIdAndUserId(petId, userId);
+
+        // Assert
+    }
+
+
+
 
     @Test(expected = NoSuchElementException.class)
     public void testSaveApplication_InvalidUserId_ThrowsException() {

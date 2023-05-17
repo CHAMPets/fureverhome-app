@@ -54,7 +54,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public Application saveApplication(ApplicationDto applicationDto, Long petId, Long userId) {
         Pet pet = petRepository.findById(petId).get();
-        UserEntity user = userRepository.findById(userId).get(); //null pointer exception
+        UserEntity user = userRepository.findById(userId).get();
         Application application = mapToApplication(applicationDto);
         application.setPet(pet);
         application.setUser(user);

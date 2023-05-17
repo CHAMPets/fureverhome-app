@@ -30,7 +30,7 @@
                                     <p th:text="'Phone: ' + ${applicationDto.user.phoneNumber}"></p>
                                     <p th:if="${applicationDto.releaseDate != null}" th:text="'Release Date: ' + ${applicationDto.releaseDate}"></p>
                                 <br />
-                                    <form method="post" th:action="@{/admin/applications/{applicationId}(applicationId=${applicationDto.id})}" th:object="${applicationDto}" th:if="${applicationDto.applicationStatus.name() != 'RELEASED' && applicationDto.applicationStatus.name() != 'CANCELLED'}">
+                                    <form method="post" th:action="@{/admin/applications/{applicationId}(applicationId=${applicationDto.id})}" th:object="${applicationDto}" th:if="${applicationDto.applicationStatus.name() != 'RELEASED' && applicationDto.applicationStatus.name() != 'CANCELLED' && applicationDto.applicationStatus.name() != 'REJECTED'}">
                                         <div class = "form-group" th:if="${applicationDto.applicationStatus.name() == 'APPROVED'}">
                                             <label for="releaseDate">Release Date:</label>
                                             <input
@@ -45,6 +45,7 @@
                                         <div class = "form-group" >
                                         <label for="applicationStatus">Application Status:</label>
                                         <select
+                                                class="form-select"
                                                 id="applicationStatus"
                                                 name="applicationStatus"
                                                 th:field="*{applicationStatus}"
@@ -58,7 +59,7 @@
                                     <button class="btn btn-primary" type="submit">Update Application</button>
                                 </form>
                                 </div>
-                                <img class="img-fluid" th:src="@{'/' + ${applicationDto.pet.photosImagePath}}" alt="..." style="width: 300px; height: 400px;"/>
+                                <img class="img-fluid" th:src="${applicationDto.pet.imagePath}" alt="..." style="width: 300px; height: 400px;"/>
                             </div>
                         </div>
                     </div>

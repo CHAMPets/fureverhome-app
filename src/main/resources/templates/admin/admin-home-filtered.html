@@ -64,7 +64,6 @@
               <div class="d-flex align-items-center">
                 <div class="p-5">
                   <h2 th:text="${pet.name}" class="fw-bolder"></h2>
-                  <!--                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius at enim eum illum aperiam placeat esse? Mollitia omnis minima saepe recusandae libero, iste ad asperiores! Explicabo commodi quo itaque! Ipsam!</p>-->
                   <p th:text="${pet.description}"></p>
                   <a class="btn btn-primary" th:href="@{/admin/pets/{petId}/edit(petId=${pet.id})}" style="margin-top:15px">Edit details</a>
                   <a class="btn btn-primary" th:href="@{/admin/applications/pet/{petId}(petId=${pet.id})}" style="margin-top:15px">View applications</a>
