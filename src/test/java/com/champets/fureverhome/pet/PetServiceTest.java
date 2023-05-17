@@ -1,5 +1,6 @@
 package com.champets.fureverhome.pet;
 
+import com.champets.fureverhome.exception.pet.PetServiceException;
 import com.champets.fureverhome.pet.enums.BodySize;
 import com.champets.fureverhome.pet.enums.Gender;
 import com.champets.fureverhome.pet.enums.Type;
@@ -10,9 +11,11 @@ import com.champets.fureverhome.pet.service.PetService;
 import com.champets.fureverhome.pet.service.impl.PetServiceImpl;
 import com.champets.fureverhome.vaccine.repository.VaccinePetRepository;
 import com.champets.fureverhome.vaccine.repository.VaccineRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -157,6 +160,21 @@ class PetServiceTest {
     }
 
     @Test
+    public void testSavePet_ExceptionThrown() {
+        // Arrange
+        PetDto petDto = PetDto.builder().build();
+        petDto.setId(1L);
+        petDto.setName("Max");
+
+        Mockito.when(petRepository.save(Mockito.any(Pet.class))).thenThrow(new RuntimeException());
+
+        // Act and Assert
+        Assertions.assertThrows(PetServiceException.class, () -> {
+            petService.savePet(petDto);
+        });
+    }
+
+    @Test
     void testFindPetById() {
         // Arrange
         long petId = 1;
@@ -223,5 +241,19 @@ class PetServiceTest {
 
         // Act and Assert (Negative Test)
         assertThrows(RuntimeException.class, () -> petService.deletePetVaccinesByPetId(petId));
+    }
+
+    @Test
+    public void testDeletePetVaccinesByPetId_ExceptionThrown() {
+        // Arrange
+        Long petId = 1L;
+        Query query = Mockito.mock(Query.class);
+        Mockito.when(entityManager.createQuery(Mockito.anyString())).thenReturn(query);
+        Mockito.when(query.executeUpdate()).thenThrow(new RuntimeException());
+
+        // Act and Assert
+        Assertions.assertThrows(PetServiceException.class, () -> {
+            petService.deletePetVaccinesByPetId(petId);
+        });
     }
 }

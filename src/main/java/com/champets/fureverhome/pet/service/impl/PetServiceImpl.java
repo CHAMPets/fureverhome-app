@@ -1,5 +1,7 @@
 package com.champets.fureverhome.pet.service.impl;
 
+import com.champets.fureverhome.exception.pet.PetNotFoundException;
+import com.champets.fureverhome.exception.pet.PetServiceException;
 import com.champets.fureverhome.pet.enums.BodySize;
 import com.champets.fureverhome.pet.enums.Gender;
 import com.champets.fureverhome.pet.enums.Type;
@@ -76,8 +78,12 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public Pet savePet(PetDto petDto) {
-        Pet pet = mapToPet(petDto);
-        return petRepository.save(pet);
+        try {
+            Pet pet = mapToPet(petDto);
+            return petRepository.save(pet);
+        } catch (Exception e) {
+            throw new PetServiceException("Failed to save pet: " + petDto.getId(), e);
+        }
     }
 
     @Override
@@ -103,9 +109,13 @@ public class PetServiceImpl implements PetService {
     @Transactional
     @Override
     public void deletePetVaccinesByPetId(Long petId) {
-        Query query = entityManager.createQuery("DELETE FROM VaccinePet v WHERE v.pet.id = :petId");
-        query.setParameter("petId", petId);
-        query.executeUpdate();
+        try {
+            Query query = entityManager.createQuery("DELETE FROM VaccinePet v WHERE v.pet.id = :petId");
+            query.setParameter("petId", petId);
+            query.executeUpdate();
+        } catch (Exception e) {
+            throw new PetServiceException("Failed to delete pet vaccines: " + petId, e);
+        }
     }
 
 //        Pet savedPet = petRepository.save(pet);

@@ -26,10 +26,10 @@
                                             id="name"
                                             name="name"
                                             th:field="*{name}"
-                                            placeholder="Name"><br>
+                                            placeholder="Name">
                                     <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
                                 </div>
-
+                                <br>
                                 <div class="form-group">
                                     <label for="gender">Gender:</label>
                                     <select id="gender" name="gender" th:field="*{gender}" class="form-select">
@@ -40,6 +40,7 @@
                                     <p th:if="${#fields.hasErrors('gender')}" class="text-danger"
                                        th:errors="*{gender}"></p>
                                 </div>
+                                <br>
 
                                 <div class="form-group">
                                     <label for="type">Type:</label>
@@ -50,6 +51,7 @@
                                     </select>
                                     <p th:if="${#fields.hasErrors('type')}" class="text-danger" th:errors="*{type}"></p>
                                 </div>
+                                <br>
 
                                 <div class="form-group">
                                     <label for="age">Age:</label>
@@ -57,6 +59,7 @@
                                            placeholder="Age">
                                     <p th:if="${#fields.hasErrors('age')}" class="text-danger" th:errors="*{age}"></p>
                                 </div>
+                                <br>
 
                                 <div class="form-group">
                                     <label for="bodySize">Body Size:</label>
@@ -69,12 +72,14 @@
                                     <p th:if="${#fields.hasErrors('bodySize')}" class="text-danger"
                                        th:errors="*{bodySize}"></p>
                                 </div>
+                                <br>
 
                                 <div class="form-group">
                                     <label for="rescueDate">Rescue Date:</label>
                                     <input type="date" class="form-control" id="rescueDate" name="rescueDate"
                                            th:field="*{rescueDate}" placeholder="Rescue Date">
                                 </div>
+                                <br>
 
                                 <!--                <div class="form-group">-->
                                 <!--                  <label for="imagePath">Image Path:</label>-->
@@ -106,6 +111,7 @@
                                     <p th:if="${#fields.hasErrors('description')}" class="text-danger"
                                        th:errors="*{description}"></p>
                                 </div>
+                                <br>
 
                                 <div class="form-group">
                                     <div class="form-check">
@@ -117,6 +123,7 @@
                                         <label class="form-check-label" for="isSterilized">Sterilized</label>
                                     </div>
                                 </div>
+                                <br>
 
                                 <div class="form-group">
                 <!--                  <input type="hidden" th:field="*{imagePath}"/>-->
@@ -129,6 +136,7 @@
                                          required
                                   />
                                 </div>
+                                <br>
 
                                 <div class="form-group">
                                     <label>Vaccine Type:</label>
@@ -145,6 +153,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <br>
                                 <input type="hidden" name="active" value="true">
                                 <input type="hidden" name="applicationCounter" value="0">
                                 <input type="hidden" name="applicationLimit" value="10">
