@@ -5,6 +5,9 @@ import com.champets.fureverhome.application.model.Application;
 import com.champets.fureverhome.application.model.dto.ApplicationDto;
 import com.champets.fureverhome.application.repository.ApplicationRepository;
 import com.champets.fureverhome.application.service.ApplicationService;
+import com.champets.fureverhome.exception.application.ApplicationNotFoundException;
+import com.champets.fureverhome.exception.pet.PetNotFoundException;
+import com.champets.fureverhome.exception.user.UserNotFoundException;
 import com.champets.fureverhome.pet.model.Pet;
 import com.champets.fureverhome.pet.repository.PetRepository;
 import com.champets.fureverhome.user.model.UserEntity;
@@ -31,30 +34,42 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public List<ApplicationDto> findAllApplications() {
         List<Application> applications = applicationRepository.findAll();
+        if (applications.isEmpty()) {
+            throw new ApplicationNotFoundException("No applications found.");
+        }
         return applications.stream().map(application -> mapToApplicationDto(application)).collect(Collectors.toList());
     }
     @Override
     public List<ApplicationDto> findApplicationsByPetId(Long petId) {
         List<Application> applications = applicationRepository.findApplicationsByPetId(petId);
+        if (applications.isEmpty()) {
+            throw new ApplicationNotFoundException("No applications found for pet with ID: " + petId);
+        }
         return applications.stream().map(application -> mapToApplicationDto(application)).collect(Collectors.toList());
     }
 
     @Override
     public List<ApplicationDto> findApplicationsByUserId(Long userId) {
         List<Application> applications = applicationRepository.findApplicationsByUserId(userId);
+        if (applications.isEmpty()) {
+            throw new ApplicationNotFoundException("No applications found for user with ID: " + userId);
+        }
         return applications.stream().map(application -> mapToApplicationDto(application)).collect(Collectors.toList());
     }
 
     @Override
     public Optional<Application> findApplicationByPetIdAndUserId(Long petId, Long userId) {
         Optional<Application> application = applicationRepository.findApplicationByPetIdAndUserId(petId, userId);
+        if (!application.isPresent()) {
+            throw new ApplicationNotFoundException("Application not found for pet with ID: " + petId + " and user with ID: " + userId);
+        }
         return application;
     }
 
     @Override
     public Application saveApplication(ApplicationDto applicationDto, Long petId, Long userId) {
-        Pet pet = petRepository.findById(petId).get();
-        UserEntity user = userRepository.findById(userId).get();
+        Pet pet = petRepository.findById(petId).orElseThrow(() -> new PetNotFoundException("Pet not found with ID: " + petId));
+        UserEntity user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found with ID: " + userId));
         Application application = mapToApplication(applicationDto);
         application.setPet(pet);
         application.setUser(user);
@@ -64,13 +79,16 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public ApplicationDto findApplicationById(Long applicationId) {
-        Application application = applicationRepository.findById(applicationId).get();
+        Application application = applicationRepository.findById(applicationId).orElseThrow(() -> new ApplicationNotFoundException("Application not found with ID: " + applicationId));
         return mapToApplicationDto(application);
     }
 
     @Override
     public void updateApplication(ApplicationDto applicationDto) {
         Application application = mapToApplication(applicationDto);
+        if (application == null) {
+            throw new ApplicationNotFoundException("Application not found with ID: " + application.getId());
+        }
         applicationRepository.save(application);
     }
 

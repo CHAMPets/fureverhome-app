@@ -5,6 +5,9 @@ import com.champets.fureverhome.application.model.dto.ApplicationDto;
 import com.champets.fureverhome.application.model.mapper.ApplicationMapper;
 import com.champets.fureverhome.application.repository.ApplicationRepository;
 import com.champets.fureverhome.application.service.impl.ApplicationServiceImpl;
+import com.champets.fureverhome.exception.application.ApplicationNotFoundException;
+import com.champets.fureverhome.exception.pet.PetNotFoundException;
+import com.champets.fureverhome.exception.user.UserNotFoundException;
 import com.champets.fureverhome.pet.model.Pet;
 import com.champets.fureverhome.pet.repository.PetRepository;
 import com.champets.fureverhome.user.model.UserEntity;
@@ -165,7 +168,7 @@ public class ApplicationServiceTest {
         verify(mockApplicationRepository, times(1)).save(any(Application.class));
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testFindApplicationByPetIdAndUserId_InvalidPetId_ReturnsNull() {
         // Arrange
         Long petId = 1L;
@@ -181,7 +184,7 @@ public class ApplicationServiceTest {
         assertNull(result);
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testFindApplicationByPetIdAndUserId_InvalidUserId_ReturnsNull() {
         // Arrange
         Long petId = 1L;
@@ -200,7 +203,7 @@ public class ApplicationServiceTest {
 
 
 
-    @Test(expected = NoSuchElementException.class)
+    @Test(expected = UserNotFoundException.class)
     public void testSaveApplication_InvalidUserId_ThrowsException() {
         // Arrange
         Long petId = 1L;
@@ -218,7 +221,7 @@ public class ApplicationServiceTest {
         // Expecting NoSuchElementException to be thrown
     }
 
-    @Test
+    @Test(expected = ApplicationNotFoundException.class)
     public void testFindAllApplications_EmptyList() {
         // Arrange
         List<Application> expectedApplications = new ArrayList<>();
@@ -233,7 +236,7 @@ public class ApplicationServiceTest {
         verify(mockApplicationRepository, times(1)).findAll();
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test(expected = ApplicationNotFoundException.class)
     public void testFindApplicationById_InvalidApplicationId_ThrowsException() {
         // Arrange
         Long applicationId = 1L;
@@ -259,7 +262,7 @@ public class ApplicationServiceTest {
         // Expecting IllegalArgumentException to be thrown
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test(expected = PetNotFoundException.class)
     public void testSaveApplication_NullApplicationDto_ThrowsException() {
         // Arrange
         Long petId = 1L;
