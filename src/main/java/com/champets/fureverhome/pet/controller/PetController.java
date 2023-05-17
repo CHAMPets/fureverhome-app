@@ -9,6 +9,7 @@ import com.champets.fureverhome.pet.enums.Type;
 import com.champets.fureverhome.pet.model.dto.PetDto;
 import com.champets.fureverhome.user.model.UserEntity;
 import com.champets.fureverhome.user.service.UserService;
+import com.champets.fureverhome.utility.FileUploadUtil;
 import com.champets.fureverhome.vaccine.model.Vaccine;
 import com.champets.fureverhome.vaccine.model.VaccinePet;
 import com.champets.fureverhome.vaccine.model.dto.VaccinePetDto;
@@ -18,11 +19,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import com.champets.fureverhome.pet.service.PetService;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.champets.fureverhome.pet.model.Pet;
 import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import static com.champets.fureverhome.pet.model.mapper.PetMapper.mapToPet;
@@ -140,9 +143,10 @@ public class PetController {
                           BindingResult result,
                           @RequestParam(name = "vaccineIds", required = false) List<Long> vaccineIds,
                           Model model,
-                          MultipartFile file) {
+                          @RequestParam("image") MultipartFile file) throws IOException {
 
-        String nameImage = uploadFile(file);
+//        String nameImage = uploadFile(file);
+        String nameImage = StringUtils.cleanPath(file.getOriginalFilename());
 
         if (result.hasErrors() || nameImage == null) {
             List<Vaccine> vaccines = vaccineService.findAllVaccines();
@@ -151,6 +155,8 @@ public class PetController {
             return "admin/pet-create";
         }
         petDto.setImagePath(nameImage);
+        String uploadDir = "target/classes/static/assets/";
+        FileUploadUtil.saveFile(uploadDir, nameImage, file);
         List<VaccinePet> vaccineHistory = createVaccineHistory(vaccineIds, petDto);
         Pet pet = mapToPet(petDto);
         pet.setVaccineList(vaccineHistory);
@@ -189,10 +195,10 @@ public class PetController {
                             BindingResult result,
                             Model model,
                             @RequestParam(name = "vaccineIds", required = false) List<Long> vaccineIds,
-                            @RequestParam("file") MultipartFile file) {
+                            @RequestParam("image") MultipartFile file) throws IOException {
 
         petService.deletePetVaccinesByPetId(petId);
-        String nameImage = uploadFile(file);
+        String nameImage = StringUtils.cleanPath(file.getOriginalFilename());
 
         if (result.hasErrors() || nameImage == null) {
             List<Vaccine> vaccines = vaccineService.findAllVaccines();
@@ -200,9 +206,11 @@ public class PetController {
             model.addAttribute("pet", pet);
             return "admin/pet-edit";
         }
+        pet.setImagePath(nameImage);
+        String uploadDir = "target/classes/static/assets/";
+        FileUploadUtil.saveFile(uploadDir, nameImage, file);
         petService.deletePetVaccinesByPetId(petId);
         List<VaccinePet> vaccineHistory = createVaccineHistory(vaccineIds, pet);
-        pet.setImagePath(nameImage);
         pet.setVaccineList(vaccineHistory);
         petService.updatePet(pet);
         return "redirect:/admin";

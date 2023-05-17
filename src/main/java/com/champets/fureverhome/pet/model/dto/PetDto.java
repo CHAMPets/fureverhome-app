@@ -12,6 +12,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.util.ArrayList;
+import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -43,6 +44,12 @@ public class PetDto {
 //    @NotEmpty(message = "Select an image")
     private String imagePath;
 
+    @Transient
+    public String getPhotosImagePath(){
+        if (imagePath == null) return null;
+
+        return "assets/" + imagePath;
+    }
     public String getImagePath() {
         return imagePath;
     }

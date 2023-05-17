@@ -59,6 +59,13 @@ public class Pet {
     @Column(columnDefinition = "VARCHAR(500)")
     private String imagePath;
 
+    @Transient
+    public String getPhotosImagePath(){
+        if (imagePath == null) return null;
+
+        return "assets/" + imagePath;
+    }
+
     @Column(columnDefinition = "VARCHAR(3000)")
     private String description;
 
