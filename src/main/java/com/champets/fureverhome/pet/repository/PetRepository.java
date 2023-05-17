@@ -34,6 +34,4 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
  + "(SELECT a FROM Application a WHERE a.pet = p AND a.user.id = :userId)")
     List<Pet> findActivePetsNotAppliedByUser(@Param("userId") Long userId);
 
-    //    @Query("SELECT p FROM Pet p WHERE p.name = ?1")
-//    Optional<Pet> findPetByName(String name);
 }

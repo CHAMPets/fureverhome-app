@@ -30,7 +30,7 @@
                                     <a class="btn btn-primary" th:href="@{/admin/applications/{applicationId}(applicationId=${applicationDto.id})}" style="margin-top:15px">View application</a>
 
                                 </div>
-                                <img class="img-fluid" th:src="@{'/' + ${applicationDto.pet.photosImagePath}}" alt="..." style="width: 300px; height: 400px;"/>
+                                <img class="img-fluid" th:src="@{'/' + ${applicationDto.pet.imagePath}}" alt="..." style="width: 300px; height: 400px;"/>
                             </div>
                         </div>
                     </div>

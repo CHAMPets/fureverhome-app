@@ -41,15 +41,8 @@ public class PetDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate rescueDate;
 
-//    @NotEmpty(message = "Select an image")
     private String imagePath;
 
-    @Transient
-    public String getPhotosImagePath(){
-        if (imagePath == null) return null;
-
-        return "assets/" + imagePath;
-    }
     public String getImagePath() {
         return imagePath;
     }
@@ -78,9 +71,6 @@ public class PetDto {
 
     private LocalDate createdDate;
 
-//    private List<Vaccine> vaccines;
-
-//    @NotEmpty(message = "Please select at least one vaccine")
     private List<VaccinePet> vaccineList;
     private List<Application> applications;
 

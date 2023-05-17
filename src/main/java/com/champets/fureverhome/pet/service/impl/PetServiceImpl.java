@@ -48,32 +48,52 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public List<PetDto> findAllPets() {
-        List<Pet> pets = petRepository.findAll();
-        return pets.stream().map((pet) -> mapToPetDto(pet)).collect(Collectors.toList());
+        try {
+            List<Pet> pets = petRepository.findAll();
+            return pets.stream().map((pet) -> mapToPetDto(pet)).collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new PetServiceException("Failed to retrieve all pets", e);
+        }
     }
 
     @Override
     public List<PetDto> findAllActivePets() {
-        List<Pet> pets = petRepository.findByActiveTrue();
-        return pets.stream().map((pet) -> mapToPetDto(pet)).collect(Collectors.toList());
+        try {
+            List<Pet> pets = petRepository.findByActiveTrue();
+            return pets.stream().map((pet) -> mapToPetDto(pet)).collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new PetServiceException("Failed to retrieve all active pets", e);
+        }
     }
 
     @Override
     public List<PetDto> findPetsByFilter(Type type, BodySize size, Gender gender) {
-        List<Pet> pets = petRepository.findPetsByFilter(type, size, gender);
-        return pets.stream().map((pet) -> mapToPetDto(pet)).collect(Collectors.toList());
+        try {
+            List<Pet> pets = petRepository.findPetsByFilter(type, size, gender);
+            return pets.stream().map((pet) -> mapToPetDto(pet)).collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new PetServiceException("Failed to retrieve all pets by filter", e);
+        }
     }
 
     @Override
     public List<PetDto> findActivePetsNotAppliedByUser(Long userId) {
-        List<Pet> pets = petRepository.findPetsNotAppliedByUser(userId);
-        return pets.stream().map((pet) -> mapToPetDto(pet)).collect(Collectors.toList());
+        try {
+            List<Pet> pets = petRepository.findPetsNotAppliedByUser(userId);
+            return pets.stream().map((pet) -> mapToPetDto(pet)).collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new PetServiceException("Failed to retrieve all pets not applied by user", e);
+        }
     }
 
     @Override
     public List<PetDto> findActivePetsNotAppliedByUserWithFilter(Long userId, Type type, BodySize size, Gender gender) {
-        List<Pet> pets = petRepository.findActivePetsNotAppliedByUserWithFilter(userId, type, size, gender);
-        return pets.stream().map((pet) -> mapToPetDto(pet)).collect(Collectors.toList());
+        try {
+            List<Pet> pets = petRepository.findActivePetsNotAppliedByUserWithFilter(userId, type, size, gender);
+            return pets.stream().map((pet) -> mapToPetDto(pet)).collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new PetServiceException("Failed to retrieve all pets not applied by user wiht filter", e);
+        }
     }
 
     @Override
@@ -88,22 +108,30 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public PetDto findPetById(long petId) {
-        Pet pet = petRepository.findById(petId).get();
-        return mapToPetDto(pet);
+        try {
+            Pet pet = petRepository.findById(petId)
+                    .orElseThrow(() -> new PetNotFoundException("Pet not found: " + petId));
+            return mapToPetDto(pet);
+        } catch (PetNotFoundException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new PetServiceException("Failed to find pet: " + petId, e);
+        }
     }
 
     @Override
     public void updatePet(PetDto petDto) {
-        Pet pet = mapToPet(petDto);
-
-
-        List<VaccinePet> vaccineHistory = new ArrayList<>();
-        for (VaccinePet vaccinePet: petDto.getVaccineList()) {
-            vaccineHistory.add(vaccinePet);
+        try {
+            Pet pet = mapToPet(petDto);
+            List<VaccinePet> vaccineHistory = new ArrayList<>();
+            for (VaccinePet vaccinePet : petDto.getVaccineList()) {
+                vaccineHistory.add(vaccinePet);
+            }
+            pet.setVaccineList(vaccineHistory);
+            petRepository.save(pet);
+        } catch (Exception e) {
+            throw new PetServiceException("Failed to update pet: " + petDto.getId(), e);
         }
-
-        pet.setVaccineList(vaccineHistory);
-        petRepository.save(pet);
     }
 
     @Transactional
@@ -117,16 +145,4 @@ public class PetServiceImpl implements PetService {
             throw new PetServiceException("Failed to delete pet vaccines: " + petId, e);
         }
     }
-
-//        Pet savedPet = petRepository.save(pet);
-//        List<VaccinePet> existingVaccines = savedPet.getVaccineList();
-//        List<VaccinePet> newVaccines = new ArrayList<>();
-//        for (VaccinePet vaccinePet : petDto.getVaccineList()) {
-//            Vaccine vaccine = vaccinePet.getVaccine();
-//            VaccinePet newVaccinePet = new VaccinePet(savedPet, vaccine);
-//            newVaccines.add(newVaccinePet);
-//        }
-//        existingVaccines.clear();
-//        existingVaccines.addAll(newVaccines);
-//        petRepository.save(savedPet);
 }

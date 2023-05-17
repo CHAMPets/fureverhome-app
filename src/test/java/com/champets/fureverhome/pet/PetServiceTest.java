@@ -1,5 +1,6 @@
 package com.champets.fureverhome.pet;
 
+import com.champets.fureverhome.exception.pet.PetNotFoundException;
 import com.champets.fureverhome.exception.pet.PetServiceException;
 import com.champets.fureverhome.pet.enums.BodySize;
 import com.champets.fureverhome.pet.enums.Gender;
@@ -191,7 +192,7 @@ class PetServiceTest {
         when(petRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         // Act and Assert (Negative Test: Empty Optional)
-        assertThrows(NoSuchElementException.class, () -> petService.findPetById(petId));
+        assertThrows(PetNotFoundException.class, () -> petService.findPetById(petId));
 
         // Arrange (Negative Test: Exception)
         when(petRepository.findById(anyLong())).thenThrow(new RuntimeException("Failed to find pet."));

@@ -10,7 +10,6 @@ import java.nio.file.StandardCopyOption;
 import java.util.Date;
 
 public class FileUploadUtil {
-    private static final String UPLOAD_DIR = "src/main/resources/static/assets";
 
     public static void saveFile(String uploadDir, String nameImage, MultipartFile file) throws IOException {
         Path uploadPath = Paths.get(uploadDir);

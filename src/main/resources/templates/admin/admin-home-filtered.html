@@ -69,7 +69,7 @@
                   <a class="btn btn-primary" th:href="@{/admin/applications/pet/{petId}(petId=${pet.id})}" style="margin-top:15px">View applications</a>
                   <a class="btn btn-primary" th:href="@{/admin/pets/{petId}(petId=${pet.id})}" style="margin-top:15px">See more details</a>
                 </div>
-                <img class="img-fluid" th:src="@{'/' + ${pet.photosImagePath}}" alt="..." style="width: 50%; height: auto;"/>
+                <img class="img-fluid" th:src="@{'/' + ${pet.imagePath}}" alt="..." style="width: 50%; height: auto;"/>
               </div>
             </div>
           </div>
