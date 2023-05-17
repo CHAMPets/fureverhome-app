@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.champets.fureverhome.pet.model.mapper.PetMapper.mapToPet;
-import static com.champets.fureverhome.utility.FileUploadUtil.uploadFile;
+
 
 @Controller
 public class PetController {
