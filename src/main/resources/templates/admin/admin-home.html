@@ -81,14 +81,7 @@
 </main>
 <!-- Footer-->
 <footer th:replace="fragments/footer:: footer"></footer>
-<script>
-  const filterForm = document.getElementById('filterForm');
-  const resetFilterButton = filterForm.querySelector('button[type="reset"]');
-
-  resetFilterButton.addEventListener('click', () => {
-      window.location.href = '/admin';
-  });
-</script>
+<script src="/js/reset-filter-admin.js"></script>
 </body>
 </html>
 
