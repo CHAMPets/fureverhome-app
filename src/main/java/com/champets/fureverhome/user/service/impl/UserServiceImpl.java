@@ -73,9 +73,6 @@ public class UserServiceImpl implements UserService {
         }
         String email = authentication.getName();
         UserEntity user = userRepository.findByEmail(email);
-        if (user == null) {
-            throw new CurrentUserNotFoundException("Current user not found: " + email);
-        }
         return user;
     }
 }

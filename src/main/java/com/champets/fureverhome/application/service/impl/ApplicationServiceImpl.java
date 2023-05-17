@@ -34,26 +34,17 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public List<ApplicationDto> findAllApplications() {
         List<Application> applications = applicationRepository.findAll();
-        if (applications.isEmpty()) {
-            throw new ApplicationNotFoundException("No applications found.");
-        }
         return applications.stream().map(application -> mapToApplicationDto(application)).collect(Collectors.toList());
     }
     @Override
     public List<ApplicationDto> findApplicationsByPetId(Long petId) {
         List<Application> applications = applicationRepository.findApplicationsByPetId(petId);
-        if (applications.isEmpty()) {
-            throw new ApplicationNotFoundException("No applications found for pet with ID: " + petId);
-        }
         return applications.stream().map(application -> mapToApplicationDto(application)).collect(Collectors.toList());
     }
 
     @Override
     public List<ApplicationDto> findApplicationsByUserId(Long userId) {
         List<Application> applications = applicationRepository.findApplicationsByUserId(userId);
-        if (applications.isEmpty()) {
-            throw new ApplicationNotFoundException("No applications found for user with ID: " + userId);
-        }
         return applications.stream().map(application -> mapToApplicationDto(application)).collect(Collectors.toList());
     }
 

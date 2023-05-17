@@ -23,13 +23,13 @@
               </div>
               <div th:if="${pet.active}">
                 <form method="post" th:action="@{/applications/{petId}(petId=${pet.id})}" th:object="${application}">
-                  <div th:if="${(pet.applicationCounter < pet.applicationLimit) || application != null}">
+                  <div th:if="${(pet.applicationCounter < pet.applicationLimit) || application == null}">
                   <button type="submit" class="btn btn-secondary btn-lg me-3" style="font-size: 1.1rem; width: 150px">
                     <div class="d-inline-block bi bi-send me-2"></div>
                     Adopt
                   </button>
                   </div>
-                  <div th:if="${not((pet.applicationCounter < pet.applicationLimit) || application != null)}">
+                  <div th:if="${not((pet.applicationCounter < pet.applicationLimit) || application == null)}">
                     <button type="submit" class="btn btn-secondary btn-lg me-3" style="font-size: 1.1rem; width: 150px" disabled>
                       <div class="d-inline-block bi bi-send me-2"></div>
                       Adopt

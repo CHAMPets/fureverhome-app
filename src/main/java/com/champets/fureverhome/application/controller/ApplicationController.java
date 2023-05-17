@@ -103,12 +103,13 @@ public class ApplicationController {
         ApplicationDto applicationDto = applicationService.findApplicationById(applicationId);
         application.setId(applicationId);
         application.setUser(applicationDto.getUser());
-        switch (applicationDto.getApplicationStatus()) {
+        switch (application.getApplicationStatus()) {
             case APPROVED:
                 mailService.sendEmail(application.getUser().getEmail(), "Application #" + applicationDto.getId() + " Approved", "Your application for pet " + applicationDto.getPet().getName() + " is approved. Drop by our shelter and meet your furry friend.");
                 break;
             case REJECTED:
                 applicationDto.getPet().setApplicationCounter(applicationDto.getPet().getApplicationCounter() - 1);
+                petService.savePet(mapToPetDto(applicationDto.getPet()));
                 mailService.sendEmail(application.getUser().getEmail(), "Application #" + applicationDto.getId() + " Rejected", "We regret to inform that your application for pet " + applicationDto.getPet().getName() + " is rejected.");
                 break;
             case RELEASED:
@@ -125,7 +126,6 @@ public class ApplicationController {
         }
         application.setPet(applicationDto.getPet());
         applicationService.updateApplication(application);
-
 
         return "redirect:/admin/applications";
     }

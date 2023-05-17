@@ -221,7 +221,7 @@ public class ApplicationServiceTest {
         // Expecting NoSuchElementException to be thrown
     }
 
-    @Test(expected = ApplicationNotFoundException.class)
+    @Test
     public void testFindAllApplications_EmptyList() {
         // Arrange
         List<Application> expectedApplications = new ArrayList<>();
