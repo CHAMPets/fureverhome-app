@@ -32,7 +32,7 @@
                                     <p th:if="${applicationDto.releaseDate != null}" th:text="'Release Date: ' + ${applicationDto.releaseDate}"></p>
 
                                 </div>
-                                <img class="img-fluid" th:src="${applicationDto.pet.imagePath}" alt="..." style="width: 300px; height: 400px;"/>
+                                <img class="img-fluid" th:src="@{'/' + ${applicationDto.pet.photosImagePath}}"  alt="..." style="width: 300px; height: 400px;"/>
                             </div>
                         </div>
                     </div>
