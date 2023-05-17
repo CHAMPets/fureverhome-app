@@ -9,6 +9,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
+import javax.mail.MessagingException;
+
 import static org.mockito.Mockito.*;
 
 public class MailServiceTest {
@@ -25,7 +27,7 @@ public class MailServiceTest {
     }
 
     @Test
-    public void testSendEmail() {
+    public void testSendEmail() throws MessagingException {
         // Arrange
         String to = "test@example.com";
         String subject = "Test Subject";
@@ -39,7 +41,7 @@ public class MailServiceTest {
     }
 
     @Test
-    public void testSendEmail_NullSubject() {
+    public void testSendEmail_NullSubject() throws MessagingException {
         // Arrange
         String recipient = "test@example.com";
         String subject = null;
@@ -54,7 +56,7 @@ public class MailServiceTest {
     }
 
     @Test
-    public void testSendEmail_NullMessageBody() {
+    public void testSendEmail_NullMessageBody() throws MessagingException {
         // Arrange
         String recipient = "test@example.com";
         String subject = "Test Subject";

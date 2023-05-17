@@ -23,10 +23,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
+import static com.champets.fureverhome.application.model.mapper.ApplicationMapper.mapToApplication;
 import static com.champets.fureverhome.pet.model.mapper.PetMapper.mapToPetDto;
 
 @Controller
@@ -80,14 +83,15 @@ public class ApplicationController {
     }
 
     @PostMapping("/applications/{petId}")
-    public String saveApplication(@ModelAttribute("application") ApplicationDto applicationDto, @PathVariable("petId") Long petId, Model model) {
+    public String saveApplication(@ModelAttribute("application") ApplicationDto applicationDto, @PathVariable("petId") Long petId, Model model) throws MessagingException {
         UserEntity user = userService.getCurrentUser();
         applicationService.saveApplication(applicationDto, petId, user.getId());
+        Optional<Application> application = applicationService.findApplicationByPetIdAndUserId(petId, user.getId());
         UserDto userDto = userService.findUserById(user.getId());
         PetDto petDto = petService.findPetById(petId);
         petDto.setApplicationCounter(petDto.getApplicationCounter() + 1);
         petService.updatePet(petDto);
-        mailService.sendEmail(userDto.getEmail(), "Application #" + applicationDto.getId() + " Pending", "Your application for pet " + petDto.getName() + " is under review. Kindly respond by providing your documents.");
+        mailService.sendEmail(userDto.getEmail(), "Application #" + application.get().getId() + " Pending", "Your application for pet " + petDto.getName() + " is under review. Kindly respond by providing your documents.");
 
         return "redirect:/applications";
     }
@@ -95,7 +99,7 @@ public class ApplicationController {
     @PostMapping("/admin/applications/{applicationId}")
     public String updateApplication(@PathVariable("applicationId") Long applicationId,
                                     @ModelAttribute("application") ApplicationDto application,
-                                    Model model) {
+                                    Model model) throws MessagingException {
         ApplicationDto applicationDto = applicationService.findApplicationById(applicationId);
         application.setId(applicationId);
         application.setUser(applicationDto.getUser());
