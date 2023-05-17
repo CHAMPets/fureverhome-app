@@ -4,12 +4,9 @@ import com.champets.fureverhome.pet.model.Pet;
 import com.champets.fureverhome.pet.repository.PetRepository;
 import com.champets.fureverhome.vaccine.model.Vaccine;
 import com.champets.fureverhome.vaccine.model.VaccinePet;
-import com.champets.fureverhome.vaccine.model.VaccinePet;
 import com.champets.fureverhome.vaccine.model.dto.VaccinePetDto;
-import com.champets.fureverhome.vaccine.model.mapper.VaccinePetMapper;
 import com.champets.fureverhome.vaccine.repository.VaccinePetRepository;
 import com.champets.fureverhome.vaccine.repository.VaccineRepository;
-import com.champets.fureverhome.vaccine.service.VaccinePetService;
 import com.champets.fureverhome.vaccine.service.impl.VaccinePetServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +19,6 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
 public class VaccinePetServiceTest {
@@ -52,7 +48,7 @@ public class VaccinePetServiceTest {
 
         Vaccine vaccine = new Vaccine();
         vaccine.setId(2L);
-        vaccine.setName("Rabbies");
+        vaccine.setName("Rabies");
 
         VaccinePetDto vaccinePetDto = VaccinePetDto.builder()
                 .id(3L)
@@ -77,7 +73,7 @@ public class VaccinePetServiceTest {
 
         VaccinePetDto vaccinePetDto = VaccinePetDto.builder()
                 .id(3L)
-                .vaccine(Vaccine.builder().id(2L).name("Rabbies").build())
+                .vaccine(Vaccine.builder().id(2L).name("Rabies").build())
                 .pet(pet)
                 .build();
 
@@ -91,26 +87,19 @@ public class VaccinePetServiceTest {
 
     @Test
     public void testFindVaccineListByPetId() {
-        // Create a Pet object
         Pet pet = Pet.builder().id(1L).name("Fluffy").age(3).build();
 
-        // Create a Vaccine object
         Vaccine vaccine = Vaccine.builder().id(1L).name("Rabies").build();
 
-        // Create a list of VaccinePet objects
         List<VaccinePet> vaccinePetList = new ArrayList<>();
         vaccinePetList.add(VaccinePet.builder().id(1L).pet(pet).vaccine(vaccine).build());
 
-        // Mock the vaccinePetRepository to return the list of VaccinePet objects when findVaccinesByPetId is called
         when(vaccinePetRepository.findVaccinesByPetId(1L)).thenReturn(vaccinePetList);
 
-        // Call the service method to find the vaccine list by pet id
         List<VaccinePetDto> vaccineList = vaccinePetService.findVaccineListByPetId(1L);
 
-        // Check that the vaccinePetRepository method was called with the correct parameter
         verify(vaccinePetRepository).findVaccinesByPetId(1L);
 
-        // Check if the returned list has size 1 and contains the correct VaccinePetDto object
         assertEquals(1, vaccineList.size());
         assertEquals(vaccine.getId(), vaccineList.get(0).getVaccine().getId());
         assertEquals(pet.getId(), vaccineList.get(0).getPet().getId());
@@ -118,19 +107,14 @@ public class VaccinePetServiceTest {
 
     @Test
     public void testFindVaccineListByPetId_withNonExistentPetId() {
-        // Mock the vaccinePetRepository to return an empty list when findVaccinesByPetId is called with a non-existent pet id
         when(vaccinePetRepository.findVaccinesByPetId(2L)).thenReturn(new ArrayList<>());
 
-        // Call the service method to find the vaccine list by a non-existent pet id
         List<VaccinePetDto> vaccineList = vaccinePetService.findVaccineListByPetId(2L);
 
-        // Check that the vaccinePetRepository method was called with the correct parameter
         verify(vaccinePetRepository).findVaccinesByPetId(2L);
 
-        // Check if the returned list is empty
         assertTrue(vaccineList.isEmpty());
     }
-
 
 
     @Test
@@ -161,7 +145,7 @@ public class VaccinePetServiceTest {
     }
 
     @Test
-    public void testFindPetsWithVaccine_withNonExistentVaccineId(){
+    public void testFindPetsWithVaccine_withNonExistentVaccineId() {
         when(vaccinePetRepository.findPetsWithVaccineId(1L)).thenReturn(Collections.emptyList());
 
         List<VaccinePetDto> result = vaccinePetService.findPetsWithVaccine(1L);
@@ -206,5 +190,4 @@ public class VaccinePetServiceTest {
 
         verify(vaccinePetRepository, never()).save(any());
     }
-
 }
