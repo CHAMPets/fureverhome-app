@@ -60,9 +60,6 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public Optional<Application> findApplicationByPetIdAndUserId(Long petId, Long userId) {
         Optional<Application> application = applicationRepository.findApplicationByPetIdAndUserId(petId, userId);
-        if (!application.isPresent()) {
-            throw new ApplicationNotFoundException("Application not found for pet with ID: " + petId + " and user with ID: " + userId);
-        }
         return application;
     }
 

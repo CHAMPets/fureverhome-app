@@ -168,7 +168,7 @@ public class ApplicationServiceTest {
         verify(mockApplicationRepository, times(1)).save(any(Application.class));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testFindApplicationByPetIdAndUserId_InvalidPetId_ReturnsNull() {
         // Arrange
         Long petId = 1L;
@@ -184,7 +184,7 @@ public class ApplicationServiceTest {
         assertNull(result);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testFindApplicationByPetIdAndUserId_InvalidUserId_ReturnsNull() {
         // Arrange
         Long petId = 1L;
