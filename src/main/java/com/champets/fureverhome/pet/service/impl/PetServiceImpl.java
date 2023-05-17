@@ -102,7 +102,7 @@ public class PetServiceImpl implements PetService {
             Pet pet = mapToPet(petDto);
             return petRepository.save(pet);
         } catch (Exception e) {
-            throw new PetServiceException("Failed to save pet: " + petDto.getId(), e);
+            throw new PetServiceException("Failed to save pet: " + petDto.getId());
         }
     }
 

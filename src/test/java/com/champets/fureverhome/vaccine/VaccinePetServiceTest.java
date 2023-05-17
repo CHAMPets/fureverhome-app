@@ -1,5 +1,7 @@
 package com.champets.fureverhome.vaccine;
 
+import com.champets.fureverhome.exception.pet.PetNotFoundException;
+import com.champets.fureverhome.exception.vaccine.VaccineNotFoundException;
 import com.champets.fureverhome.pet.model.Pet;
 import com.champets.fureverhome.pet.repository.PetRepository;
 import com.champets.fureverhome.vaccine.model.Vaccine;
@@ -80,7 +82,7 @@ public class VaccinePetServiceTest {
         when(petRepository.findById(1L)).thenReturn(Optional.of(pet));
         when(vaccineRepository.findById(2L)).thenReturn(Optional.empty());
 
-        assertThrows(NoSuchElementException.class, () -> {
+        assertThrows(VaccineNotFoundException.class, () -> {
             vaccinePetService.saveVaccinePet(vaccinePetDto, 1L, 2L);
         });
     }

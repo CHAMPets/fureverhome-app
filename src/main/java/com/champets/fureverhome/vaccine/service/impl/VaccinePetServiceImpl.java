@@ -1,5 +1,8 @@
 package com.champets.fureverhome.vaccine.service.impl;
 
+import com.champets.fureverhome.exception.pet.PetNotFoundException;
+import com.champets.fureverhome.exception.vaccine.VaccineListEmptyException;
+import com.champets.fureverhome.exception.vaccine.VaccineNotFoundException;
 import com.champets.fureverhome.pet.model.Pet;
 import com.champets.fureverhome.pet.repository.PetRepository;
 import com.champets.fureverhome.vaccine.model.Vaccine;
@@ -27,14 +30,38 @@ public class VaccinePetServiceImpl implements VaccinePetService {
     @Autowired
     private VaccineRepository vaccineRepository;
 
-
+//    @Override
+//    public VaccinePet saveVaccinePet(VaccinePetDto vaccinePetDto, Long petId, Long vaccineId) {
+//        Pet pet = petRepository.findById(petId).get();
+//        Vaccine vaccine = vaccineRepository.findById(vaccineId).get();
+//        VaccinePet vaccinePet = mapToVaccinePet(vaccinePetDto);
+//        return vaccinePet;
+//    }
     @Override
     public VaccinePet saveVaccinePet(VaccinePetDto vaccinePetDto, Long petId, Long vaccineId) {
-        Pet pet = petRepository.findById(petId).get();
-        Vaccine vaccine = vaccineRepository.findById(vaccineId).get();
-        VaccinePet vaccinePet = mapToVaccinePet(vaccinePetDto);
-        return vaccinePet;
+        try {
+            Pet pet = petRepository.findById(petId)
+                    .orElseThrow(() -> new PetNotFoundException("Pet with ID " + petId + " not found."));
+
+            Vaccine vaccine = vaccineRepository.findById(vaccineId)
+                    .orElseThrow(() -> new VaccineNotFoundException("Vaccine with ID " + vaccineId + " not found."));
+
+            VaccinePet vaccinePet = mapToVaccinePet(vaccinePetDto);
+            vaccinePet.setPet(pet);
+            vaccinePet.setVaccine(vaccine);
+            vaccinePetRepository.save(vaccinePet);
+            return vaccinePet;
+        } catch (PetNotFoundException | VaccineNotFoundException e) {
+            if(e instanceof PetNotFoundException){
+                throw new PetNotFoundException("Pet with ID " + petId + " not found.");
+            } else {
+                throw new VaccineNotFoundException("Vaccine with ID " + vaccineId + " not found.");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred while saving the VaccinePet.", e);
+        }
     }
+
 
     @Override
     public List<VaccinePetDto> findVaccineListByPetId(Long petId) {
