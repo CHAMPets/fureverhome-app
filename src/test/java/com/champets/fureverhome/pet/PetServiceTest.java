@@ -16,10 +16,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 import static com.champets.fureverhome.pet.model.mapper.PetMapper.mapToPet;
 import static com.champets.fureverhome.pet.model.mapper.PetMapper.mapToPetDto;
@@ -90,6 +87,54 @@ class PetServiceTest {
         // Assert
         assertEquals(1, result.size());
     }
+
+    @Test
+    void testFindActivePetsNotAppliedByUser() {
+        // Arrange
+        Long userId = 1L;
+        List<Pet> pets = Arrays.asList(new Pet(), new Pet());
+        when(petRepository.findPetsNotAppliedByUser(userId)).thenReturn(pets);
+
+        // Act
+        List<PetDto> result = petService.findActivePetsNotAppliedByUser(userId);
+
+        // Assert
+        verify(petRepository).findPetsNotAppliedByUser(userId);
+        assertEquals(pets.size(), result.size());
+
+        // Arrange (Negative Test)
+        when(petRepository.findPetsNotAppliedByUser(userId)).thenThrow(new RuntimeException("Failed to retrieve pets."));
+
+        // Act and Assert (Negative Test)
+        assertThrows(RuntimeException.class, () -> petService.findActivePetsNotAppliedByUser(userId));
+    }
+
+
+    @Test
+    void testFindActivePetsNotAppliedByUserWithFilter() {
+        // Arrange
+        Long userId = 1L;
+        Type type = Type.CAT;
+        BodySize size = BodySize.SMALL;
+        Gender gender = Gender.FEMALE;
+        List<Pet> pets = Arrays.asList(new Pet(), new Pet());
+        when(petRepository.findActivePetsNotAppliedByUserWithFilter(userId, type, size, gender)).thenReturn(pets);
+
+        // Act
+        List<PetDto> result = petService.findActivePetsNotAppliedByUserWithFilter(userId, type, size, gender);
+
+        // Assert
+        verify(petRepository).findActivePetsNotAppliedByUserWithFilter(userId, type, size, gender);
+        assertEquals(pets.size(), result.size());
+
+        // Arrange (Negative Test)
+        when(petRepository.findActivePetsNotAppliedByUserWithFilter(userId, type, size, gender))
+                .thenThrow(new RuntimeException("Failed to retrieve pets with filter."));
+
+        // Act and Assert (Negative Test)
+        assertThrows(RuntimeException.class, () -> petService.findActivePetsNotAppliedByUserWithFilter(userId, type, size, gender));
+    }
+
 
     @Test
     void testSavePet() {
