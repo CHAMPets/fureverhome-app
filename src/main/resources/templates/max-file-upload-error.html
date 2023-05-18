@@ -5,13 +5,18 @@
 
 </head>
 <body>
-
+<button class="back-button" onclick="goBack()">Go Back</button>
 <h1>Oops! Forbidden, Your pet made a mistake</h1>
 <p>Your file exceeded the maximum file size. Please upload a file under 10MB</p>
 <div style="text-align:center;">
     <img src="https://petemergencycenters.com/wp-content/uploads/2019/06/emergencySurgery-dog-cat-transparent.png" alt="dog" style="float: center;">
 
 </div>
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
 </body>
 </html>
 
@@ -37,4 +42,25 @@ text-align: center;
 color: #2C2D2D;
 margin-top: 20px;
 }
+    .back-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .back-button {
+      display: inline-block;
+      background-color: #2C2D2D;
+      color: #FFFFFF;
+      border: none;
+      cursor: pointer;
+      width: 120px;
+      height: 40px;
+      border-radius: 5px;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+    }
+
+    .back-button:hover {
+      background-color: #666666;
+    }
  </style>

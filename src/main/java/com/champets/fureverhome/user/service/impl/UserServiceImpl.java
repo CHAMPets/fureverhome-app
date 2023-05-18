@@ -1,6 +1,5 @@
 package com.champets.fureverhome.user.service.impl;
 
-import com.champets.fureverhome.exception.user.CurrentUserNotFoundException;
 import com.champets.fureverhome.exception.user.UserNotFoundException;
 import com.champets.fureverhome.user.model.UserEntity;
 import com.champets.fureverhome.user.model.Role;

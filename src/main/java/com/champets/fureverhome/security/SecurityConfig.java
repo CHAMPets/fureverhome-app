@@ -1,8 +1,8 @@
 package com.champets.fureverhome.security;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,17 +17,14 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig {
     private CustomUserDetailsService userDetailsService;
-
     @Autowired
     public SecurityConfig(CustomUserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
-
     @Bean
     public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {
         return (request, response, accessDeniedException) -> {
@@ -48,7 +45,6 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/login", false)
-//                      .loginPage("/login")
                         .successHandler((request, response, authentication) -> {
                             if (authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ADMIN"))) {
                                 response.sendRedirect("/admin");

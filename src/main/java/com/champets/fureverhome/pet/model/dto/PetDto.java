@@ -13,10 +13,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.util.ArrayList;
 import javax.persistence.Transient;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -31,6 +28,7 @@ public class PetDto {
 
     @NotNull(message = "Enter age")
     @Min(value = 1, message = "Age must be greater than 0")
+    @Max(value = 30, message = "Age must be less than or equal to 30")
     private Integer age;
 
     @NotNull(message = "Select a gender")

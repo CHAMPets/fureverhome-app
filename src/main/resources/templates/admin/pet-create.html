@@ -56,7 +56,7 @@
                                     <label for="age">Age:</label>
                                     <input type="number" id="age" name="age" class="form-control" th:field="*{age}"
                                            placeholder="Age">
-                                    <small class="text-danger" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></small>
+                                   <small class="text-danger" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></small>
                                 </div>
                                 <br>
 
@@ -107,14 +107,30 @@
                                 <br>
 
                                 <div class="form-group">
-                                  <label>Photo: </label>
-                                  <input type="file"
-                                         class="form-control"
-                                         name="image"
-                                         accept="image/*"
-                                         required
-                                  />
+                                    <label>Photo: </label>
+                                    <input type="file"
+                                           class="form-control"
+                                           name="image"
+                                           accept="image/*"
+                                           required
+                                           onchange="validateFileType(event)"
+                                    />
                                 </div>
+
+                                <script>
+function validateFileType(event) {
+  const fileInput = event.target;
+  const file = fileInput.files[0];
+  const fileType = file.type;
+  const validImageTypes = ["image/jpeg", "image/png", "image/gif","image/webp"];
+
+  if (!validImageTypes.includes(fileType)) {
+    fileInput.value = null; // Reset the file input
+    alert("Please select a valid image file (JPEG, WEBP, PNG, or GIF).");
+  }
+}
+</script>
+
                                 <br>
 
                                 <div class="form-group">

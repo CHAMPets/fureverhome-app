@@ -8,9 +8,6 @@ public interface UserService {
     void saveUser(RegistrationDto registrationDto);
     UserEntity findByEmail(String email);
     UserEntity findByUsername(String username);
-//    void updateUser(UserDto userDto);
-//    void deleteUser(Long id);
-//    List<UserDto> findAllUsers();
     UserEntity getCurrentUser();
     UserDto findUserById(Long id);
 }

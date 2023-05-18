@@ -93,6 +93,8 @@
         <h1>Hello, Fur Friend!</h1>
         <p>Enter your personal details and start adopting pets</p>
         <button class="ghost" id="signUp">Sign Up</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -111,49 +113,44 @@
       signInButton.addEventListener('click', () => {
           container.classList.remove("right-panel-active");
       });
-  </script>
-            <script>
-                        var password = document.getElementById("password");
-                        var confirm_password = document.getElementById("confirm_password");
-                        function validatePassword() {
-                            if (password.value != confirm_password.value) {
-                                confirm_password.setCustomValidity("Passwords Don't Match");
-                            } else {
-                                confirm_password.setCustomValidity('');
-                            }
-                        }
-                        password.onchange = validatePassword;
-                        confirm_password.onkeyup = validatePassword;
-            </script>
-  <script>
+
+    var password = document.getElementById("password");
+    var confirm_password = document.getElementById("confirm_password");
+    function validatePassword() {
+        if (password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Passwords Don't Match");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+
   function goBack() {
     window.location.href = "/";
   }
+
+      const passwordInput = document.getElementById('password');
+      const passwordError = document.getElementById('passwordError');
+
+      passwordInput.addEventListener('input', () => {
+      const password = passwordInput.value;
+      const uppercaseRegex = /[A-Z]/;
+      const numberRegex = /\d/;
+      const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+
+          if (password.length < 8 || password.length > 15) {
+            passwordError.innerText = 'Password should be at least 8 characters long & maximum of 15 characters';
+          } else if (!uppercaseRegex.test(password)) {
+            passwordError.innerText = 'Password should contain at least one uppercase letter';
+          } else if (!numberRegex.test(password)) {
+            passwordError.innerText = 'Password should contain at least one number';
+          } else if (specialCharRegex.test(password)) {
+            passwordError.innerText = 'Password should not contain any special characters';
+          } else {
+            passwordError.innerText = '';
+          }
+    });
 </script>
-
-<script>
-    const passwordInput = document.getElementById('password');
-const passwordError = document.getElementById('passwordError');
-
-passwordInput.addEventListener('input', () => {
-  const password = passwordInput.value;
-  const uppercaseRegex = /[A-Z]/;
-  const numberRegex = /\d/;
-  const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
-
-  if (password.length < 8 || password.length > 15) {
-    passwordError.innerText = 'Password should be at least 8 characters long & maximum of 15 characters';
-  } else if (!uppercaseRegex.test(password)) {
-    passwordError.innerText = 'Password should contain at least one uppercase letter';
-  } else if (!numberRegex.test(password)) {
-    passwordError.innerText = 'Password should contain at least one number';
-  } else if (specialCharRegex.test(password)) {
-    passwordError.innerText = 'Password should not contain any special characters';
-  } else {
-    passwordError.innerText = '';
-  }
-});
-</script>
-
 
 </html>

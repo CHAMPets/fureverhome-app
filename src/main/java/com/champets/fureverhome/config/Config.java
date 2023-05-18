@@ -1,19 +1,13 @@
 package com.champets.fureverhome.config;
 
-import com.champets.fureverhome.user.enums.RoleName;
 import com.champets.fureverhome.user.model.Role;
-import com.champets.fureverhome.user.model.UserEntity;
 import com.champets.fureverhome.user.repository.RoleRepository;
 import com.champets.fureverhome.vaccine.model.Vaccine;
 import com.champets.fureverhome.vaccine.repository.VaccineRepository;
-import com.champets.fureverhome.user.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @Configuration
 public class Config {
@@ -42,7 +36,6 @@ public class Config {
                 Role rootAdminRole = new Role(1L, "ROOT");
                 Role adminRole = new Role(2L, "ADMIN");
                 Role userRole = new Role(3L, "USER");
-
 
                 ArrayList<Role> roles = new ArrayList<>();
                 roles.add(rootAdminRole);
