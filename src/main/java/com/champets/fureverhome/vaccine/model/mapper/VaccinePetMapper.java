@@ -4,7 +4,7 @@ import com.champets.fureverhome.vaccine.model.VaccinePet;
 import com.champets.fureverhome.vaccine.model.dto.VaccinePetDto;
 
 public class VaccinePetMapper {
-    public static VaccinePet mapToVaccinePet(VaccinePetDto vaccinePetDto){
+    public static VaccinePet mapToVaccinePet(VaccinePetDto vaccinePetDto) {
         VaccinePet vaccinePet = VaccinePet.builder()
                 .id(vaccinePetDto.getId())
                 .pet(vaccinePetDto.getPet())
@@ -13,7 +13,7 @@ public class VaccinePetMapper {
         return vaccinePet;
     }
 
-    public static VaccinePetDto mapToVaccinePetDto(VaccinePet vaccinePet){
+    public static VaccinePetDto mapToVaccinePetDto(VaccinePet vaccinePet) {
         VaccinePetDto vaccinePetDto = VaccinePetDto.builder()
                 .id(vaccinePet.getId())
                 .pet(vaccinePet.getPet())

@@ -15,42 +15,7 @@
                 <div class="col-lg-11 col-xl-9 col-xxl-8">
                     <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="bi bi-arrow-up"></i></button>
                     <!-- Start Filter section -->
-                    <form id="filterForm" class="row gx-5 justify-content-center mb-4" method="get" action="/admin/filtered">
-                        <div class="col-md-6 col-lg-4">
-                            <div class="input-group">
-                                <label class="input-group-text" for="typeFilter">Type</label>
-                                <select class="form-select" id="typeFilter" name="type">
-                                    <option value="ALL">All</option>
-                                    <option value="DOG">Dog</option>
-                                    <option value="CAT">Cat</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <div class="input-group">
-                                <label class="input-group-text" for="sizeFilter">Size</label>
-                                <select class="form-select" id="sizeFilter" name="size">
-                                    <option value="ALL">All</option>
-                                    <option value="SMALL">Small</option>
-                                    <option value="MEDIUM">Medium</option>
-                                    <option value="LARGE">Large</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <div class="input-group">
-                                <label class="input-group-text" for="genderFilter">Gender</label>
-                                <select class="form-select" id="genderFilter" name="gender">
-                                    <option value="ALL">All</option>
-                                    <option value="MALE">Male</option>
-                                    <option value="FEMALE">Female</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-12 text-right mt-3">
-                            <button type="submit" class="btn btn-primary">Filter</button>
-                            <button type="reset" class="btn btn-secondary">Reset</button>
-                        </div>
+                    <form th:replace="fragments/filter-form :: filter-form('/admin/filtered')">
                     </form>
                     <!-- End filter section -->
                     <div class="row text-center p-5 m-5" th:if="${#lists.isEmpty(pets)}">

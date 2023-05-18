@@ -14,33 +14,36 @@ import java.util.Optional;
 @RequestMapping("/vaccine-history")
 public class VaccineHistoryController {
 
-    private VaccineRepository vaccineRepository;
-    private VaccinePetRepository vaccinePetRepository;
+    private final VaccineRepository vaccineRepository;
+    private final VaccinePetRepository vaccinePetRepository;
 
-    public VaccineHistoryController(VaccineRepository vaccineRepository, VaccinePetRepository vaccinePetRepository){
+    public VaccineHistoryController(VaccineRepository vaccineRepository, VaccinePetRepository vaccinePetRepository) {
         this.vaccineRepository = vaccineRepository;
         this.vaccinePetRepository = vaccinePetRepository;
     }
 
     @PostMapping
-    public VaccinePet saveHistoryWithVaccine(@RequestBody VaccinePet vaccinePet){
+    public VaccinePet saveHistoryWithVaccine(@RequestBody VaccinePet vaccinePet) {
         return vaccinePetRepository.save(vaccinePet);
     }
 
     @GetMapping("/all-vaccine-histories")
     @ResponseBody
-    public List<VaccinePet> findAllVaccineHistories(){
+    public List<VaccinePet> findAllVaccineHistories() {
         return vaccinePetRepository.findAll();
     }
+
     @GetMapping("/all-vaccines")
     @ResponseBody
-    public List<Vaccine> findAllVaccines(){
+    public List<Vaccine> findAllVaccines() {
         return vaccineRepository.findAll();
     }
+
     @GetMapping("/{vaccineHistoryId}")
     public Optional<VaccinePet> findVaccineHistory(@PathVariable Long id) {
         return vaccinePetRepository.findById(id);
     }
+
     @GetMapping("/vaccine/{vaccineId}")
     public Optional<Vaccine> findVaccine(@PathVariable Long id) {
         return vaccineRepository.findById(id);

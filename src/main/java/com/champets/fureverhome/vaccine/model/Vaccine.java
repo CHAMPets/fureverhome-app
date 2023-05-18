@@ -1,10 +1,11 @@
 package com.champets.fureverhome.vaccine.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.ArrayList;
 
 @Data
 @AllArgsConstructor
@@ -34,7 +35,6 @@ public class Vaccine {
 
     @Column(columnDefinition = "VARCHAR(300)")
     private String description;
-
 
 
     public Vaccine(String name, String type, String description) {

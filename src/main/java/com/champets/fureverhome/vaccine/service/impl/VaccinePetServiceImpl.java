@@ -1,7 +1,6 @@
 package com.champets.fureverhome.vaccine.service.impl;
 
 import com.champets.fureverhome.exception.pet.PetNotFoundException;
-import com.champets.fureverhome.exception.vaccine.VaccineListEmptyException;
 import com.champets.fureverhome.exception.vaccine.VaccineNotFoundException;
 import com.champets.fureverhome.pet.model.Pet;
 import com.champets.fureverhome.pet.repository.PetRepository;
@@ -13,11 +12,12 @@ import com.champets.fureverhome.vaccine.repository.VaccineRepository;
 import com.champets.fureverhome.vaccine.service.VaccinePetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import static com.champets.fureverhome.vaccine.model.mapper.VaccinePetMapper.mapToVaccinePet;
-import static com.champets.fureverhome.vaccine.model.mapper.VaccinePetMapper.mapToVaccinePetDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.champets.fureverhome.vaccine.model.mapper.VaccinePetMapper.mapToVaccinePet;
+import static com.champets.fureverhome.vaccine.model.mapper.VaccinePetMapper.mapToVaccinePetDto;
 
 @Service
 public class VaccinePetServiceImpl implements VaccinePetService {
@@ -30,13 +30,6 @@ public class VaccinePetServiceImpl implements VaccinePetService {
     @Autowired
     private VaccineRepository vaccineRepository;
 
-//    @Override
-//    public VaccinePet saveVaccinePet(VaccinePetDto vaccinePetDto, Long petId, Long vaccineId) {
-//        Pet pet = petRepository.findById(petId).get();
-//        Vaccine vaccine = vaccineRepository.findById(vaccineId).get();
-//        VaccinePet vaccinePet = mapToVaccinePet(vaccinePetDto);
-//        return vaccinePet;
-//    }
     @Override
     public VaccinePet saveVaccinePet(VaccinePetDto vaccinePetDto, Long petId, Long vaccineId) {
         try {
@@ -52,7 +45,7 @@ public class VaccinePetServiceImpl implements VaccinePetService {
             vaccinePetRepository.save(vaccinePet);
             return vaccinePet;
         } catch (PetNotFoundException | VaccineNotFoundException e) {
-            if(e instanceof PetNotFoundException){
+            if (e instanceof PetNotFoundException) {
                 throw new PetNotFoundException("Pet with ID " + petId + " not found.");
             } else {
                 throw new VaccineNotFoundException("Vaccine with ID " + vaccineId + " not found.");

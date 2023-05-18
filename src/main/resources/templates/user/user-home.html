@@ -1,92 +1,62 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+>
 <head th:replace="fragments/header :: header('Pet Catalog')"></head>
 <body onload="automate_animation();" class="d-flex flex-column h-100 bg-light">
 <main class="flex-shrink-0">
-  <nav th:replace="user/user-navigation :: navigation"></nav>
-  <header th:replace="fragments/jumbotron :: jumbotron"></header>
+    <nav th:replace="user/user-navigation :: navigation"></nav>
+    <header th:replace="fragments/jumbotron :: jumbotron"></header>
 
-  <section class="py-5" id="petCatalog" th:object="${user}" th:if="${user != null}">
-    <div class="container px-5 my-5">
-      <div class="text-center mb-5">
-        <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Pet Catalog</span></h1>
-      </div>
-      <div class="row gx-5 justify-content-center">
-        <div class="col-lg-11 col-xl-9 col-xxl-8">
+    <section class="py-5" id="petCatalog" th:object="${user}" th:if="${user != null}">
+        <div class="container px-5 my-5">
+            <div class="text-center mb-5">
+                <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Pet Catalog</span></h1>
+            </div>
+            <div class="row gx-5 justify-content-center">
+                <div class="col-lg-11 col-xl-9 col-xxl-8">
 
-          <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="bi bi-arrow-up"></i></button>
+                    <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="bi bi-arrow-up"></i></button>
 
-          <!-- Start Filter section -->
-          <form id="filterForm" class="row gx-5 justify-content-center mb-4" method="get" action="/home/filtered">
-            <div class="col-md-6 col-lg-4">
-              <div class="input-group">
-                <label class="input-group-text" for="typeFilter">Type</label>
-                <select class="form-select" id="typeFilter" name="type">
-                  <option value="ALL">All</option>
-                  <option value="DOG">Dog</option>
-                  <option value="CAT">Cat</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-              <div class="input-group">
-                <label class="input-group-text" for="sizeFilter">Size</label>
-                <select class="form-select" id="sizeFilter" name="size">
-                  <option value="ALL">All</option>
-                  <option value="SMALL">Small</option>
-                  <option value="MEDIUM">Medium</option>
-                  <option value="LARGE">Large</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-              <div class="input-group">
-                <label class="input-group-text" for="genderFilter">Gender</label>
-                <select class="form-select" id="genderFilter" name="gender">
-                  <option value="ALL">All</option>
-                  <option value="MALE">Male</option>
-                  <option value="FEMALE">Female</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-12 text-right mt-3">
-              <button type="submit" class="btn btn-primary">Filter</button>
-              <button type="reset" class="btn btn-secondary">Reset</button>
-            </div>
-          </form>
-          <!-- End filter section -->
-          <div class="row text-center p-5 m-5" th:if="${#lists.isEmpty(pets)}">
-            <h1 style="color: #6c757d">No pets found.</h1>
-          </div>
-          <div th:each="pet, petIndex : ${pets}" class="card overflow-hidden shadow rounded-4 border-0 mb-5">
-            <div class="card-body p-0">
-              <div class="d-flex align-items-center">
-                <div class="p-5">
-                  <h2 th:text="${pet.name}" class="fw-bolder"></h2>
-                  <p th:text="${pet.description}"></p>
-                  <a class="btn btn-primary" th:href="@{/pets/{petId}(petId=${pet.id})}" style="margin-top:15px">See more details</a>
-                  <form method="post" th:action="@{/applications/{petId}(petId=${pet.id})}" th:object="${application}">
-                    <div th:if="${pet.applicationCounter < pet.applicationLimit}">
-                      <input type="submit" class="btn btn-secondary" value="Adopt" style="margin-top:15px" />
+                    <!-- Start Filter section -->
+                    <form th:replace="fragments/filter-form :: filter-form('/home/filtered')">
+                    </form>
+                    <!-- End filter section -->
+                    <div class="row text-center p-5 m-5" th:if="${#lists.isEmpty(pets)}">
+                        <h1 style="color: #6c757d">No pets found.</h1>
                     </div>
-                    <div th:if="${not(pet.applicationCounter < pet.applicationLimit)}">
-                      <input type="submit" class="btn btn-secondary" value="Adopt" style="margin-top:15px" disabled />
+                    <div th:each="pet, petIndex : ${pets}" class="card overflow-hidden shadow rounded-4 border-0 mb-5">
+                        <div class="card-body p-0">
+                            <div class="d-flex align-items-center">
+                                <div class="p-5">
+                                    <h2 th:text="${pet.name}" class="fw-bolder"></h2>
+                                    <p th:text="${pet.description}"></p>
+                                    <a class="btn btn-primary" th:href="@{/pets/{petId}(petId=${pet.id})}"
+                                       style="margin-top:15px">See more details</a>
+                                    <form method="post" th:action="@{/applications/{petId}(petId=${pet.id})}"
+                                          th:object="${application}">
+                                        <div th:if="${pet.applicationCounter < pet.applicationLimit}">
+                                            <input type="submit" class="btn btn-secondary" value="Adopt"
+                                                   style="margin-top:15px"/>
+                                        </div>
+                                        <div th:if="${not(pet.applicationCounter < pet.applicationLimit)}">
+                                            <input type="submit" class="btn btn-secondary" value="Adopt"
+                                                   style="margin-top:15px" disabled/>
+                                        </div>
+
+
+                                    </form>
+                                </div>
+                                <img class="img-fluid" th:src="${pet.imagePath}" alt="..."
+                                     style="width: 50%; height: auto;"/>
+                            </div>
+                        </div>
                     </div>
-
-
-                  </form>
                 </div>
-                <img class="img-fluid" th:src="${pet.imagePath}" alt="..." style="width: 50%; height: auto;"/>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </section>
-  <!-- Call to action section-->
-  <section th:replace="fragments/call-to-action :: call-to-action"></section>
+    </section>
+    <!-- Call to action section-->
+    <section th:replace="fragments/call-to-action :: call-to-action"></section>
 </main>
 <!-- Footer-->
 <footer th:replace="fragments/footer :: footer"></footer>

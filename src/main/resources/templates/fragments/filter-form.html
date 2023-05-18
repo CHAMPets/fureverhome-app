@@ -1,0 +1,40 @@
+<form th:fragment="filter-form(action)"
+      xmlns:th="http://www.thymeleaf.org" id="filterForm" class="row gx-5 justify-content-center mb-4" method="get"
+      th:action="${action}">
+
+    <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+            <label class="input-group-text" for="typeFilter">Type</label>
+            <select class="form-select" id="typeFilter" name="type">
+                <option value="ALL" th:selected="${type == null || type == 'ALL'}">All</option>
+                <option value="DOG" th:selected="${type == 'DOG'}">Dog</option>
+                <option value="CAT" th:selected="${type == 'CAT'}">Cat</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+            <label class="input-group-text" for="sizeFilter">Size</label>
+            <select class="form-select" id="sizeFilter" name="size">
+                <option value="ALL" th:selected="${size == null || size == 'ALL'}">All</option>
+                <option value="SMALL" th:selected="${size == 'SMALL'}">Small</option>
+                <option value="MEDIUM" th:selected="${size == 'MEDIUM'}">Medium</option>
+                <option value="LARGE" th:selected="${size == 'LARGE'}">Large</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+            <label class="input-group-text" for="genderFilter">Gender</label>
+            <select class="form-select" id="genderFilter" name="gender">
+                <option value="ALL" th:selected="${gender == null || gender == 'ALL'}">All</option>
+                <option value="MALE" th:selected="${gender == 'MALE'}">Male</option>
+                <option value="FEMALE" th:selected="${gender == 'FEMALE'}">Female</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-12 text-right mt-3">
+        <button type="submit" class="btn btn-primary">Filter</button>
+        <button type="reset" class="btn btn-secondary">Reset</button>
+    </div>
+</form>
