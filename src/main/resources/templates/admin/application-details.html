@@ -31,7 +31,7 @@
                                     <p th:if="${applicationDto.releaseDate != null}" th:text="'Release Date: ' + ${applicationDto.releaseDate}"></p>
                                 <br />
                                     <form method="post" th:action="@{/admin/applications/{applicationId}(applicationId=${applicationDto.id})}" th:object="${applicationDto}" th:if="${applicationDto.applicationStatus.name() != 'RELEASED' && applicationDto.applicationStatus.name() != 'CANCELLED' && applicationDto.applicationStatus.name() != 'REJECTED'}">
-                                        <div class = "form-group" th:if="${applicationDto.applicationStatus.name() == 'APPROVED'}">
+                                        <div id="releaseDateInput" class = "form-group" th:if="${applicationDto.applicationStatus.name() == 'APPROVED'}">
                                             <label for="releaseDate">Release Date:</label>
                                             <input
                                                     type="date"
@@ -40,7 +40,8 @@
                                                     name="releaseDate"
                                                     th:field="*{releaseDate}"
                                                     placeholder="Release Date"
-                                                    required><br>
+                                                    required>
+                                            <br>
                                         </div>
                                         <div class = "form-group" >
                                         <label for="applicationStatus">Application Status:</label>
@@ -49,7 +50,7 @@
                                                 id="applicationStatus"
                                                 name="applicationStatus"
                                                 th:field="*{applicationStatus}"
-                                                required>
+                                                required onchange="handleApplicationStatusChange(this.value)">
                                             <option value="APPROVED" th:if="${applicationDto.applicationStatus.name() == 'PENDING'}">Approved</option>
                                             <option value="REJECTED" th:if="${applicationDto.applicationStatus.name() == 'PENDING'}">Rejected</option>
                                             <option value="RELEASED" th:if="${applicationDto.applicationStatus.name() == 'APPROVED'}">Released</option>
@@ -73,6 +74,19 @@
 </main>
 <!-- Footer-->
 <footer th:replace="fragments/footer:: footer"></footer>
+
+<script>
+    function handleApplicationStatusChange(status) {
+        var releaseDateInput = document.getElementById("releaseDateInput");
+        if (status === "CANCELLED") {
+            releaseDateInput.style.display = "none";
+            document.getElementById("releaseDate").removeAttribute("required");
+        } else {
+            releaseDateInput.style.display = "block";
+            document.getElementById("releaseDate").setAttribute("required", "");
+        }
+    }
+</script>
 
 </body>
 </html>

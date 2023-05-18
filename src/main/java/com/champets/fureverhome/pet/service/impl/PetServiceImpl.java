@@ -79,7 +79,7 @@ public class PetServiceImpl implements PetService {
     @Override
     public List<PetDto> findActivePetsNotAppliedByUser(Long userId) {
         try {
-            List<Pet> pets = petRepository.findPetsNotAppliedByUser(userId);
+            List<Pet> pets = petRepository.findActivePetsNotAppliedByUser(userId);
             return pets.stream().map((pet) -> mapToPetDto(pet)).collect(Collectors.toList());
         } catch (Exception e) {
             throw new PetServiceException("Failed to retrieve all pets not applied by user", e);
