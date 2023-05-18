@@ -55,7 +55,6 @@ public class UserServiceTest {
 
     @Test
     void saveUser_ShouldSaveUser() {
-        // Arrange
         RegistrationDto registrationDto = new RegistrationDto();
         registrationDto.setUsername("testuser");
         registrationDto.setEmail("testuser@example.com");
@@ -80,10 +79,8 @@ public class UserServiceTest {
         ArgumentCaptor<UserEntity> userEntityCaptor = ArgumentCaptor.forClass(UserEntity.class);
         when(userRepository.save(userEntityCaptor.capture())).thenReturn(userEntity);
 
-        // Act
         userService.saveUser(registrationDto);
 
-        // Assert
         UserEntity capturedUserEntity = userEntityCaptor.getValue();
         assertEquals("testuser", capturedUserEntity.getUsername());
         assertEquals("testuser@example.com", capturedUserEntity.getEmail());
@@ -97,39 +94,32 @@ public class UserServiceTest {
 
     @Test
     public void findByEmail_ShouldReturnUser() {
-        // Arrange
         String email = "test@example.com";
         UserEntity expectedUser = new UserEntity();
         expectedUser.setEmail(email);
 
         when(userRepository.findByEmail(email)).thenReturn(expectedUser);
 
-        // Act
         UserEntity result = userService.findByEmail(email);
 
-        // Assert
         assertEquals(expectedUser, result);
     }
 
     @Test
     public void findByUsername_ShouldReturnUser() {
-        // Arrange
         String username = "testuser";
         UserEntity expectedUser = new UserEntity();
         expectedUser.setUsername(username);
 
         when(userRepository.findByUsername(username)).thenReturn(expectedUser);
 
-        // Act
         UserEntity result = userService.findByUsername(username);
 
-        // Assert
         assertEquals(expectedUser, result);
     }
 
     @Test
     public void findUserById_ShouldReturnUserDto() {
-        // Arrange
         Long userId = 1L;
         UserEntity userEntity = new UserEntity();
         userEntity.setId(userId);
@@ -138,10 +128,8 @@ public class UserServiceTest {
 
         when(userRepository.findUserById(userId)).thenReturn(userEntity);
 
-        // Act
         UserDto result = userService.findUserById(userId);
 
-        // Assert
         Assertions.assertNotNull(result);
         assertEquals(userId, result.getId());
         assertEquals("test@example.com", result.getEmail());
@@ -150,7 +138,6 @@ public class UserServiceTest {
 
     @Test
     public void getCurrentUser_WithAuthenticatedUser_ShouldReturnCurrentUser() {
-        // Arrange
         String email = "test@example.com";
         UserEntity expectedUser = new UserEntity();
         expectedUser.setEmail(email);
@@ -160,21 +147,16 @@ public class UserServiceTest {
         when(authentication.getName()).thenReturn(email);
         when(userRepository.findByEmail(email)).thenReturn(expectedUser);
 
-        // Act
         UserEntity result = userService.getCurrentUser();
 
-        // Assert
         assertEquals(expectedUser, result);
     }
     @Test
     public void getCurrentUser_WithoutAuthenticatedUser_ShouldReturnNull() {
-        // Arrange
         SecurityContextHolder.getContext().setAuthentication(null);
 
-        // Act
         UserEntity result = userService.getCurrentUser();
 
-        // Assert
         assertNull(result);
     }
 
