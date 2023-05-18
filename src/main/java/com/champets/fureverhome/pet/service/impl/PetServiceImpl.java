@@ -98,12 +98,9 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public Pet savePet(PetDto petDto) {
-        try {
+
             Pet pet = mapToPet(petDto);
             return petRepository.save(pet);
-        } catch (Exception e) {
-            throw new PetServiceException("Failed to save pet: " + petDto.getId());
-        }
     }
 
     @Override

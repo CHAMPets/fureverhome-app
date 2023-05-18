@@ -2,6 +2,10 @@ package com.champets.fureverhome.pet.model.mapper;
 
 import com.champets.fureverhome.pet.model.Pet;
 import com.champets.fureverhome.pet.model.dto.PetDto;
+import com.champets.fureverhome.vaccine.model.VaccinePet;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PetMapper {
 
@@ -27,6 +31,15 @@ public class PetMapper {
                 .vaccineList(pet.getVaccineList())
                 .applications(pet.getApplications())
                 .build();
+
+        List<VaccinePet> vaccineList = new ArrayList<>();
+        if (pet.getVaccineList() != null) {
+            for (VaccinePet vaccinePet : pet.getVaccineList()) {
+                vaccinePet.setPet(petDto);
+                vaccineList.add(vaccinePet);
+            }
+        }
+        petDto.setVaccineList(vaccineList);
         return petDto;
     }
 

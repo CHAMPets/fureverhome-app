@@ -147,7 +147,6 @@ public class PetController {
                           Model model,
                           @RequestParam("image") MultipartFile file) throws IOException {
 
-//        String nameImage = uploadFile(file);
         String nameImage = StringUtils.cleanPath(file.getOriginalFilename());
 
         if (result.hasErrors() || nameImage == null) {
@@ -160,8 +159,8 @@ public class PetController {
         String uploadDir = "target/classes/static/assets/";
         FileUploadUtil.saveFile(uploadDir, nameImage, file);
         List<VaccinePet> vaccineHistory = createVaccineHistory(vaccineIds, petDto);
-        Pet pet = mapToPet(petDto);
-        pet.setVaccineList(vaccineHistory);
+//        Pet pet = mapToPet(petDto);
+        petDto.setVaccineList(vaccineHistory);
         petService.savePet(petDto);
         return "redirect:/admin";
     }
