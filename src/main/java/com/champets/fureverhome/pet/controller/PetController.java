@@ -91,9 +91,9 @@ public class PetController {
                                                @RequestParam(value = "gender") String gender,
                                                Model model) {
 
-        Type enumType = (type != null && !type.equals("ALL")) ? Type.valueOf(type) : null;
-        BodySize enumSize = (size != null && !size.equals("ALL")) ? BodySize.valueOf(size) : null;
-        Gender enumGender = (gender != null && !gender.equals("ALL")) ? Gender.valueOf(gender) : null;
+        Type enumType = (type != null && !type.equals("ALL") && type != "") ? Type.valueOf(type) : null;
+        BodySize enumSize = (size != null && !size.equals("ALL") && size != "") ? BodySize.valueOf(size) : null;
+        Gender enumGender = (gender != null && !gender.equals("ALL") && gender != "") ? Gender.valueOf(gender) : null;
 
 
         Long userId = userService.getCurrentUser().getId();
@@ -114,9 +114,9 @@ public class PetController {
                                                 @RequestParam(value = "gender") String gender,
                                                 Model model) {
 
-        Type enumType = (type != null && !type.equals("ALL")) ? Type.valueOf(type) : null;
-        BodySize enumSize = (size != null && !size.equals("ALL")) ? BodySize.valueOf(size) : null;
-        Gender enumGender = (gender != null && !gender.equals("ALL")) ? Gender.valueOf(gender) : null;
+        Type enumType = (type != null && !type.equals("ALL") && type != "") ? Type.valueOf(type) : null;
+        BodySize enumSize = (size != null && !size.equals("ALL") && size != "") ? BodySize.valueOf(size) : null;
+        Gender enumGender = (gender != null && !gender.equals("ALL") && gender != "") ? Gender.valueOf(gender) : null;
 
 
         UserEntity user = userService.getCurrentUser();
