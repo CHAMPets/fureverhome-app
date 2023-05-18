@@ -1,35 +1,26 @@
 package com.champets.fureverhome.application.controller;
 
-import com.champets.fureverhome.application.enums.ApplicationStatus;
 import com.champets.fureverhome.application.model.Application;
 import com.champets.fureverhome.application.model.dto.ApplicationDto;
-import com.champets.fureverhome.application.model.mapper.ApplicationMapper;
 import com.champets.fureverhome.application.service.ApplicationService;
 import com.champets.fureverhome.application.service.MailService;
-import com.champets.fureverhome.pet.model.Pet;
 import com.champets.fureverhome.pet.model.dto.PetDto;
-import com.champets.fureverhome.pet.model.mapper.PetMapper;
 import com.champets.fureverhome.pet.service.PetService;
 import com.champets.fureverhome.user.model.UserEntity;
-import com.champets.fureverhome.user.model.dto.RegistrationDto;
 import com.champets.fureverhome.user.model.dto.UserDto;
 import com.champets.fureverhome.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.mail.MessagingException;
-import javax.validation.Valid;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static com.champets.fureverhome.application.model.mapper.ApplicationMapper.mapToApplication;
 import static com.champets.fureverhome.pet.model.mapper.PetMapper.mapToPetDto;
 
 @Controller
@@ -77,8 +68,6 @@ public class ApplicationController {
         UserEntity user = userService.getCurrentUser();
         model.addAttribute("user", user);
         model.addAttribute("applicationDto", application);
-//        model.addAttribute("petApp", application.getPet());
-//        model.addAttribute("userApp", application.getUser());
         return "admin/application-details";
     }
 

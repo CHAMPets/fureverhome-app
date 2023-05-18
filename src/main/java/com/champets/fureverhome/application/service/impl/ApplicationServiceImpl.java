@@ -36,6 +36,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         List<Application> applications = applicationRepository.findAll();
         return applications.stream().map(application -> mapToApplicationDto(application)).collect(Collectors.toList());
     }
+
     @Override
     public List<ApplicationDto> findApplicationsByPetId(Long petId) {
         List<Application> applications = applicationRepository.findApplicationsByPetId(petId);
