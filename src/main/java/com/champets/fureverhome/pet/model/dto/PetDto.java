@@ -16,6 +16,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class PetDto {
     @NotNull(message = "Select a body size")
     private BodySize bodySize;
 
+    @PastOrPresent(message = "Rescue date must be today or a past date.")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate rescueDate;
 

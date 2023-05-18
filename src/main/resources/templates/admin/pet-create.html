@@ -27,7 +27,7 @@
                                             name="name"
                                             th:field="*{name}"
                                             placeholder="Name">
-                                    <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
+                                    <small class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
                                 </div>
                                 <br>
                                 <div class="form-group">
@@ -37,8 +37,7 @@
                                         <option value="MALE">Male</option>
                                         <option value="FEMALE">Female</option>
                                     </select>
-                                    <p th:if="${#fields.hasErrors('gender')}" class="text-danger"
-                                       th:errors="*{gender}"></p>
+                                    <small class="text-danger" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></small>
                                 </div>
                                 <br>
 
@@ -49,7 +48,7 @@
                                         <option value="CAT">Cat</option>
                                         <option value="DOG">Dog</option>
                                     </select>
-                                    <p th:if="${#fields.hasErrors('type')}" class="text-danger" th:errors="*{type}"></p>
+                                    <small class="text-danger" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></small>
                                 </div>
                                 <br>
 
@@ -57,7 +56,7 @@
                                     <label for="age">Age:</label>
                                     <input type="number" id="age" name="age" class="form-control" th:field="*{age}"
                                            placeholder="Age">
-                                    <p th:if="${#fields.hasErrors('age')}" class="text-danger" th:errors="*{age}"></p>
+                                    <small class="text-danger" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></small>
                                 </div>
                                 <br>
 
@@ -69,8 +68,7 @@
                                         <option value="MEDIUM">Medium</option>
                                         <option value="LARGE">Large</option>
                                     </select>
-                                    <p th:if="${#fields.hasErrors('bodySize')}" class="text-danger"
-                                       th:errors="*{bodySize}"></p>
+                                    <small class="text-danger" th:if="${#fields.hasErrors('bodySize')}" th:errors="*{bodySize}"></small>
                                 </div>
                                 <br>
 
@@ -78,6 +76,7 @@
                                     <label for="rescueDate">Rescue Date:</label>
                                     <input type="date" class="form-control" id="rescueDate" name="rescueDate"
                                            th:field="*{rescueDate}" placeholder="Rescue Date">
+                                    <small class="text-danger" th:if="${#fields.hasErrors('rescueDate')}" th:errors="*{rescueDate}"></small>
                                 </div>
                                 <br>
 
@@ -108,8 +107,7 @@
                                             placeholder="Description"
                                     >
                                     </textarea>
-                                    <p th:if="${#fields.hasErrors('description')}" class="text-danger"
-                                       th:errors="*{description}"></p>
+                                    <small class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></small>
                                 </div>
                                 <br>
 
