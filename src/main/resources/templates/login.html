@@ -130,27 +130,31 @@
     window.location.href = "/";
   }
 
-      const passwordInput = document.getElementById('password');
-      const passwordError = document.getElementById('passwordError');
+const passwordInput = document.getElementById('password');
+const passwordError = document.getElementById('passwordError');
 
-      passwordInput.addEventListener('input', () => {
-      const password = passwordInput.value;
-      const uppercaseRegex = /[A-Z]/;
-      const numberRegex = /\d/;
-      const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+passwordInput.addEventListener('input', () => {
+  const password = passwordInput.value;
+  const uppercaseRegex = /[A-Z]/;
+  const numberRegex = /\d/;
+  const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+  const whitespaceRegex = /\s/;
 
-          if (password.length < 8 || password.length > 15) {
-            passwordError.innerText = 'Password should be at least 8 characters long & maximum of 15 characters';
-          } else if (!uppercaseRegex.test(password)) {
-            passwordError.innerText = 'Password should contain at least one uppercase letter';
-          } else if (!numberRegex.test(password)) {
-            passwordError.innerText = 'Password should contain at least one number';
-          } else if (specialCharRegex.test(password)) {
-            passwordError.innerText = 'Password should not contain any special characters';
-          } else {
-            passwordError.innerText = '';
-          }
-    });
+  if (password.length < 8 || password.length > 15) {
+    passwordError.innerText = 'Password should be at least 8 characters long & maximum of 15 characters';
+  } else if (!uppercaseRegex.test(password)) {
+    passwordError.innerText = 'Password should contain at least one uppercase letter';
+  } else if (!numberRegex.test(password)) {
+    passwordError.innerText = 'Password should contain at least one number';
+  } else if (specialCharRegex.test(password)) {
+    passwordError.innerText = 'Password should not contain any special characters';
+  } else if (whitespaceRegex.test(password)) {
+    passwordError.innerText = 'Password should not contain any white spaces';
+  } else {
+    passwordError.innerText = '';
+  }
+});
+
 </script>
 
 </html>
