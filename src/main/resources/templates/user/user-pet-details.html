@@ -53,7 +53,7 @@
                                             <h5 class="text-primary fw-bolder mb-2">Pet Information</h5>
                                             <div class="small fw-bolder mb-2"
                                                  th:text="'Rescue date: ' + ${pet.rescueDate}"></div>
-                                            <div class="small fw-bolder mb-2" th:text="'Age: ' + ${pet.age}"></div>
+                                            <div class="small fw-bolder mb-2" th:text="'Age: ' + (${pet.age} == 0 ? 'Unknown' : ${pet.age})"></div>
                                             <div class="small fw-bolder mb-2" th:text="'Type: ' + ${pet.type}"></div>
                                             <div class="small fw-bolder mb-2"
                                                  th:text="'Size: ' + ${pet.bodySize}"></div>

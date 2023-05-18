@@ -27,8 +27,8 @@ public class PetDto {
     private String name;
 
     @NotNull(message = "Enter age")
-    @Min(value = 1, message = "Age must be greater than 0")
-    @Max(value = 30, message = "Age must be less than or equal to 30")
+    @Min(value = 0, message = "Age must be greater than 0")
+    @Max(value = 20, message = "Age must be less than or equal to 20")
     private Integer age;
 
     @NotNull(message = "Select a gender")

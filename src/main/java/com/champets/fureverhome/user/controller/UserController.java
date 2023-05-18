@@ -93,7 +93,7 @@ public class UserController {
 
         UserEntity updateUser=userRepository.save(user);
         if(updateUser!=null){
-            session.setAttribute("msg", "Password Change Successfully");
+            session.setAttribute("msg", "Password has been changed successfully");
         }
         return "redirect:/forgotPasswordPage";
     }
